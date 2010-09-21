@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<WAPA APPLNAME="ZGEOCODE_OSM" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100711" APPLEXT="ZGEOCODE_OSM" STARTPAGE="default.htm" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="Display Nominatim Geocoding with OpenStreetMap">
+ <page APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" PAGENAME="default.htm" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100711" IMPLCLASS="CL_O2D8G5WGVIV1LXF2NV0VIYZBGIO" GENDATE="20100711" GENTIME="102623" CHANGETIME="102231" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="Display Geocoding in OpenStreetMap">
+  <layout>&lt;%@page language=&quot;abap&quot; %&gt;
+&lt;%
+DATA: lat TYPE string,
+      lon TYPE string.
+
+zcl_geocode_helper=&gt;convert_geodata_for_javascript(
+  EXPORTING
+    i_geodata = geodata
+  IMPORTING
+    lat       = lat
+    lon       = lon
+).
+
+%&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;OpenStreetMap&lt;/title&gt;
+    &lt;!-- bring in the OpenLayers javascript library
+         (here we bring it from the remote site, but you could
+         easily serve up this javascript yourself) --&gt;
+    &lt;script src=&quot;http://www.openlayers.org/api/OpenLayers.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;!-- bring in the OpenStreetMap OpenLayers layers.
+         Using this hosted file will make sure we are kept up
+         to date with any necessary changes --&gt;
+    &lt;script src=&quot;http://www.openstreetmap.org/openlayers/OpenStreetMap.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        // Start position for the map
+        var lat=&lt;%= lat %&gt;;
+        var lon=&lt;%= lon %&gt;;
+        var zoom=13;
+        var map; //complex object of type OpenLayers.Map
+        var layer_mapnik;
+        var layer_bp;
+        //Initialise the &apos;map&apos; object
+        function init() {
+            map = new OpenLayers.Map (&quot;map&quot;, {
+                controls:[
+                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.Permalink(),
+                    new OpenLayers.Control.ScaleLine(),
+                    new OpenLayers.Control.Permalink(&apos;permalink&apos;),
+                    new OpenLayers.Control.MousePosition(),
+                    new OpenLayers.Control.Attribution()],
+                maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+                maxResolution: 156543.0399,
+                numZoomLevels: 19,
+                units: &apos;m&apos;,
+                projection: new OpenLayers.Projection(&quot;EPSG:900913&quot;),
+                displayProjection: new OpenLayers.Projection(&quot;EPSG:4326&quot;)
+            } );
+            // Define the map layer
+            /*
+            var layer_mapnik = new OpenLayers.Layer.OSM(
+              &quot;OpenStreetMap&quot;,
+              &quot;http://b.tile.openstreetmap.org/${z}/${x}/${y}.png&quot;,
+              {numZoomLevels: 19}
+            );
+            */
+            var layer_mapnik = new OpenLayers.Layer.OSM.Mapnik(&quot;Mapnik&quot;);
+            layer_bp = new OpenLayers.Layer.Markers(
+              &quot;Business Partner&quot;,
+              {
+                projection: new OpenLayers.Projection(&quot;EPSG:4326&quot;),
+                visibility: true,
+                displayInLayerSwitcher: true
+              }
+            );
+            map.addLayers([layer_mapnik, layer_bp]);
+            if( ! map.getCenter() ){
+                var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection(&quot;EPSG:4326&quot;), map.getProjectionObject());
+                map.setCenter (lonLat, zoom);
+            }
+            loadBusinessPartner();
+        }
+        function loadBusinessPartner() {
+          var size = new OpenLayers.Size(21,25);
+          var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+          var icon = new OpenLayers.Icon(&apos;http://www.openlayers.org/api/img/marker.png&apos;,size,offset);
+          addMarker(layer_bp, &lt;%= lon %&gt;, &lt;%= lat %&gt;, &apos;&lt;%= BP %&gt;&apos;, icon);
+          &lt;%
+          DATA: bp_nearby LIKE LINE OF bps_nearby.
+          LOOP AT bps_nearby INTO bp_nearby.
+            zcl_geocode_helper=&gt;convert_geodata_for_javascript(
+              EXPORTING
+                i_geodata = bp_nearby-geodata
+              IMPORTING
+                lat       = lat
+                lon       = lon
+            ). %&gt;
+            icon = new OpenLayers.Icon(&apos;http://www.openlayers.org/api/img/marker-green.png&apos;,size,offset);
+            addMarker(layer_bp, &lt;%= lon %&gt;, &lt;%= lat %&gt;, &apos;&lt;%= bp_nearby-PARTNER %&gt;, &lt;%= bp_nearby-DISTANCE %&gt;&apos;, icon );
+            &lt;%
+          ENDLOOP.
+          %&gt;
+        }
+        function addMarker(layer, lon, lat, popupContentHTML, icon) {
+            var ll =
+              new OpenLayers.LonLat(lon, lat).transform(
+                new OpenLayers.Projection(&quot;EPSG:4326&quot;),
+                map.getProjectionObject()
+              );
+            var feature = new OpenLayers.Feature(layer, ll);
+            feature.closeBox = true;
+            feature.popupClass =
+              OpenLayers.Class(
+                OpenLayers.Popup.FramedCloud,
+                { minSize: new OpenLayers.Size(200, 100) }
+              );
+            feature.data.popupContentHTML = popupContentHTML;
+            feature.data.overflow = &quot;hidden&quot;;
+            var marker = new OpenLayers.Marker(ll, icon);
+            marker.feature = feature;
+            var markerClick = function(evt) {
+                if (this.popup == null) {
+                    this.popup = this.createPopup(this.closeBox);
+                    map.addPopup(this.popup);
+                    this.popup.show();
+                } else {
+                    this.popup.toggle();
+                }
+                OpenLayers.Event.stop(evt);
+            };
+            marker.events.register(&quot;mousedown&quot;, feature, markerClick);
+            layer.addMarker(marker);
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- body.onload is called once the page is loaded (call the &apos;init&apos; function) --&gt;
+&lt;body onload=&quot;init();&quot; style=&quot;margin: 0px;padding: 0px;&quot;&gt;
+    &lt;!-- define a DIV into which the map will appear. Make it take up the whole window --&gt;
+    &lt;div style=&quot;width:100%; height:100%&quot; id=&quot;map&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</layout>
+  <event APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" EVHANDLER="ONREQUEST" VERSION="A" EVHNAME="OnRequest">* the handler is called whenever a request is made for a particular page
+* it is used to restore the internal data structures from the request
+
+geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).
+
+IF show_near = &apos;X&apos;.
+  IF distance IS INITIAL.
+    distance = 20000.                                       &quot; 20 km
+  ENDIF.
+  bps_nearby = zcl_geocode_helper=&gt;find_surrounding_bps(
+                   i_geodata  = geodata
+                   i_distance = distance
+  ).
+ENDIF.</event>
+  <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="BP" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="BU_PARTNER" ALIASNAME="bp" TEXT="Business Partner Number"/>
+  <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="BPS_NEARBY" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="ZGEOCODE_BP_DIST_TABLE" ALIASNAME="bps_nearby" TEXT="Business Partner Distance"/>
+  <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="DISTANCE" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="GEODIST" ALIASNAME="distance" TEXT="Distance between two geographical locations"/>
+  <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="GEODATA" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="GEOCODING" ALIASNAME="geodata" TEXT="Data That Was Exchanged by the Geo-Coding Services"/>
+  <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="SHOW_NEAR" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="FLAG" ALIASNAME="show_near" TEXT="General Flag"/>
+ </page>
+</WAPA>

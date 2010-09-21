@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<CLAS CLSNAME="ZCL_BSP_BP_OSM" VERSION="1" LANGU="E" DESCRIPT="Display OpenStreetMap for Business Partner" UUID="DF8C201C541654F1B388000C29B7D360" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20100407" CHANGEDBY="BCUSER" CHANGEDON="20100711" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <implementing CLSNAME="ZCL_BSP_BP_OSM" REFCLSNAME="IF_CRM_BSP_MODEL_ACCESS_IL" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="BCUSER" CREATEDON="20100407" CHANGEDBY="BCUSER" CHANGEDON="20100711" RELTYPE="1"/>
+ <publicSection>class ZCL_BSP_BP_OSM definition
+  public
+  final
+  create public .
+
+*&quot;* public components of class ZCL_BSP_BP_OSM
+*&quot;* do not include other source files here!!!
+public section.
+
+  interfaces IF_CRM_BSP_MODEL_ACCESS_IL .</publicSection>
+ <protectedSection>*&quot;* protected components of class ZCL_BSP_BP_OSM
+*&quot;* do not include other source files here!!!
+protected section.</protectedSection>
+ <privateSection>*&quot;* private components of class ZCL_BSP_BP_OSM
+*&quot;* do not include other source files here!!!
+private section.</privateSection>
+ <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+ <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <textPool/>
+ <interfaceMethod CLSNAME="ZCL_BSP_BP_OSM" CPDNAME="IF_CRM_BSP_MODEL_ACCESS_IL~MODIFY">
+  <source>method IF_CRM_BSP_MODEL_ACCESS_IL~MODIFY.
+endmethod.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="ZCL_BSP_BP_OSM" CPDNAME="IF_CRM_BSP_MODEL_ACCESS_IL~READ">
+  <source>method IF_CRM_BSP_MODEL_ACCESS_IL~READ.
+  DATA :
+    bp         TYPE bu_partner,
+    guid       TYPE crmt_object_guid,
+    parameters TYPE tihttpnvp,
+    parameter  LIKE LINE OF parameters,
+    screen_structures TYPE TABLE OF zcomt_bsp_bp_osm,
+    screen_structure  LIKE LINE OF screen_structures.
+
+* create url
+  READ TABLE it_object_key INDEX 1 INTO bp.
+  parameter-name = &apos;BP&apos;.
+  parameter-value = bp.
+  APPEND parameter TO parameters.
+
+  CALL METHOD cl_bsp_runtime=&gt;if_bsp_runtime~construct_bsp_url
+    EXPORTING
+      in_application = &apos;ZGEOCODE_OSM&apos;
+      in_page        = &apos;default.htm&apos;
+      in_parameters  = parameters
+    IMPORTING
+      out_abs_url    = screen_structure-url.
+
+  INSERT screen_structure INTO TABLE screen_structures.
+
+  et_screen_structure = screen_structures.
+endmethod.</source>
+ </interfaceMethod>
+</CLAS>

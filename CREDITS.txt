@@ -1,0 +1,9 @@
+CREDITS
+=======
+
+Renald Wittwer (http://www.in-con.de/) 
+  - who made me working on this project after the SAP Inside Track Bonn 2010 (http://wiki.sdn.sap.com/wiki/display/events/SAP+Inside+Track+Bonn+2010)
+  - contribution of the WebDynpro Application
+Carsten Kasper (http://www.sdn.sap.com/irj/scn/bc?u=S2nqu7v5LDs%3D)
+  - iterative approach to geocode the address
+  - SQL statement and URL's with tips to search business partners nearby

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<WAPA APPLNAME="ZGEOCODE_MOBILE" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100711" APPLEXT="ZGEOCODE_MOBILE" STARTPAGE="default.htm" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="ZGEOCODING for Mobile Devices">
+ <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" PAGENAME="default.htm" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100723" IMPLCLASS="CL_O2D8G5WFBXOH3WJF5O9620MWTI8" GENDATE="20100723" GENTIME="222757" CHANGETIME="222752" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="ZGEOCODING for Mobile Devices">
+  <layout>&lt;%@page language=&quot;abap&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC
+    &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;
+    &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;title&gt;GPS Testing&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;%
+    DATA: bpdetail like line of bpdetails.
+    if bpdetails is initial AND bp is INITIAL. %&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+var modeCellsite   = 0;
+var modeAssisted   = 1;
+var modeAutonomous = 2;
+
+function locationChanged()
+{
+    lat.value = blackberry.location.latitude;
+    lon.value = blackberry.location.longitude;
+    return true;
+}
+
+if ( window.blackberry &amp;&amp; blackberry.location.GPSSupported )
+{
+    var isUpdated = false;
+    var theCount = 0;
+
+    alert(&quot;Please wait until the location is detected.&quot;);
+
+    blackberry.location.onLocationUpdate(&quot;locationChanged()&quot;);
+    blackberry.location.setAidMode(modeAutonomous);
+
+    while ( theCount++ &lt; 10 &amp;&amp; !isUpdated )
+        isUpdated = blackberry.location.refreshLocation();
+}
+else
+{
+    document.write(&quot;Location tracking is not supported&quot;);
+}
+        &lt;/script&gt;
+    &lt;p&gt;This application will search for business partners surrounding your
+    current location in the specified distance. Please wait until the
+    latidude and longitude is filled.&lt;/p&gt;&lt;%
+    endif.
+    if bpdetails is INITIAL. %&gt;
+    &lt;form action=&quot;default.htm&quot; method=&quot;post&quot;&gt;
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Latitude:&lt;/th&gt;
+          &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;lat&quot; name=&quot;lat&quot; value=&quot;&lt;%= geodata-latitude  %&gt;&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Longitude:&lt;/th&gt;
+          &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;lon&quot; name=&quot;lon&quot; value=&quot;&lt;%= geodata-longitude %&gt;&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Distance:&lt;/th&gt;
+          &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;dist&quot; name=&quot;dist&quot; value=&quot;20&quot; /&gt; km&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;table&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;OnInputProcessing(OK)&quot; value=&quot;OK&quot;&gt;
+      &lt;input type=&quot;submit&quot; value=&quot; Submit &quot; /&gt;
+    &lt;/form&gt;&lt;%
+    else. %&gt;
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Address&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;%
+        loop at bpdetails into bpdetail. %&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;a href=&quot;map.xloc?bp=&lt;%= bpdetail-partner %&gt;&quot;&gt;&lt;%= bpdetail-name %&gt;&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;%= bpdetail-location %&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;%
+        endloop. %&gt;
+      &lt;%
+    endif.
+    %&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</layout>
+  <event APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" EVHANDLER="ONINPUTPROCESSING" VERSION="A" EVHNAME="OnInputProcessing">* event handler for checking and processing user input and
+* for defining navigation
+
+DATA: geodata	TYPE geocoding,
+      distance  TYPE geodist,
+      bp LIKE LINE OF bps,
+      bpdetail LIKE LINE OF bpdetails.
+
+DATA: centraldata TYPE bapibus1006_central,
+      cdpers      TYPE bapibus1006_central_person,
+      cdorg       TYPE bapibus1006_central_organ.
+
+DATA: addressdata TYPE bapibus1006_address.
+
+geodata-longitude = lon.
+geodata-latitude  = lat.
+
+distance = dist * 1000.                                           &quot; 20 km
+
+CALL METHOD zcl_geocode_helper=&gt;find_surrounding_bps
+  EXPORTING
+    i_geodata  = geodata
+    i_distance = distance
+  RECEIVING
+    r_bp_dist  = bps.
+
+LOOP AT bps INTO bp.
+  CLEAR: cdorg,
+         cdpers,
+         addressdata.
+
+  bpdetail-partner = bp-partner.
+
+  CALL FUNCTION &apos;BAPI_BUPA_CENTRAL_GETDETAIL&apos;
+    EXPORTING
+      businesspartner         = bpdetail-partner
+    IMPORTING
+      centraldata             = centraldata
+      centraldataperson       = cdpers
+      centraldataorganization = cdorg.
+
+  CALL FUNCTION &apos;BAPI_BUPA_ADDRESS_GETDETAIL&apos;
+    EXPORTING
+      businesspartner = bpdetail-partner
+    IMPORTING
+      addressdata     = addressdata.
+
+  IF NOT cdorg IS INITIAL.
+    CONCATENATE cdorg-name1 cdorg-name2 cdorg-name3 cdorg-name4
+      INTO bpdetail-name SEPARATED BY space.
+  ELSE.
+    CONCATENATE cdpers-firstname cdpers-lastname
+      INTO bpdetail-name SEPARATED BY space.
+  ENDIF.
+  CONCATENATE addressdata-street addressdata-house_no &apos;,&apos; addressdata-postl_cod1 addressdata-city
+      INTO bpdetail-location SEPARATED BY space.
+  bpdetail-partner = bpdetail-partner * 1.
+  APPEND bpdetail TO bpdetails.
+ENDLOOP.</event>
+  <event APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" EVHANDLER="ONREQUEST" VERSION="A" EVHNAME="OnRequest">* the handler is called whenever a request is made for a particular page
+* it is used to restore the internal data structures from the request
+
+IF NOT bp IS INITIAL.
+  geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp  ).
+ENDIF.</event>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="BP" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="BU_PARTNER" ALIASNAME="bp" TEXT="Business Partner ID"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="BPDETAILS" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="TT_BP_DETAIL" ALIASNAME="bpdetails"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="BPS" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="ZGEOCODE_BP_DIST_TABLE" ALIASNAME="bps" TEXT="Table of Business Partners with their Distance"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="DIST" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="INTEGER" ALIASNAME="dist" TEXT="Whole Number with +/- Sign (-2.147.483.648 .. 2.147.483.647)"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="GEODATA" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="GEOCODING" ALIASNAME="geodata" TEXT="Data That Was Exchanged by the Geo-Coding Services"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="LAT" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="STRING" ALIASNAME="lat"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="LON" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="STRING" ALIASNAME="lon"/>
+  <typedef>types:
+BEGIN OF t_bp_detail,
+  partner  type bu_partner,
+  name     type string,
+  location type string,
+END OF t_bp_detail.
+
+types: tt_bp_detail type table of t_bp_detail.</typedef>
+ </page>
+ <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" PAGENAME="map.xloc" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100711" IMPLCLASS="CL_O2D8G5WFBXOH4O81HFKPHMPC7S0" GENDATE="20100711" GENTIME="102623" CHANGETIME="102225" MIMETYPE="text/vnd.rim.location" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="BlackBerry Map XML">
+  <layout>&lt;%@page language=&quot;abap&quot;%&gt;&lt;%
+DATA: lat TYPE string,
+      lon TYPE string.
+
+zcl_geocode_helper=&gt;convert_geodata_for_blackberry(
+  EXPORTING
+    i_geodata = geodata
+  IMPORTING
+    lat       = lat
+    lon       = lon
+).
+* &lt;!--
+* &lt;lbs&gt;&lt;location lon=&apos;-7938675&apos; lat=&apos;4367022&apos; label=&apos;Toronto&apos; description=&apos;Toronto&apos; zoom=&apos;4&apos; /&gt;&lt;/lbs&gt;
+* --&gt;
+%&gt;&lt;lbs&gt;&lt;location
+  lon=&apos;&lt;%= lon %&gt;&apos;
+  lat=&apos;&lt;%= lat %&gt;&apos;
+  label=&apos;&lt;%= bp %&gt;&apos;
+  description=&apos;&lt;%= bp %&gt;&apos;
+  zoom=&apos;0&apos; /&gt;&lt;/lbs&gt;</layout>
+  <event APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" EVHANDLER="ONREQUEST" VERSION="A" EVHNAME="OnRequest">* the handler is called whenever a request is made for a particular page
+* it is used to restore the internal data structures from the request
+
+geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).</event>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" COMPNAME="BP" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="BU_PARTNER" ALIASNAME="bp" TEXT="Business Partner ID"/>
+  <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" COMPNAME="GEODATA" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="GEOCODING" ALIASNAME="geodata" TEXT="Data That Was Exchanged by the Geo-Coding Services"/>
+ </page>
+</WAPA>

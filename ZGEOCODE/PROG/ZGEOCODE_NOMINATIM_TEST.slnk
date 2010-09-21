@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<PROG NAME="ZGEOCODE_NOMINATIM_TEST" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100609" UNAM="BCUSER" UDAT="20100711" VERN="000025" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20100711" STIME="102516" IDATE="20100711" ITIME="102516" UCCHECK="X">
+ <textPool>
+  <language SPRAS="E">
+   <textElement ID="R" ENTRY="Test ZGEOCODE_NOMINATIM" LENGTH="23 "/>
+  </language>
+ </textPool>
+ <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGEOCODE_NOMINATIM_TEST
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgeocode_nominatim_test.
+
+DATA: geocoder TYPE REF TO zcl_geocode_nominatim.
+
+DATA: addresses	TYPE aes_addr_table,
+      address TYPE aes_addr,
+      xinfo	TYPE geocdxinfo,
+      options	TYPE geocd_option,
+      results	TYPE geocd_res_table,
+      choice  TYPE geocd_choice_table,
+      relevant_fields	TYPE geocd_addr_relfields_sortedtab,
+      corrected_addresses	TYPE aes_addr_sortedtable,
+      messages  TYPE aes_msg_table,
+      containers  TYPE aesc_sortedtable,
+      container TYPE aesc_tabs,
+      geocoding_container TYPE aesc_struc.
+
+CALL FUNCTION &apos;GUID_CREATE&apos;
+  IMPORTING
+    ev_guid_16 = address-id.
+
+address-address-city1 = &apos;Tacherting&apos;.
+address-address-post_code1 = &apos;83342&apos;.
+address-address-street = &apos;Trostberger Str.&apos;.
+address-address-house_num1 = &apos;128&apos;.
+address-address-country = &apos;DE&apos;.
+address-address-time_zone = &apos;CET&apos;.
+address-address-langu_crea = &apos;EN&apos;.
+APPEND address TO addresses.
+
+xinfo-country  = address-address-country.
+xinfo-srcid	   = &apos;ZNOM&apos;.
+xinfo-language = &apos;EN&apos;.
+
+container-id = address-id.
+APPEND container TO containers.
+
+CREATE OBJECT geocoder.
+
+geocoder-&gt;if_geocoding_tool~geocode(
+  EXPORTING
+    addresses           = addresses    &quot; Addresses That Are To Be Geocoded
+    xinfo               = xinfo    &quot; Additional Information for the Geocoder
+*    options             = options    &quot; Geocoding: Options (IGS)
+  IMPORTING
+    results             = results    &quot; Geocoding Results (per Address)
+*    choice              = choice    &quot; Address Selection List
+*    relevant_fields     = relevant_fields    &quot; Table of All Fields Relevant for Display in Geocoding
+  CHANGING
+    corrected_addresses = corrected_addresses    &quot; Addresses Corrected By Geocoding Tool
+    messages            = messages    &quot; Messages Created by Geocoder
+    containers          = containers    &quot; Structure for Container with Number (Central Address Mgmt)
+  EXCEPTIONS
+    OTHERS              = 1
+).
+
+IF sy-subrc = 0 AND messages IS INITIAL.
+  WRITE: / &apos;Geocoding result: &apos;.
+  LOOP AT containers INTO container.
+    LOOP AT container-container INTO geocoding_container.
+      WRITE: /
+        geocoding_container-field(20),
+        geocoding_container-service(20),
+        geocoding_container-value(20).
+    ENDLOOP.
+  ENDLOOP.
+ELSE.
+  WRITE: / &apos;Some problem occured&apos;.
+ENDIF.</source>
+</PROG>

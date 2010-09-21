@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<PROG NAME="ZGEOCODE_NOMINATIM_READ_BP" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100318" UNAM="BCUSER" UDAT="20100711" VERN="000071" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20100711" STIME="102515" IDATE="20100711" ITIME="102515" UCCHECK="X">
+ <textPool>
+  <language SPRAS="E">
+   <textElement ID="R" LENGTH="48 "/>
+   <textElement ID="S" KEY="BPSEARCH" ENTRY="D       ." LENGTH="9 "/>
+   <textElement ID="S" KEY="CITY" ENTRY="D       ." LENGTH="12 "/>
+   <textElement ID="S" KEY="COUNTRY" ENTRY="        Country" LENGTH="15 "/>
+   <textElement ID="S" KEY="DISTANCE" ENTRY="D       ." LENGTH="9 "/>
+   <textElement ID="S" KEY="HOUSE_NO" ENTRY="D       ." LENGTH="20 "/>
+   <textElement ID="S" KEY="NAME1" ENTRY="D       ." LENGTH="24 "/>
+   <textElement ID="S" KEY="NAME2" ENTRY="D       ." LENGTH="25 "/>
+   <textElement ID="S" KEY="NEARBY" ENTRY="        Find partners nearby" LENGTH="28 "/>
+   <textElement ID="S" KEY="POSTLCD" ENTRY="D       ." LENGTH="19 "/>
+   <textElement ID="S" KEY="REGION" ENTRY="D       ." LENGTH="14 "/>
+   <textElement ID="S" KEY="STREET" ENTRY="D       ." LENGTH="14 "/>
+  </language>
+ </textPool>
+ <dynpros>
+  <dynpro PROG="ZGEOCODE_NOMINATIM_READ_BP" DNUM="0100" FNUM="0100" BZMX="20 " BZBR="100 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="30 " NOCO="129 " VALP="0 " CUAN="G" SPRA="E" DGEN="20100711" TGEN="102203" DTEXT="OpenStreetMap">
+   <dynprofield FNAM="HTML_VIEWER" DIDX="0014" FLG1="00" FLG2="00" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="64" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
+   <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+   <dynproflowsource>PROCESS BEFORE OUTPUT.
+* MODULE STATUS_0100.
+*
+PROCESS AFTER INPUT.
+ MODULE USER_COMMAND_0100.</dynproflowsource>
+  </dynpro>
+ </dynpros>
+ <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGEOCODE_NOMINATIM_READ_BP
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp; Created by Gregor Wolf
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgeocode_nominatim_read_bp.
+
+DATA: gr_container TYPE REF TO cl_gui_custom_container,
+      gr_viewer    TYPE REF TO cl_gui_html_viewer,
+      gv_currurl   TYPE char1024.
+
+DATA: bp TYPE bu_partner.
+DATA: address_search TYPE bapibus1006_addr_search,
+      central_search TYPE bapibus1006_central_search.
+DATA: searchresult TYPE TABLE OF bapibus1006_bp_addr,
+      return TYPE TABLE OF bapiret2.
+DATA: geodata TYPE geocoding.
+DATA: centraldata             TYPE bapibus1006_central,
+      centraldataperson       TYPE bapibus1006_central_person,
+      centraldataorganization TYPE bapibus1006_central_organ.
+
+DATA: addressdata TYPE bapibus1006_address.
+
+FIELD-SYMBOLS: &lt;searchresult_line&gt; LIKE LINE OF searchresult.
+
+PARAMETERS: bpsearch TYPE bu_partner DEFAULT &apos;*&apos;,
+            name1    TYPE bu_mcname1,
+            name2    TYPE bu_mcname2,
+            street   TYPE ad_mc_strt,
+            house_no TYPE ad_hsnm1,
+            postlcd  TYPE ad_pstcd1,
+            city     TYPE ad_mc_city,
+            region   TYPE regio,
+            country  TYPE intca,
+            nearby   TYPE flag,
+            distance TYPE geodist DEFAULT 20000.
+
+START-OF-SELECTION.
+
+  address_search-street     = street.
+  address_search-house_no   = house_no.
+  address_search-postl_cod1 = postlcd.
+  address_search-city1      = city.
+  address_search-region     = region.
+  address_search-countryiso = country.
+
+  central_search-partner  = bpsearch.
+  central_search-mc_name1 = name1.
+  central_search-mc_name2 = name2.
+
+  CALL FUNCTION &apos;BAPI_BUPA_SEARCH_2&apos;
+    EXPORTING
+*   TELEPHONE                         = TELEPHONE
+*   EMAIL                             = EMAIL
+*   URL                               = URL
+      addressdata                       = address_search
+      centraldata                       = central_search
+*   BUSINESSPARTNERROLECATEGORY       = BUSINESSPARTNERROLECATEGORY
+*   ALL_BUSINESSPARTNERROLES          = ALL_BUSINESSPARTNERROLES
+*   BUSINESSPARTNERROLE               = BUSINESSPARTNERROLE
+*   COUNTRY_FOR_TELEPHONE             = COUNTRY_FOR_TELEPHONE
+*   FAX_DATA                          = FAX_DATA
+*   VALID_DATE                        = VALID_DATE
+*   OTHERS                            = OTHERS
+    TABLES
+      searchresult                      = searchresult
+      return                            = return.
+
+  LOOP AT searchresult ASSIGNING &lt;searchresult_line&gt;.
+    bp = &lt;searchresult_line&gt;-partner.
+    CALL FUNCTION &apos;BAPI_BUPA_CENTRAL_GETDETAIL&apos;
+      EXPORTING
+        businesspartner         = &lt;searchresult_line&gt;-partner
+      IMPORTING
+        centraldata             = centraldata
+        centraldataperson       = centraldataperson
+        centraldataorganization = centraldataorganization.
+
+    CALL FUNCTION &apos;BAPI_BUPA_ADDRESS_GETDETAIL&apos;
+      EXPORTING
+        businesspartner = &lt;searchresult_line&gt;-partner
+      IMPORTING
+        addressdata     = addressdata.
+
+    geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( &lt;searchresult_line&gt;-partner ).
+    FORMAT HOTSPOT ON.
+    WRITE: / &lt;searchresult_line&gt;-partner. HIDE bp.
+    FORMAT HOTSPOT OFF.
+    IF NOT centraldataperson IS INITIAL.
+      WRITE: centraldataperson-firstname(15), centraldataperson-lastname(15).
+    ELSE.
+      WRITE: centraldataorganization-name1(20), centraldataorganization-name2(10).
+    ENDIF.
+    WRITE: addressdata-street(25), addressdata-house_no, addressdata-postl_cod1, addressdata-city(25).
+    WRITE: geodata-longitude, geodata-latitude.
+  ENDLOOP.
+
+AT LINE-SELECTION.
+  DATA: parameters TYPE tihttpnvp,
+        parameter  LIKE LINE OF parameters,
+        url TYPE string,
+        lv_url TYPE char1024.
+
+  parameter-name = &apos;BP&apos;.
+  parameter-value = bp.
+  APPEND parameter TO parameters.
+  IF nearby = &apos;X&apos;.
+    parameter-name = &apos;SHOW_NEAR&apos;.
+    parameter-value = nearby.
+    APPEND parameter TO parameters.
+  ENDIF.
+
+  CALL METHOD cl_bsp_runtime=&gt;if_bsp_runtime~construct_bsp_url
+    EXPORTING
+      in_application = &apos;ZGEOCODE_OSM&apos;
+      in_page        = &apos;default.htm&apos;
+      in_parameters  = parameters
+    IMPORTING
+      out_abs_url    = url.
+  lv_url = url.
+  IF  gr_container IS NOT BOUND.
+    CREATE OBJECT gr_container
+      EXPORTING
+        container_name = &apos;HTML_VIEWER&apos;.
+    CREATE OBJECT gr_viewer
+      EXPORTING
+        parent = gr_container.
+    gr_viewer-&gt;enable_sapsso( &apos;X&apos; ).
+  ENDIF.
+
+  &quot; Getting the current URL is an asynchronous call to the
+  &quot; SAP GUI frontend
+  gr_viewer-&gt;get_current_url( IMPORTING url = gv_currurl ).
+  &quot; To get the value right now we have to flush the
+  &quot; queue of the client framework
+  cl_gui_cfw=&gt;flush( ).
+  IF lv_url NE gv_currurl.
+    gr_viewer-&gt;show_url( lv_url ).
+  ENDIF.
+
+  CALL SCREEN 0100.
+*&amp;---------------------------------------------------------------------*
+*&amp;      Module  USER_COMMAND_0100  INPUT
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0100 INPUT.
+  CASE sy-ucomm.
+    WHEN &apos;BACK&apos;.
+      LEAVE TO SCREEN 0.
+    WHEN &apos;%EX&apos;.
+      LEAVE PROGRAM.
+    WHEN &apos;RW&apos;.
+      LEAVE PROGRAM.
+    WHEN OTHERS.
+  ENDCASE.
+ENDMODULE.                 &quot; USER_COMMAND_0100  INPUT</source>
+</PROG>
