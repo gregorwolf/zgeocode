@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="BCUSER" UDAT="20100921" VERN="000037" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20100921" STIME="195634" IDATE="20100921" ITIME="195634" UCCHECK="X">
+<PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="BCUSER" UDAT="20101021" VERN="000040" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20101021" STIME="191755" IDATE="20101021" ITIME="191755" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" LENGTH="44 "/>
@@ -14,6 +14,8 @@
 *&amp;---------------------------------------------------------------------*
 
 REPORT  zgeocode_nominatim_zake_svn.
+
+TYPE-POOLS: abap.
 
 CONSTANTS cl_svn TYPE seoclsname VALUE &apos;ZCL_ZAKE_SVN&apos;.
 CONSTANTS cl_tortoise_svn TYPE seoclsname VALUE &apos;ZCL_ZAKE_TORTOISE_SVN&apos;.
@@ -98,6 +100,14 @@ START-OF-SELECTION.
       object-object   = &apos;WAPA&apos;.
       object-obj_name = &apos;ZGEOCODE_MOBILE&apos;.
       APPEND object TO objects.
+      &quot; WebDynpro
+      object-object   = &apos;WDYN&apos;.
+      object-obj_name = &apos;ZGC_BP_OSM&apos;.
+      APPEND object TO objects.
+      &quot; Mime for Webdynpro
+      object-object   = &apos;SMIM&apos;.
+      object-obj_name = &apos;DF8CC56B6BEFA1F1B394000C29B7D360&apos;.
+      APPEND object TO objects.
       &quot; Programms
       object-object   = &apos;PROG&apos;.
       object-obj_name = &apos;ZGEOCODE_NOMINATIM_ZAKE_SVN&apos;.
@@ -144,6 +154,7 @@ START-OF-SELECTION.
       IF checkin = &apos;X&apos;.
 
         nuggetname = nuggetna.
+        zake-&gt;download_nugget_to_lm = abap_false.
         zake-&gt;create_slinkees( nuggetname ).
 
         IF testrun IS INITIAL.
