@@ -30,6 +30,8 @@ Sequence:  4.000
 Source:    ZNOM
 Exclusive: X
 
+If you want to maintain the geocoder for all countries run the report GEOCODING_CUSTOMIZING_MASS from the Package SZGEOCODING.
+
 The last step is adding these lines in the customizing for "Assign Relevant Address Fields for Geocoding":
 
 Source  Field
@@ -43,12 +45,14 @@ ZNOM	POST_CODE1
 ZNOM	REGION
 ZNOM	STREET
 
+You can check the customizing with the report GEOCODING_CUSTOMIZING_VERIFY.
+
 Usage in the SAP NetWeaver ABAP Developer Edition
 =================================================
 
 Create Business Partners
 
-Start Transaction BP and create some Business Partners with an existing Address. It could happen that you need to customize the number ranges for the Business partners first.
+Start Transaction BP and create some Business Partners with an existing Address. It could happen that you need to customize the number ranges for the Business partners first. If you have already existing business partners that are not geocoded, then you can use the standard report BUPGEOENADDR to geocode them.
 
 ABAP Demo Program ZGEOCODE_NOMINATIM_READ_BP
 
