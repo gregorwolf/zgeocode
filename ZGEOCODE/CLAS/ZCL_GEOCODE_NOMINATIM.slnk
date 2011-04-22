@@ -17,9 +17,11 @@ public section.
       !TIMESTAMP_STRING type STRING default &apos;Sun, 14 Mar 10 20:34:15 +0000&apos;
     returning
       value(TIMESTAMP) type TIMESTAMP .</publicSection>
- <protectedSection>*&quot;* protected components of class ZCL_GEOCODE_NOMINATIM
+ <protectedSection>protected section.
+*&quot;* protected components of class ZCL_GEOCODE_NOMINATIM
 *&quot;* do not include other source files here!!!
-protected section.
+
+  data GR_CLIENT type ref to IF_HTTP_CLIENT .
 
   methods GEOCODE_ONE_ADDRESS
     importing
@@ -52,9 +54,9 @@ protected section.
       !VALUE type CHAR255
     changing
       !AESC type AESC .</protectedSection>
- <privateSection>*&quot;* private components of class ZCL_GEOCODE_NOMINATIM
+ <privateSection>private section.
+*&quot;* private components of class ZCL_GEOCODE_NOMINATIM
 *&quot;* do not include other source files here!!!
-private section.
 
   methods ADD_PART
     importing
@@ -73,6 +75,7 @@ private section.
 *&quot;* in the implementation part of the class</localMacros>
  <textPool/>
  <classDocumentation/>
+ <attribute CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20110422" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
  <interfaceMethod CLSNAME="ZCL_GEOCODE_NOMINATIM" CPDNAME="IF_GEOCODING_TOOL~GEOCODE">
   <source>method IF_GEOCODING_TOOL~GEOCODE.
 **********************************************************************
@@ -316,7 +319,7 @@ endmethod.</source>
   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IV_PROXY" VERSION="1" LANGU="E" DESCRIPT="Gateway Host Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RFCDISPLAY-RFCGWHOST"/>
   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IV_PROXY_SERVICE" VERSION="1" LANGU="E" DESCRIPT="Gateway service" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDON="00000000" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RFCDISPLAY-RFCGWSERV"/>
   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="RR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDON="00000000" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT"/>
-  <source>method GET_CLIENT.
+  <source>METHOD get_client.
   DATA:
     lv_proxy    TYPE            string,
     lv_proxy_s  TYPE            string,
@@ -341,19 +344,30 @@ endmethod.</source>
   lv_proxy = iv_proxy.
   lv_proxy_s = iv_proxy_service.
 
-  cl_http_client=&gt;create_by_url(
-    EXPORTING
-      url           = lv_url
-      proxy_host    = lv_proxy
-      proxy_service = lv_proxy_s
-    IMPORTING
-      client        = rr_client
-    EXCEPTIONS
-      argument_not_found = 1
-      plugin_not_active  = 2
-      internal_error     = 3
-      OTHERS             = 4 ).
-endmethod.</source>
+  &quot; Contributed by Markus Reich http://www.markusreich.at
+  &quot; Use a global attribute for the HTTP Client avoiding
+  &quot; memory problems in batch geocoding
+  IF gr_client IS NOT BOUND.
+    cl_http_client=&gt;create_by_url(
+      EXPORTING
+        url           = lv_url
+        proxy_host    = lv_proxy
+        proxy_service = lv_proxy_s
+      IMPORTING
+        client        = rr_client
+      EXCEPTIONS
+        argument_not_found = 1
+        plugin_not_active  = 2
+        internal_error     = 3
+        OTHERS             = 4 ).
+    gr_client = rr_client.
+  ELSE.
+    rr_client = gr_client.
+    cl_http_utility=&gt;set_request_uri(
+      request = rr_client-&gt;request
+      uri     = lv_url ).
+  ENDIF.
+ENDMETHOD.</source>
   <methodDocumentation/>
  </method>
  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_DATA_TO_AESCONTAINER" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDON="00000000" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
