@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-16"?>
+<CLAS CLSNAME="ZCL_GIS_ROUTE_YOURS" VERSION="1" LANGU="E" DESCRIPT="Routing with OpenStreetMap YOURS" UUID="000C2971514B1EE0A0F8EF47D0F530B1" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDON="00000000" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <implementing CLSNAME="ZCL_GIS_ROUTE_YOURS" REFCLSNAME="IF_GIS_ROUTE" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDON="00000000" RELTYPE="1" EDITORDER="1 "/>
+ <publicSection>class ZCL_GIS_ROUTE_YOURS definition
+  public
+  create public .
+
+public section.
+*&quot;* public components of class ZCL_GIS_ROUTE_YOURS
+*&quot;* do not include other source files here!!!
+
+  interfaces IF_GIS_ROUTE .</publicSection>
+ <protectedSection>protected section.
+*&quot;* protected components of class ZCL_GIS_ROUTE_YOURS
+*&quot;* do not include other source files here!!!
+
+  data POSITIONS type GEOPOSITIONSTAB .
+  data GR_CLIENT type ref to IF_HTTP_CLIENT .
+  data DISTANCE type GEODIST .</protectedSection>
+ <privateSection>private section.
+*&quot;* private components of class ZCL_GIS_ROUTE_YOURS
+*&quot;* do not include other source files here!!!</privateSection>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <textPool/>
+ <classDocumentation/>
+ <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="DISTANCE" VERSION="1" LANGU="E" DESCRIPT="Distance between two geographical locations" EXPOSURE="1" STATE="1" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEODIST" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="GR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" EXPOSURE="1" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDON="00000000" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="POSITIONS" VERSION="1" LANGU="E" DESCRIPT="List of positions" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDBY="BCUSER" CHANGEDON="20110521" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEOPOSITIONSTAB" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~ADD_STOP">
+  <source>METHOD if_gis_route~add_stop.
+  APPEND position TO me-&gt;positions.
+ENDMETHOD.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~EXECUTE">
+  <source>METHOD if_gis_route~execute.
+  DATA: rows TYPE i.
+  DATA: lat TYPE string,
+        lon TYPE string,
+        url TYPE string,
+        position LIKE LINE OF me-&gt;positions,
+        dist_str TYPE string.
+
+*   XML parser
+  DATA:
+    lv_xml            TYPE          xstring,
+    lr_ixml           TYPE REF TO   if_ixml,
+    lr_parser         TYPE REF TO   if_ixml_parser,
+    lr_streamfactory  TYPE REF TO   if_ixml_stream_factory,
+    lr_istream        TYPE REF TO   if_ixml_istream,
+    lr_document       TYPE REF TO   if_ixml_document,
+    lr_distances      TYPE REF TO	  if_ixml_node_collection,
+    lr_item           TYPE REF TO   if_ixml_node,
+    lr_attributes     TYPE REF TO   if_ixml_named_node_map,
+    lr_node           TYPE REF TO   if_ixml_node,
+    lr_searchresults  TYPE REF TO	  if_ixml_node_collection,
+    lv_count          TYPE          i.
+  FIELD-SYMBOLS:
+    &lt;lv_field&gt;        TYPE          any,
+    &lt;lv_sequence&gt;     TYPE          string.
+
+
+  DESCRIBE TABLE me-&gt;positions LINES rows.
+  IF rows &lt;&gt; 2.
+    RAISE empty_route.
+  ENDIF.
+
+  &quot; From
+  READ TABLE me-&gt;positions INTO position INDEX 1.
+  lat = position-latitude.
+  CONDENSE lat.
+  lon = position-longitude.
+  CONDENSE lon.
+  CONCATENATE &apos;http://www.yournavigation.org/api/1.0/gosmore.php?format=kml&amp;flat=&apos;
+  lat &apos;&amp;flon=&apos; lon INTO url.
+  &quot; To
+  READ TABLE me-&gt;positions INTO position INDEX 2.
+  lat = position-latitude.
+  CONDENSE lat.
+  lon = position-longitude.
+  CONDENSE lon.
+  CONCATENATE url &apos;&amp;tlat=&apos; lat &apos;&amp;tlon=&apos; lon
+  &apos;&amp;v=motorcar&amp;fast=1&amp;layer=mapnik&apos; INTO url.
+
+  IF gr_client IS NOT BOUND.
+    cl_http_client=&gt;create_by_url(
+      EXPORTING
+        url           = url
+      IMPORTING
+        client        = gr_client
+      EXCEPTIONS
+        argument_not_found = 1
+        plugin_not_active  = 2
+        internal_error     = 3
+        OTHERS             = 4
+    ).
+    IF sy-subrc &lt;&gt; 0.
+      RAISE internal_error.
+    ENDIF.
+  ELSE.
+    cl_http_utility=&gt;set_request_uri(
+      request = gr_client-&gt;request
+      uri     = url
+    ).
+  ENDIF.
+
+  gr_client-&gt;request-&gt;set_header_field(
+    EXPORTING
+      name  = &apos;X-Yours-client&apos;   &quot; Name of the header field
+      value = &apos;https://cw.sdn.sap.com/cw/groups/zgeocode&apos;   &quot; HTTP header field value
+  ).
+
+
+  gr_client-&gt;send( EXCEPTIONS OTHERS = 1 ).
+  IF sy-subrc &lt;&gt; 0.
+    RAISE internal_error.
+  ENDIF.
+  gr_client-&gt;receive( EXCEPTIONS OTHERS = 1 ).
+  IF sy-subrc &lt;&gt; 0.
+    RAISE internal_error.
+  ENDIF.
+
+  lv_xml = gr_client-&gt;response-&gt;get_data( ).
+
+  &quot; Start XML parsing
+  &quot; Instanciate XML Parser
+  lr_ixml = cl_ixml=&gt;create( ).
+  lr_streamfactory = lr_ixml-&gt;create_stream_factory( ).
+  lr_istream = lr_streamfactory-&gt;create_istream_xstring( lv_xml ).
+  lr_document = lr_ixml-&gt;create_document( ).
+  lr_parser = lr_ixml-&gt;create_parser( stream_factory = lr_streamfactory
+                                      istream        = lr_istream
+                                      document       = lr_document ).
+  lr_parser-&gt;parse( ).
+  &quot; Check if any results have been found
+  lr_distances = lr_document-&gt;get_elements_by_tag_name( name = &apos;distance&apos; ).
+  lv_count = lr_distances-&gt;get_length( ).
+  IF lv_count &gt; 0.
+    lr_item = lr_distances-&gt;get_item( 0 ).
+    dist_str = lr_item-&gt;get_value( ).
+    me-&gt;distance = dist_str.
+  ENDIF.
+  &quot; http://www.yournavigation.org/api/1.0/gosmore.php?
+  &quot; flat=48.057947090798&amp;flon=12.569867451065&amp;
+  &quot; tlat=47.952712196478&amp;tlon=12.607888747491&amp;v=motorcar&amp;fast=1&amp;layer=mapnik
+ENDMETHOD.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~GET_ROUTE_INFO">
+  <source>METHOD if_gis_route~get_route_info.
+  distance = me-&gt;distance.
+ENDMETHOD.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~RESET">
+  <source>METHOD if_gis_route~reset.
+  CLEAR: me-&gt;positions.
+ENDMETHOD.</source>
+ </interfaceMethod>
+</CLAS>

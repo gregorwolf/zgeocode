@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="BCUSER" UDAT="20101021" VERN="000040" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20101021" STIME="191755" IDATE="20101021" ITIME="191755" UCCHECK="X">
+<?xml version="1.0" encoding="utf-16"?>
+<PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="BCUSER" UDAT="20110521" VERN="000043" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20110521" STIME="220835" IDATE="20110521" ITIME="220835" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" LENGTH="44 "/>
   </language>
  </textPool>
+ <programDocumentation/>
  <source>*&amp;---------------------------------------------------------------------*
 *&amp; Report  ZGEOCODE_NOMINATIM_ZAKE_SVN
 *&amp;
@@ -73,59 +74,66 @@ START-OF-SELECTION.
   svnpath_str  = svnpath.
   loclpath_str = loclpath.
   TRY.
-      &quot; DDIC
-      object-object   = &apos;TABL&apos;.
-      object-obj_name = &apos;ZCOMT_BSP_BP_OSM&apos;.
-      APPEND object TO objects.
-      object-object   = &apos;TABL&apos;.
-      object-obj_name = &apos;ZGEOCODE_BP_DIST&apos;.
-      APPEND object TO objects.
-      object-object   = &apos;TTYP&apos;.
-      object-obj_name = &apos;ZGEOCODE_BP_DIST_TABLE&apos;.
-      APPEND object TO objects.
-      &quot; Classes
+*      &quot; DDIC
+*      object-object   = &apos;TABL&apos;.
+*      object-obj_name = &apos;ZCOMT_BSP_BP_OSM&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;TABL&apos;.
+*      object-obj_name = &apos;ZGEOCODE_BP_DIST&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;TTYP&apos;.
+*      object-obj_name = &apos;ZGEOCODE_BP_DIST_TABLE&apos;.
+*      APPEND object TO objects.
+*      &quot; Classes
+*      object-object   = &apos;CLAS&apos;.
+*      object-obj_name = &apos;ZCL_GEOCODE_NOMINATIM&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;CLAS&apos;.
+*      object-obj_name = &apos;ZCL_GEOCODE_HELPER&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;CLAS&apos;.
+*      object-obj_name = &apos;ZCL_BSP_BP_OSM&apos;.
+*      APPEND object TO objects.
       object-object   = &apos;CLAS&apos;.
-      object-obj_name = &apos;ZCL_GEOCODE_NOMINATIM&apos;.
+      object-obj_name = &apos;ZCL_GIS_ROUTE_YOURS&apos;.
       APPEND object TO objects.
-      object-object   = &apos;CLAS&apos;.
-      object-obj_name = &apos;ZCL_GEOCODE_HELPER&apos;.
-      APPEND object TO objects.
-      object-object   = &apos;CLAS&apos;.
-      object-obj_name = &apos;ZCL_BSP_BP_OSM&apos;.
-      APPEND object TO objects.
-      &quot; BSP
-      object-object   = &apos;WAPA&apos;.
-      object-obj_name = &apos;ZGEOCODE_OSM&apos;.
-      APPEND object TO objects.
-      object-object   = &apos;WAPA&apos;.
-      object-obj_name = &apos;ZGEOCODE_MOBILE&apos;.
-      APPEND object TO objects.
-      &quot; WebDynpro
-      object-object   = &apos;WDYN&apos;.
-      object-obj_name = &apos;ZGC_BP_OSM&apos;.
-      APPEND object TO objects.
-      &quot; Mime for Webdynpro
-      object-object   = &apos;SMIM&apos;.
-      object-obj_name = &apos;DF8CC56B6BEFA1F1B394000C29B7D360&apos;.
-      APPEND object TO objects.
+
+*      &quot; BSP
+*      object-object   = &apos;WAPA&apos;.
+*      object-obj_name = &apos;ZGEOCODE_OSM&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;WAPA&apos;.
+*      object-obj_name = &apos;ZGEOCODE_MOBILE&apos;.
+*      APPEND object TO objects.
+*      &quot; WebDynpro
+*      object-object   = &apos;WDYN&apos;.
+*      object-obj_name = &apos;ZGC_BP_OSM&apos;.
+*      APPEND object TO objects.
+*      &quot; Mime for Webdynpro
+*      object-object   = &apos;SMIM&apos;.
+*      object-obj_name = &apos;DF8CC56B6BEFA1F1B394000C29B7D360&apos;.
+*      APPEND object TO objects.
       &quot; Programms
       object-object   = &apos;PROG&apos;.
       object-obj_name = &apos;ZGEOCODE_NOMINATIM_ZAKE_SVN&apos;.
       APPEND object TO objects.
+*      object-object   = &apos;PROG&apos;.
+*      object-obj_name = &apos;ZGEOCODE_NOMINATIM_READ_BP&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;PROG&apos;.
+*      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST&apos;.
+*      APPEND object TO objects.
+*      object-object   = &apos;PROG&apos;.
+*      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST_SURR&apos;.
+*      APPEND object TO objects.
       object-object   = &apos;PROG&apos;.
-      object-obj_name = &apos;ZGEOCODE_NOMINATIM_READ_BP&apos;.
+      object-obj_name = &apos;ZTEST_GIS_ROUTE_YOURS&apos;.
       APPEND object TO objects.
-      object-object   = &apos;PROG&apos;.
-      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST&apos;.
-      APPEND object TO objects.
-      object-object   = &apos;PROG&apos;.
-      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST_SURR&apos;.
-      APPEND object TO objects.
-      &quot; Let add the README to the build ZIP.
-      CONCATENATE loclpath &apos;README.txt&apos; INTO file.
-      APPEND file TO files.
-      CONCATENATE loclpath &apos;CREDITS.txt&apos; INTO file.
-      APPEND file TO files.
+*      &quot; Let add the README to the build ZIP.
+*      CONCATENATE loclpath &apos;README.txt&apos; INTO file.
+*      APPEND file TO files.
+*      CONCATENATE loclpath &apos;CREDITS.txt&apos; INTO file.
+*      APPEND file TO files.
 
       IF svn = &apos;X&apos;.
         class = cl_svn.
