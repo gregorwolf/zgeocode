@@ -67,85 +67,88 @@ ENDMETHOD.</source>
 
 
   DESCRIBE TABLE me-&gt;positions LINES rows.
-  IF rows &lt;&gt; 2.
+  IF rows &lt; 2.
     RAISE empty_route.
   ENDIF.
 
-  &quot; From
-  READ TABLE me-&gt;positions INTO position INDEX 1.
-  lat = position-latitude.
-  CONDENSE lat.
-  lon = position-longitude.
-  CONDENSE lon.
-  CONCATENATE &apos;http://www.yournavigation.org/api/1.0/gosmore.php?format=kml&amp;flat=&apos;
-  lat &apos;&amp;flon=&apos; lon INTO url.
-  &quot; To
-  READ TABLE me-&gt;positions INTO position INDEX 2.
-  lat = position-latitude.
-  CONDENSE lat.
-  lon = position-longitude.
-  CONDENSE lon.
-  CONCATENATE url &apos;&amp;tlat=&apos; lat &apos;&amp;tlon=&apos; lon
-  &apos;&amp;v=motorcar&amp;fast=1&amp;layer=mapnik&apos; INTO url.
+  LOOP AT me-&gt;positions INTO position.
+    IF sy-tabix &lt; rows.
+      &quot; From
+      lat = position-latitude.
+      CONDENSE lat.
+      lon = position-longitude.
+      CONDENSE lon.
+      CONCATENATE &apos;http://www.yournavigation.org/api/1.0/gosmore.php?format=kml&amp;flat=&apos;
+      lat &apos;&amp;flon=&apos; lon INTO url.
+      &quot; To
+      READ TABLE me-&gt;positions INTO position INDEX sy-tabix + 1.
+      lat = position-latitude.
+      CONDENSE lat.
+      lon = position-longitude.
+      CONDENSE lon.
+      CONCATENATE url &apos;&amp;tlat=&apos; lat &apos;&amp;tlon=&apos; lon
+      &apos;&amp;v=motorcar&amp;fast=1&amp;layer=mapnik&apos; INTO url.
 
-  IF gr_client IS NOT BOUND.
-    cl_http_client=&gt;create_by_url(
-      EXPORTING
-        url           = url
-      IMPORTING
-        client        = gr_client
-      EXCEPTIONS
-        argument_not_found = 1
-        plugin_not_active  = 2
-        internal_error     = 3
-        OTHERS             = 4
-    ).
-    IF sy-subrc &lt;&gt; 0.
-      RAISE internal_error.
+      IF gr_client IS NOT BOUND.
+        cl_http_client=&gt;create_by_url(
+          EXPORTING
+            url           = url
+          IMPORTING
+            client        = gr_client
+          EXCEPTIONS
+            argument_not_found = 1
+            plugin_not_active  = 2
+            internal_error     = 3
+            OTHERS             = 4
+        ).
+        IF sy-subrc &lt;&gt; 0.
+          RAISE internal_error.
+        ENDIF.
+      ELSE.
+        cl_http_utility=&gt;set_request_uri(
+          request = gr_client-&gt;request
+          uri     = url
+        ).
+      ENDIF.
+
+      gr_client-&gt;request-&gt;set_header_field(
+        EXPORTING
+          name  = &apos;X-Yours-client&apos;   &quot; Name of the header field
+          value = &apos;https://cw.sdn.sap.com/cw/groups/zgeocode&apos;   &quot; HTTP header field value
+      ).
+
+
+      gr_client-&gt;send( EXCEPTIONS OTHERS = 1 ).
+      IF sy-subrc &lt;&gt; 0.
+        RAISE internal_error.
+      ENDIF.
+      gr_client-&gt;receive( EXCEPTIONS OTHERS = 1 ).
+      IF sy-subrc &lt;&gt; 0.
+        RAISE internal_error.
+      ENDIF.
+
+      lv_xml = gr_client-&gt;response-&gt;get_data( ).
+
+      &quot; Start XML parsing
+      &quot; Instanciate XML Parser
+      lr_ixml = cl_ixml=&gt;create( ).
+      lr_streamfactory = lr_ixml-&gt;create_stream_factory( ).
+      lr_istream = lr_streamfactory-&gt;create_istream_xstring( lv_xml ).
+      lr_document = lr_ixml-&gt;create_document( ).
+      lr_parser = lr_ixml-&gt;create_parser( stream_factory = lr_streamfactory
+                                          istream        = lr_istream
+                                          document       = lr_document ).
+      lr_parser-&gt;parse( ).
+      &quot; Check if any results have been found
+      lr_distances = lr_document-&gt;get_elements_by_tag_name( name = &apos;distance&apos; ).
+      lv_count = lr_distances-&gt;get_length( ).
+      IF lv_count &gt; 0.
+        lr_item = lr_distances-&gt;get_item( 0 ).
+        dist_str = lr_item-&gt;get_value( ).
+        me-&gt;distance = me-&gt;distance + dist_str.
+      ENDIF.
     ENDIF.
-  ELSE.
-    cl_http_utility=&gt;set_request_uri(
-      request = gr_client-&gt;request
-      uri     = url
-    ).
-  ENDIF.
-
-  gr_client-&gt;request-&gt;set_header_field(
-    EXPORTING
-      name  = &apos;X-Yours-client&apos;   &quot; Name of the header field
-      value = &apos;https://cw.sdn.sap.com/cw/groups/zgeocode&apos;   &quot; HTTP header field value
-  ).
-
-
-  gr_client-&gt;send( EXCEPTIONS OTHERS = 1 ).
-  IF sy-subrc &lt;&gt; 0.
-    RAISE internal_error.
-  ENDIF.
-  gr_client-&gt;receive( EXCEPTIONS OTHERS = 1 ).
-  IF sy-subrc &lt;&gt; 0.
-    RAISE internal_error.
-  ENDIF.
-
-  lv_xml = gr_client-&gt;response-&gt;get_data( ).
-
-  &quot; Start XML parsing
-  &quot; Instanciate XML Parser
-  lr_ixml = cl_ixml=&gt;create( ).
-  lr_streamfactory = lr_ixml-&gt;create_stream_factory( ).
-  lr_istream = lr_streamfactory-&gt;create_istream_xstring( lv_xml ).
-  lr_document = lr_ixml-&gt;create_document( ).
-  lr_parser = lr_ixml-&gt;create_parser( stream_factory = lr_streamfactory
-                                      istream        = lr_istream
-                                      document       = lr_document ).
-  lr_parser-&gt;parse( ).
-  &quot; Check if any results have been found
-  lr_distances = lr_document-&gt;get_elements_by_tag_name( name = &apos;distance&apos; ).
-  lv_count = lr_distances-&gt;get_length( ).
-  IF lv_count &gt; 0.
-    lr_item = lr_distances-&gt;get_item( 0 ).
-    dist_str = lr_item-&gt;get_value( ).
-    me-&gt;distance = dist_str.
-  ENDIF.
+  ENDLOOP.
   &quot; http://www.yournavigation.org/api/1.0/gosmore.php?
   &quot; flat=48.057947090798&amp;flon=12.569867451065&amp;
   &quot; tlat=47.952712196478&amp;tlon=12.607888747491&amp;v=motorcar&amp;fast=1&amp;layer=mapnik

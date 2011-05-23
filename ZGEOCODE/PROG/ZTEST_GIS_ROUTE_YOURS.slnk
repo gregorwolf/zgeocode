@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-16"?>
-<PROG NAME="ZTEST_GIS_ROUTE_YOURS" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20110521" UNAM="BCUSER" UDAT="20110521" VERN="000012" RSTAT="T" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110521" STIME="211805" IDATE="20110521" ITIME="211805" UCCHECK="X">
+<PROG NAME="ZTEST_GIS_ROUTE_YOURS" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20110521" UNAM="BCUSER" UDAT="20110523" VERN="000013" RSTAT="T" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20110523" STIME="223148" IDATE="20110523" ITIME="223148" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" ENTRY="Test Route Calculation with OpenStreetMap YOURS" LENGTH="47 "/>
@@ -20,6 +20,7 @@ DATA: lo_georoute TYPE REF TO zcl_gis_route_yours.
 &quot; DATA: lo_georoute TYPE REF TO cl_gis_route_igs.
 
 DATA: from TYPE geoposition,
+      via  TYPE geoposition,
       to   TYPE geoposition.
 
 DATA: distance TYPE geodist.
@@ -29,6 +30,9 @@ DATA: distance TYPE geodist.
 from-latitude  = &apos;48.057947090798&apos;.
 from-longitude = &apos;12.569867451065&apos;.
 
+via-latitude   = &apos;47.999750674721&apos;.
+via-longitude  = &apos;12.636863423522&apos;.
+
 to-latitude    = &apos;47.952712196478&apos;.
 to-longitude   = &apos;12.607888747491&apos;.
 
@@ -37,6 +41,10 @@ CREATE OBJECT lo_georoute.
 lo_georoute-&gt;if_gis_route~add_stop(
     id       = &apos;From&apos;
     position = from ).
+
+lo_georoute-&gt;if_gis_route~add_stop(
+    id       = &apos;Via&apos;
+    position = via ).
 
 lo_georoute-&gt;if_gis_route~add_stop(
     id       = &apos;To&apos;
