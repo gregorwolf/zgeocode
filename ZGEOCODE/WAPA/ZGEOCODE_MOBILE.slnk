@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<WAPA APPLNAME="ZGEOCODE_MOBILE" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100711" APPLEXT="ZGEOCODE_MOBILE" STARTPAGE="default.htm" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="ZGEOCODING for Mobile Devices">
- <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" PAGENAME="default.htm" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100723" IMPLCLASS="CL_O2D8G5WFBXOH3WJF5O9620MWTI8" GENDATE="20100723" GENTIME="222757" CHANGETIME="222752" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="ZGEOCODING for Mobile Devices">
+<?xml version="1.0" encoding="utf-16"?>
+<WAPA APPLNAME="ZGEOCODE_MOBILE" AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDBY="BCUSER" CHANGEDON="20101230" APPLEXT="ZGEOCODE_MOBILE" STARTPAGE="default.htm" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="ZGEOCODING for Mobile Devices">
+ <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" PAGENAME="default.htm" AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDBY="BCUSER" CHANGEDON="20111002" IMPLCLASS="CL_O2003N807973TJ8EQIUMP3VZ3P3" GENDATE="20111002" GENTIME="212415" CHANGETIME="212413" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="ZGEOCODING for Mobile Devices">
   <layout>&lt;%@page language=&quot;abap&quot;%&gt;
 &lt;!DOCTYPE html PUBLIC
     &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;
@@ -25,30 +25,39 @@ function locationChanged()
     return true;
 }
 
-if ( window.blackberry &amp;&amp; blackberry.location.GPSSupported )
-{
-    var isUpdated = false;
-    var theCount = 0;
+function getLocation() {
+  if ( window.blackberry &amp;&amp; blackberry.location.GPSSupported ) {
+      var isUpdated = false;
+      var theCount = 0;
 
-    alert(&quot;Please wait until the location is detected.&quot;);
+      alert(&quot;Please wait until the location is detected.&quot;);
 
-    blackberry.location.onLocationUpdate(&quot;locationChanged()&quot;);
-    blackberry.location.setAidMode(modeAutonomous);
+      blackberry.location.onLocationUpdate(&quot;locationChanged()&quot;);
+      blackberry.location.setAidMode(modeAutonomous);
 
-    while ( theCount++ &lt; 10 &amp;&amp; !isUpdated )
-        isUpdated = blackberry.location.refreshLocation();
+      while ( theCount++ &lt; 10 &amp;&amp; !isUpdated )
+          isUpdated = blackberry.location.refreshLocation();
+  } else if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      /*
+      alert(&apos;Your lat-long is: &apos; + position.coords.latitude + &apos; / &apos; + position.coords.longitude);
+      alert(&apos;You live in &apos; + position.address.city + &apos;, &apos; + position.address.region)
+      */
+      document.form.lat.value = position.coords.latitude;
+      document.form.lon.value = position.coords.longitude;
+    });
+  } else {
+      document.write(&quot;Location tracking is not supported&quot;);
+  }
 }
-else
-{
-    document.write(&quot;Location tracking is not supported&quot;);
-}
+getLocation();
         &lt;/script&gt;
     &lt;p&gt;This application will search for business partners surrounding your
     current location in the specified distance. Please wait until the
     latidude and longitude is filled.&lt;/p&gt;&lt;%
     endif.
     if bpdetails is INITIAL. %&gt;
-    &lt;form action=&quot;default.htm&quot; method=&quot;post&quot;&gt;
+    &lt;form action=&quot;default.htm&quot; name=&quot;form&quot; method=&quot;post&quot;&gt;
       &lt;table&gt;
         &lt;tr&gt;
           &lt;th&gt;Latitude:&lt;/th&gt;
@@ -65,6 +74,7 @@ else
       &lt;table&gt;
       &lt;input type=&quot;hidden&quot; name=&quot;OnInputProcessing(OK)&quot; value=&quot;OK&quot;&gt;
       &lt;input type=&quot;submit&quot; value=&quot; Submit &quot; /&gt;
+      &lt;button onClick=&quot;getLocation();&quot;&gt;Get My Location&lt;/button&gt;
     &lt;/form&gt;&lt;%
     else. %&gt;
       &lt;table&gt;
@@ -77,6 +87,7 @@ else
         &lt;tr&gt;
           &lt;td&gt;&lt;a href=&quot;map.xloc?bp=&lt;%= bpdetail-partner %&gt;&quot;&gt;&lt;%= bpdetail-name %&gt;&lt;/a&gt;&lt;/td&gt;
           &lt;td&gt;&lt;%= bpdetail-location %&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&quot;../ZGEOCODE_OSM/default.htm?bp=&lt;%= bpdetail-partner %&gt;&quot;&gt;Display on Map&lt;/a&gt;&lt;/td&gt;
         &lt;/tr&gt;
         &lt;%
         endloop. %&gt;
@@ -166,7 +177,7 @@ END OF t_bp_detail.
 
 types: tt_bp_detail type table of t_bp_detail.</typedef>
  </page>
- <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" PAGENAME="map.xloc" AUTHOR="BCUSER" CREATEDON="20100711" CHANGEDBY="BCUSER" CHANGEDON="20100711" IMPLCLASS="CL_O2D8G5WFBXOH4O81HFKPHMPC7S0" GENDATE="20100711" GENTIME="102623" CHANGETIME="102225" MIMETYPE="text/vnd.rim.location" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="BlackBerry Map XML">
+ <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" PAGENAME="map.xloc" AUTHOR="BCUSER" CREATEDON="20101230" CHANGEDBY="BCUSER" CHANGEDON="20101230" IMPLCLASS="CL_O2003N807973TJ8EQIUMP3VZA0N" GENDATE="20101230" GENTIME="001746" CHANGETIME="001242" MIMETYPE="text/vnd.rim.location" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="BlackBerry Map XML">
   <layout>&lt;%@page language=&quot;abap&quot;%&gt;&lt;%
 DATA: lat TYPE string,
       lon TYPE string.
