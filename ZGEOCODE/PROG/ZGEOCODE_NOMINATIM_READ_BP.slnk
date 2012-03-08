@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-16"?>
-<PROG NAME="ZGEOCODE_NOMINATIM_READ_BP" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100318" UNAM="BCUSER" UDAT="20101230" VERN="000072" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20111008" STIME="110047" IDATE="20101230" ITIME="001746" UCCHECK="X">
+<PROG NAME="ZGEOCODE_NOMINATIM_READ_BP" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100318" UNAM="DEVELOPER" UDAT="20120308" VERN="000073" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20120308" STIME="224802" IDATE="20120308" ITIME="224802" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" LENGTH="48 "/>
@@ -17,7 +17,7 @@
   </language>
  </textPool>
  <dynpros>
-  <dynpro PROG="ZGEOCODE_NOMINATIM_READ_BP" DNUM="0100" FNUM="0100" BZMX="20 " BZBR="100 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="30 " NOCO="129 " VALP="0 " CUAN="G" SPRA="E" DGEN="20101230" TGEN="001336" DTEXT="OpenStreetMap">
+  <dynpro PROG="ZGEOCODE_NOMINATIM_READ_BP" DNUM="0100" FNUM="0100" BZMX="20 " BZBR="100 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="30 " NOCO="129 " VALP="0 " CUAN="G" SPRA="E" DGEN="20120308" TGEN="224637" DTEXT="OpenStreetMap">
    <dynprofield FNAM="HTML_VIEWER" DIDX="0014" FLG1="00" FLG2="00" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="64" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
    <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
    <dynproflowsource>PROCESS BEFORE OUTPUT.
@@ -50,7 +50,7 @@ DATA: geodata TYPE geocoding.
 DATA: centraldata             TYPE bapibus1006_central,
       centraldataperson       TYPE bapibus1006_central_person,
       centraldataorganization TYPE bapibus1006_central_organ.
-
+DATA: dist_int TYPE i.
 DATA: addressdata TYPE bapibus1006_address.
 
 FIELD-SYMBOLS: &lt;searchresult_line&gt; LIKE LINE OF searchresult.
@@ -139,6 +139,10 @@ AT LINE-SELECTION.
   IF nearby = &apos;X&apos;.
     parameter-name = &apos;SHOW_NEAR&apos;.
     parameter-value = nearby.
+    APPEND parameter TO parameters.
+    parameter-name = &apos;DISTANCE&apos;.
+    dist_int = distance.
+    parameter-value = dist_int.
     APPEND parameter TO parameters.
   ENDIF.
 

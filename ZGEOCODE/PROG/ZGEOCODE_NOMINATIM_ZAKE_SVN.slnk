@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-16"?>
-<PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="BCUSER" UDAT="20110523" VERN="000044" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20110523" STIME="224703" IDATE="20110523" ITIME="224703" UCCHECK="X">
+<PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="DEVELOPER" UDAT="20120308" VERN="000046" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20120308" STIME="225708" IDATE="20120308" ITIME="225708" UCCHECK="X">
  <textPool>
   <language SPRAS="E">
    <textElement ID="R" LENGTH="44 "/>
   </language>
  </textPool>
- <programDocumentation/>
  <source>*&amp;---------------------------------------------------------------------*
 *&amp; Report  ZGEOCODE_NOMINATIM_ZAKE_SVN
 *&amp;
@@ -117,9 +116,9 @@ START-OF-SELECTION.
       object-object   = &apos;PROG&apos;.
       object-obj_name = &apos;ZGEOCODE_NOMINATIM_ZAKE_SVN&apos;.
       APPEND object TO objects.
-*      object-object   = &apos;PROG&apos;.
-*      object-obj_name = &apos;ZGEOCODE_NOMINATIM_READ_BP&apos;.
-*      APPEND object TO objects.
+      object-object   = &apos;PROG&apos;.
+      object-obj_name = &apos;ZGEOCODE_NOMINATIM_READ_BP&apos;.
+      APPEND object TO objects.
 *      object-object   = &apos;PROG&apos;.
 *      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST&apos;.
 *      APPEND object TO objects.
