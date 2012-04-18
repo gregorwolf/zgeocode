@@ -47,6 +47,14 @@ ZNOM	STREET
 
 You can check the customizing with the report GEOCODING_CUSTOMIZING_VERIFY.
 
+Test
+====
+
+You can run the standard report GEOCODING_FIRST to test your settings. For the standard address it should return something like:
+
+8,643766362725	49,294217577528	ZNOM	600
+
+
 Usage in the SAP NetWeaver ABAP Developer Edition
 =================================================
 
