@@ -1,0 +1,1979 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="C:/Projects/ZGEOCODE/build/ZGEOCODE.nugg">
+ <TABL TABNAME="ZCOMT_BSP_BP_OSM" DDLANGUAGE="E" TABCLASS="INTTAB" DATMIN="0000000000" DATMAX="0000000000" DATAVG="0000000000" DDTEXT="OpenStreetMap in PC-UI" AUTHCLASS="00" AS4USER="DEVELOPER" AS4DATE="20120315" AS4TIME="083821" PROZPUFF="000" EXCLASS="1">
+  <dd09l AS4VERS="0000" SCHFELDANZ="000" AS4DATE="00000000" AS4TIME="000000"/>
+  <dd03p TABNAME="ZCOMT_BSP_BP_OSM" FIELDNAME="OBJECT_KEY" DDLANGUAGE="E" POSITION="0001" ROLLNAME="CRMT_BSP_OBJECTKEY" ADMINFIELD="0" INTTYPE="C" INTLEN="000200" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="10" SCRLEN2="15" SCRLEN3="15" DTELMASTER="D" DATATYPE="CHAR" LENG="000100" OUTPUTLEN="000100" DECIMALS="000000" MASK="  CHARE" MASKLEN="0000" DDTEXT="Object Key" REPTEXT="Object Key" SCRTEXT_S="Key" SCRTEXT_M="Object Key" SCRTEXT_L="Object Key" DEPTH="00" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZCOMT_BSP_BP_OSM" FIELDNAME="URL" DDLANGUAGE="E" POSITION="0002" ADMINFIELD="0" INTTYPE="g" INTLEN="000008" ROUTPUTLEN="000000" HEADLEN="00" SCRLEN1="00" SCRLEN2="00" SCRLEN3="00" DATATYPE="STRG" LENG="000000" OUTPUTLEN="000000" DECIMALS="000000" MASK="  STRG" MASKLEN="0000" DEPTH="00" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+ </TABL>
+ <TABL TABNAME="ZGEOCODE_BP_DIST" DDLANGUAGE="E" TABCLASS="INTTAB" DATMIN="0000000000" DATMAX="0000000000" DATAVG="0000000000" DDTEXT="Business Partner Distance" AUTHCLASS="00" AS4USER="DEVELOPER" AS4DATE="20120315" AS4TIME="083826" PROZPUFF="000" EXCLASS="1">
+  <dd09l AS4VERS="0000" SCHFELDANZ="000" AS4DATE="00000000" AS4TIME="000000"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="PARTNER" DDLANGUAGE="E" POSITION="0001" ROLLNAME="BU_PARTNER" ADMINFIELD="0" INTTYPE="C" INTLEN="000020" DOMNAME="BU_PARTNER" ROUTPUTLEN="000000" MEMORYID="BPA" LOGFLAG="X" HEADLEN="16" SCRLEN1="10" SCRLEN2="15" SCRLEN3="20" DTELMASTER="D" DATATYPE="CHAR" LENG="000010" OUTPUTLEN="000010" DECIMALS="000000" ENTITYTAB="BUT000" CONVEXIT="ALPHA" MASK="  CHARE" MASKLEN="0000" DDTEXT="Business Partner Number" REPTEXT="BP Number" SCRTEXT_S="BP Number" SCRTEXT_M="BP Number" SCRTEXT_L="BP Number" DOMMASTER="D" DOMNAME3L="BU_PARTNER" SHLPORIGIN="D" SHLPNAME="BUPA" SHLPFIELD="PARTNER" DEPTH="00" COMPTYPE="E" DEFFDNAME="PARTNER" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="NAME" DDLANGUAGE="E" POSITION="0002" ROLLNAME="NAME1" ADMINFIELD="0" INTTYPE="C" INTLEN="000060" DOMNAME="TEXT30" ROUTPUTLEN="000000" HEADLEN="30" SCRLEN1="10" SCRLEN2="15" SCRLEN3="20" DATATYPE="CHAR" LENG="000030" OUTPUTLEN="000030" DECIMALS="000000" LOWERCASE="X" MASK="  CHARE" MASKLEN="0000" DDTEXT="Name" REPTEXT="Name 1" SCRTEXT_S="Name 1" SCRTEXT_M="Name 1" SCRTEXT_L="Name 1" DOMNAME3L="TEXT30" DEPTH="00" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="DISTANCE" DDLANGUAGE="E" POSITION="0003" ROLLNAME="GEODIST" ADMINFIELD="0" INTTYPE="P" INTLEN="000008" DOMNAME="GEODIST" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="08" SCRLEN2="15" SCRLEN3="30" DTELMASTER="D" DATATYPE="DEC" LENG="000015" OUTPUTLEN="000019" DECIMALS="000006" SIGNFLAG="X" MASK="  DEC E" MASKLEN="0000" DDTEXT="Distance between two geographical locations" REPTEXT="Distance" SCRTEXT_S="Dist." SCRTEXT_M="Distance" SCRTEXT_L="Distance between two locations" DOMNAME3L="GEODIST" DEPTH="00" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="GEODATA" DDLANGUAGE="E" POSITION="0004" ROLLNAME="GEOCODING" ADMINFIELD="0" INTLEN="000000" ROUTPUTLEN="000000" HEADLEN="00" SCRLEN1="00" SCRLEN2="00" SCRLEN3="00" DATATYPE="STRU" LENG="000000" OUTPUTLEN="000000" DECIMALS="000000" MASK="  STRUS" MASKLEN="0000" DDTEXT="Data That Was Exchanged by the Geo-Coding Services" DEPTH="00" COMPTYPE="S" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="GUIDLOC" DDLANGUAGE="E" POSITION="0005" ROLLNAME="GEOGUID" ADMINFIELD="0" INTTYPE="X" INTLEN="000016" DOMNAME="SYSUUID" ROUTPUTLEN="000000" HEADLEN="32" SCRLEN1="32" SCRLEN2="32" SCRLEN3="32" DTELMASTER="D" DATATYPE="RAW" LENG="000016" OUTPUTLEN="000032" DECIMALS="000000" MASK="  RAW E" MASKLEN="0000" DDTEXT="GUID 16" REPTEXT="Guid" SCRTEXT_S="Guid" SCRTEXT_M="Guid 32" SCRTEXT_L="Guid 32" DOMNAME3L="SYSUUID" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="LONGITUDE" DDLANGUAGE="E" POSITION="0006" ROLLNAME="GEOLON" ADMINFIELD="0" INTTYPE="P" INTLEN="000008" DOMNAME="GEOLONLAT" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="10" SCRLEN2="15" SCRLEN3="30" DTELMASTER="D" DATATYPE="DEC" LENG="000015" OUTPUTLEN="000017" DECIMALS="000012" SIGNFLAG="X" MASK="  DEC E" MASKLEN="0000" DDTEXT="Geo location longitude" REPTEXT="Longitude" SCRTEXT_S="Degree" SCRTEXT_M="Longitude" SCRTEXT_L="Geo location longitude" DOMNAME3L="GEOLONLAT" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="LATITUDE" DDLANGUAGE="E" POSITION="0007" ROLLNAME="GEOLAT" ADMINFIELD="0" INTTYPE="P" INTLEN="000008" DOMNAME="GEOLONLAT" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="10" SCRLEN2="15" SCRLEN3="30" DTELMASTER="D" DATATYPE="DEC" LENG="000015" OUTPUTLEN="000017" DECIMALS="000012" SIGNFLAG="X" MASK="  DEC E" MASKLEN="0000" DDTEXT="Geo location latitude" REPTEXT="Latitude" SCRTEXT_S="Degree" SCRTEXT_M="Latitude" SCRTEXT_L="Geo location latitude" DOMNAME3L="GEOLONLAT" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="ALTITUDE" DDLANGUAGE="E" POSITION="0008" ROLLNAME="GEOALT" ADMINFIELD="0" INTTYPE="P" INTLEN="000005" DOMNAME="GEOALT" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="10" SCRLEN2="15" SCRLEN3="30" DTELMASTER="D" DATATYPE="DEC" LENG="000009" OUTPUTLEN="000012" DECIMALS="000003" SIGNFLAG="X" MASK="  DEC E" MASKLEN="0000" DDTEXT="Geo location height" REPTEXT="Height [m]" SCRTEXT_S="Height" SCRTEXT_M="Height" SCRTEXT_L="Geo location height" DOMNAME3L="GEOALT" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="SRCID" DDLANGUAGE="E" POSITION="0009" ROLLNAME="GEOSRCID" ADMINFIELD="0" INTTYPE="C" INTLEN="000008" DOMNAME="CHAR4" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="10" SCRLEN2="15" SCRLEN3="30" DTELMASTER="D" DATATYPE="CHAR" LENG="000004" OUTPUTLEN="000004" DECIMALS="000000" MASK="  CHARE" MASKLEN="0000" DDTEXT="Geo location data source ID/Geocoder ID" REPTEXT="Data Source" SCRTEXT_S="Source" SCRTEXT_M="Data Source" SCRTEXT_L="Geo location data source" DOMNAME3L="CHAR4" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="SRCTSTMP" DDLANGUAGE="E" POSITION="0010" ROLLNAME="TIMESTAMP" ADMINFIELD="0" INTTYPE="P" INTLEN="000008" DOMNAME="TZNTSTMPS" ROUTPUTLEN="000000" HEADLEN="19" SCRLEN1="10" SCRLEN2="15" SCRLEN3="20" DTELMASTER="D" DATATYPE="DEC" LENG="000015" OUTPUTLEN="000019" DECIMALS="000000" MASK="  DEC E" MASKLEN="0000" DDTEXT="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" REPTEXT="Time Stamp" SCRTEXT_S="Time Stamp" SCRTEXT_M="Time Stamp" SCRTEXT_L="Time Stamp" DOMMASTER="D" DOMNAME3L="TZNTSTMPS" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="PRECISID" DDLANGUAGE="E" POSITION="0011" ROLLNAME="GEOPRECIS" ADMINFIELD="0" INTTYPE="N" INTLEN="000008" DOMNAME="D_GEOPREC" ROUTPUTLEN="000000" HEADLEN="15" SCRLEN1="10" SCRLEN2="15" SCRLEN3="30" DTELMASTER="D" DATATYPE="NUMC" LENG="000004" OUTPUTLEN="000004" DECIMALS="000000" VALEXI="X" MASK="  NUMCE" MASKLEN="0000" DDTEXT="Precision (street, postal code, ...) of a Geo location" REPTEXT="Precision" SCRTEXT_S="Precision" SCRTEXT_M="Precision" SCRTEXT_L="Precision of a Geo location" DOMNAME3L="D_GEOPREC" SHLPORIGIN="F" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+  <dd03p TABNAME="ZGEOCODE_BP_DIST" FIELDNAME="TZONE" DDLANGUAGE="E" POSITION="0012" ROLLNAME="TIMEZONE" ADMINFIELD="0" INTTYPE="C" INTLEN="000012" DOMNAME="TZNZONE" ROUTPUTLEN="000000" HEADLEN="10" SCRLEN1="10" SCRLEN2="15" SCRLEN3="20" DTELMASTER="D" DATATYPE="CHAR" LENG="000006" OUTPUTLEN="000006" DECIMALS="000000" ENTITYTAB="TTZZ" MASK="  CHARE" MASKLEN="0000" DDTEXT="Time Zone" REPTEXT="Time Zone" SCRTEXT_S="Time Zone" SCRTEXT_M="Time Zone" SCRTEXT_L="Time Zone" DOMNAME3L="TZNZONE" DEPTH="01" COMPTYPE="E" EXCLASS="0" DBPOSITION="0000" OUTPUTSTYLE="00" STRORLOCPOS="00"/>
+ </TABL>
+ <TTYP TYPENAME="ZGEOCODE_BP_DIST_TABLE" DDLANGUAGE="E" ROWTYPE="ZGEOCODE_BP_DIST" ROWKIND="S" DATATYPE="STRU" LENG="000000" DECIMALS="000000" ACCESSMODE="T" KEYDEF="D" KEYKIND="N" KEYFDCOUNT="0000" AS4USER="DEVELOPER" AS4DATE="20120315" AS4TIME="083832" DDTEXT="Table of Business Partners with their Distance" TYPELEN="000162" CTLENG="000000" CTDECIMALS="000000" OCCURS="00000"/>
+ <CLAS CLSNAME="ZCL_GEOCODE_NOMINATIM" VERSION="1" LANGU="E" DESCRIPT="Geocoding with Nominatim" UUID="000C2971514B1EE084F422CD860BF877" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20100314" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <implementing CLSNAME="ZCL_GEOCODE_NOMINATIM" REFCLSNAME="IF_GEOCODING_TOOL" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" RELTYPE="1" EDITORDER="0 "/>
+  <publicSection>class ZCL_GEOCODE_NOMINATIM definition
+  public
+  final
+  create public .
+
+*&quot;* public components of class ZCL_GEOCODE_NOMINATIM
+*&quot;* do not include other source files here!!!
+public section.
+
+  interfaces IF_GEOCODING_TOOL .
+
+  class-methods STRING_TO_TIMESTAMP
+    importing
+      !TIMESTAMP_STRING type STRING default &apos;Sun, 14 Mar 10 20:34:15 +0000&apos;
+    returning
+      value(TIMESTAMP) type TIMESTAMP .</publicSection>
+  <protectedSection>protected section.
+*&quot;* protected components of class ZCL_GEOCODE_NOMINATIM
+*&quot;* do not include other source files here!!!
+
+  data GR_CLIENT type ref to IF_HTTP_CLIENT .
+
+  methods GEOCODE_ONE_ADDRESS
+    importing
+      !ADDRESS type AES_ADDR
+    exporting
+      !CHOICE type GEOCD_CHOICE_TABLE
+    changing
+      !CONTAINER type AESC_TABS
+      !RESULT type GEOCD_RESS
+      !RELEVANT_FIELDS type GEOCD_ADDR_RELFIELDS_SORTEDTAB
+      !MESSAGES type AES_MSG_TABLE
+      !CORRECTED_ADDRESSES type AES_ADDR_SORTEDTABLE .
+  methods GET_CLIENT
+    importing
+      !IS_ADDRESS type AES_ADDR
+      !IV_SERVICENR type RFCDISPLAY-RFCSYSID
+      !IV_SERVER type RFCDISPLAY-RFCHOST
+      !IV_PROXY type RFCDISPLAY-RFCGWHOST
+      !IV_PROXY_SERVICE type RFCDISPLAY-RFCGWSERV
+    returning
+      value(RR_CLIENT) type ref to IF_HTTP_CLIENT .
+  methods MOVE_DATA_TO_AESCONTAINER
+    importing
+      !GEOCODING type GEOCODING
+    changing
+      !AESC type AESC .
+  methods MOVE_FIELD_TO_AESCONTAINER
+    importing
+      !FIELD type FIELDNAME
+      !VALUE type CHAR255
+    changing
+      !AESC type AESC .</protectedSection>
+  <privateSection>private section.
+*&quot;* private components of class ZCL_GEOCODE_NOMINATIM
+*&quot;* do not include other source files here!!!
+
+  methods ADD_PART
+    importing
+      !IV_URL type STRING
+      !IV_SEP type STRING
+      !IV_PARAM type ANY
+    returning
+      value(RV_URL) type STRING .</privateSection>
+  <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+  <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <attribute CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+  <interfaceMethod CLSNAME="ZCL_GEOCODE_NOMINATIM" CPDNAME="IF_GEOCODING_TOOL~GEOCODE">
+   <source>method IF_GEOCODING_TOOL~GEOCODE.
+**********************************************************************
+*&amp; Method called by framework. Entry point for the geocoding.
+**********************************************************************
+  &quot; This default coding is borrowed from the CL_GEOCODER_SAP0
+  &quot; GEOCODE method
+  DATA:
+    lv_msg                TYPE string,
+    ls_geocd_ress         TYPE geocd_ress,
+    ls_aesc_tabs          TYPE aesc_tabs,
+    lt_geocd_choice       TYPE geocd_choice_table,
+    lt_relevant_fields    TYPE geocd_addr_relfields_sortedtab.
+  FIELD-SYMBOLS:
+    &lt;ls_msg&gt;              TYPE aes_msg,
+    &lt;ls_aes_addr&gt;         TYPE aes_addr.
+
+  LOOP AT addresses ASSIGNING &lt;ls_aes_addr&gt;.
+    CLEAR: lt_geocd_choice, ls_aesc_tabs, ls_geocd_ress.
+*   create a result entry
+    ls_geocd_ress-id = &lt;ls_aes_addr&gt;-id.
+*   remove corrected addresses with given ID
+    DELETE TABLE corrected_addresses WITH TABLE KEY id = &lt;ls_aes_addr&gt;-id.
+*   read container for geocoding result
+    READ TABLE containers INTO ls_aesc_tabs
+      WITH TABLE KEY id = &lt;ls_aes_addr&gt;-id.
+    IF sy-subrc &lt;&gt; 0.
+*     Message container has to exist. Otherwise return error.
+      MESSAGE ID &apos;GEOCODING&apos; TYPE &apos;X&apos; NUMBER &apos;008&apos; INTO lv_msg.
+      APPEND INITIAL LINE TO messages ASSIGNING &lt;ls_msg&gt;.
+      &lt;ls_msg&gt;-id = &lt;ls_aes_addr&gt;-id.
+      &lt;ls_msg&gt;-order_no = 1.
+      MOVE-CORRESPONDING sy TO &lt;ls_msg&gt;-message.
+      RETURN.
+    ENDIF.
+    me-&gt;geocode_one_address(
+      EXPORTING
+        address             = &lt;ls_aes_addr&gt;
+      IMPORTING
+        choice              = lt_geocd_choice
+      CHANGING
+        container           = ls_aesc_tabs
+        RESULT              = ls_geocd_ress
+        relevant_fields     = lt_relevant_fields
+        messages            = messages
+        corrected_addresses = corrected_addresses
+    ).
+    APPEND LINES OF lt_geocd_choice TO choice.
+    APPEND ls_geocd_ress TO results.
+    MODIFY TABLE containers FROM ls_aesc_tabs.
+  ENDLOOP.
+endmethod.</source>
+  </interfaceMethod>
+  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="ADD_PART" VERSION="1" LANGU="E" DESCRIPT="Add a part to the URL" EXPOSURE="0" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="ADD_PART" SCONAME="IV_URL" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="ADD_PART" SCONAME="IV_SEP" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="ADD_PART" SCONAME="IV_PARAM" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="ADD_PART" SCONAME="RV_URL" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>method ADD_PART.
+**********************************************************************
+*&amp; Add the supplied part to the url.
+**********************************************************************
+  DATA:
+    lv_param  TYPE string.
+
+  IF iv_param IS NOT INITIAL.
+    lv_param = iv_param.
+    lv_param = cl_http_utility=&gt;escape_url( lv_param ).
+    CONCATENATE iv_url lv_param iv_sep INTO rv_url.
+  ELSE.
+    rv_url = iv_url.
+  ENDIF.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" VERSION="1" LANGU="E" DESCRIPT="Geocode one address" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="ADDRESS" VERSION="1" LANGU="E" DESCRIPT="Structure for Transferring Addresses to Enhancement Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="AES_ADDR"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="CHOICE" VERSION="1" LANGU="E" DESCRIPT="Table with Address Selections for Geocoding" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCD_CHOICE_TABLE"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="CONTAINER" VERSION="1" LANGU="E" DESCRIPT="Table structure for AES containers" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="AESC_TABS"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="RESULT" VERSION="1" LANGU="E" DESCRIPT="Geo-Coding Events for Each Address" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCD_RESS"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="RELEVANT_FIELDS" VERSION="1" LANGU="E" DESCRIPT="Table of All Fields Relevant for Display in Geocoding" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCD_ADDR_RELFIELDS_SORTEDTAB"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="MESSAGES" VERSION="1" LANGU="E" DESCRIPT="Table with Messages Generated by the Addr. Enhancmnt Service" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="AES_MSG_TABLE"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GEOCODE_ONE_ADDRESS" SCONAME="CORRECTED_ADDRESSES" VERSION="1" LANGU="E" DESCRIPT="Table for Copying Addresses from/to Addr. Enhancemnt Service" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="AES_ADDR_SORTEDTABLE"/>
+   <source>method GEOCODE_ONE_ADDRESS.
+**********************************************************************
+*&amp; Start geocoding the supplied address
+**********************************************************************
+  DATA:
+*   HTTP client
+    lv_servicenr      TYPE          rfcdisplay-rfcsysid,
+    lv_server         TYPE          rfcdisplay-rfchost,
+    lv_proxy_host     TYPE          rfcdisplay-rfcgwhost,
+    lv_proxy_service  TYPE          rfcdisplay-rfcgwserv,
+    lr_client         TYPE REF TO   if_http_client,
+*   General
+    lv_dummy          TYPE          string,
+    lv_timestamp      TYPE          string,
+    ls_geocoding      TYPE          geocoding,
+*   Access sequence
+    ls_address        TYPE          aes_addr,
+    lt_sequence       TYPE          string_table,
+*   XML parser
+    lv_xml            TYPE          xstring,
+    lr_ixml           TYPE REF TO   if_ixml,
+    lr_parser         TYPE REF TO   if_ixml_parser,
+    lr_streamfactory  TYPE REF TO   if_ixml_stream_factory,
+    lr_istream        TYPE REF TO   if_ixml_istream,
+    lr_document       TYPE REF TO   if_ixml_document,
+    lr_place          TYPE REF TO	  if_ixml_node_collection,
+    lr_item           TYPE REF TO   if_ixml_node,
+    lr_attributes     TYPE REF TO   if_ixml_named_node_map,
+    lr_node           TYPE REF TO   if_ixml_node,
+    lr_searchresults  TYPE REF TO	  if_ixml_node_collection,
+    lv_count          TYPE          i.
+  FIELD-SYMBOLS:
+    &lt;lv_field&gt;        TYPE          ANY,
+    &lt;lv_sequence&gt;     TYPE          string.
+
+* Build access sequence
+  APPEND &apos;HOUSE_NUM2&apos; TO lt_sequence.
+  APPEND &apos;HOUSE_NUM1&apos; TO lt_sequence.
+  APPEND &apos;STREET&apos;     TO lt_sequence.
+  APPEND &apos;CITY2&apos;      TO lt_sequence.
+  APPEND &apos;CITY1&apos;      TO lt_sequence.
+  &quot; For the Inside Track Netherlands
+  APPEND &apos;POST_CODE1&apos; TO lt_sequence.
+* If we got no country we should not be geocoding...
+
+  CALL FUNCTION &apos;RFC_READ_HTTP_DESTINATION&apos;
+    EXPORTING
+      destination             = &apos;ZGEOCODE_NOMINATIM&apos;
+    IMPORTING
+      servicenr               = lv_servicenr
+      server                  = lv_server
+      proxy_host              = lv_proxy_host
+      proxy_service           = lv_proxy_service
+    EXCEPTIONS
+      authority_not_available = 1
+      destination_not_exist   = 2
+      information_failure     = 3
+      internal_failure        = 4
+      no_http_destination     = 5.
+  &quot; Fallback to Quickstart without maintaining a HTTP Destination
+  IF sy-subrc = 2.
+    lv_servicenr = &apos;80&apos;.
+    lv_server    = &apos;open.mapquestapi.com&apos;.
+  ELSE.
+    CHECK sy-subrc = 0.
+  ENDIF.
+
+  ls_address = address.
+  &quot; Inside Track NL #sitNL
+  &quot; CLEAR ls_address-address-post_code1.
+
+  LOOP AT lt_sequence ASSIGNING &lt;lv_sequence&gt;.
+    lr_client = me-&gt;get_client( is_address        = ls_address
+                                iv_servicenr      = lv_servicenr
+                                iv_server         = lv_server
+                                iv_proxy          = lv_proxy_host
+                                iv_proxy_service  = lv_proxy_service ).
+
+    lr_client-&gt;send( EXCEPTIONS OTHERS = 1 ).
+    IF sy-subrc &lt;&gt; 0.
+      EXIT.
+    ENDIF.
+    lr_client-&gt;receive( EXCEPTIONS OTHERS = 1 ).
+    IF sy-subrc &lt;&gt; 0.
+      EXIT.
+    ENDIF.
+
+    lv_xml = lr_client-&gt;response-&gt;get_data( ).
+
+*   Start XML parsing
+*   Instanciate XML Parser
+    lr_ixml = cl_ixml=&gt;create( ).
+    lr_streamfactory = lr_ixml-&gt;create_stream_factory( ).
+    lr_istream = lr_streamfactory-&gt;create_istream_xstring( lv_xml ).
+    lr_document = lr_ixml-&gt;create_document( ).
+    lr_parser = lr_ixml-&gt;create_parser( stream_factory = lr_streamfactory
+                                        istream        = lr_istream
+                                        document       = lr_document ).
+    lr_parser-&gt;parse( ).
+
+*   Check if any results have been found
+    lr_place = lr_document-&gt;get_elements_by_tag_name( name = &apos;place&apos; ).
+    lv_count = lr_place-&gt;get_length( ).
+    IF lv_count &gt; 0.
+*     Get lon/lat from XML
+      lr_item = lr_place-&gt;get_item( 0 ).
+      lr_attributes = lr_item-&gt;get_attributes( ).
+      lr_node = lr_attributes-&gt;get_named_item( &apos;lat&apos; ).
+      lv_dummy = lr_node-&gt;get_value( ).
+      ls_geocoding-latitude = lv_dummy.
+      lr_node = lr_attributes-&gt;get_named_item( &apos;lon&apos; ).
+      lv_dummy = lr_node-&gt;get_value( ).
+      ls_geocoding-longitude = lv_dummy.
+
+*     Get Timestamp
+      lr_searchresults = lr_document-&gt;get_elements_by_tag_name( name = &apos;searchresults&apos; ).
+      lr_item = lr_searchresults-&gt;get_item( 0 ).
+      lr_attributes = lr_item-&gt;get_attributes( ).
+      lr_node = lr_attributes-&gt;get_named_item( &apos;timestamp&apos; ).
+      lv_timestamp = lr_node-&gt;get_value( ).
+      CALL METHOD zcl_geocode_nominatim=&gt;string_to_timestamp
+        EXPORTING
+          timestamp_string = lv_timestamp
+        RECEIVING
+          timestamp        = ls_geocoding-srctstmp.
+
+      ls_geocoding-srcid = &apos;ZNOM&apos;.
+      IF lv_count = 1.
+        ls_geocoding-precisid = &apos;0600&apos;. &quot;Detail: Region-Level
+      ELSE.
+        ls_geocoding-precisid = &apos;0500&apos;. &quot;Detail: Region-Level
+      ENDIF.
+      CALL METHOD move_data_to_aescontainer
+        EXPORTING
+          geocoding = ls_geocoding
+        CHANGING
+          aesc      = container-container.
+      result-id = ls_address-id.
+      result-res = 0. &quot;Everything&apos;s fine
+*     end the loop
+      EXIT.
+    ELSE.
+*     Adjust address for next iteration
+      ASSIGN COMPONENT &lt;lv_sequence&gt; OF STRUCTURE ls_address-address TO &lt;lv_field&gt;.
+      IF sy-subrc = 0.
+        CLEAR &lt;lv_field&gt;.
+      ENDIF.
+    ENDIF.
+  ENDLOOP.
+  IF lv_count = 0.
+    result-id = address-id.
+    result-res = 6.
+  ENDIF.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IS_ADDRESS" VERSION="1" LANGU="E" DESCRIPT="Structure for Transferring Addresses to Enhancement Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="AES_ADDR"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IV_SERVICENR" VERSION="1" LANGU="E" DESCRIPT="System ID" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RFCDISPLAY-RFCSYSID"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IV_SERVER" VERSION="1" LANGU="E" DESCRIPT="Name of Target Host" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RFCDISPLAY-RFCHOST"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IV_PROXY" VERSION="1" LANGU="E" DESCRIPT="Gateway Host Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RFCDISPLAY-RFCGWHOST"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="IV_PROXY_SERVICE" VERSION="1" LANGU="E" DESCRIPT="Gateway service" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RFCDISPLAY-RFCGWSERV"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="GET_CLIENT" SCONAME="RR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT"/>
+   <source>method GET_CLIENT.
+  DATA:
+    lv_proxy    TYPE            string,
+    lv_proxy_s  TYPE            string,
+    lv_url      TYPE            string,
+    lv_enc      TYPE            string,
+    country     TYPE            string.
+
+  CONCATENATE &apos;http://&apos; iv_server &apos;/nominatim/v1/search.php/&apos; INTO lv_url.
+
+  SELECT SINGLE landx50 FROM t005t INTO country
+    WHERE spras = &apos;EN&apos;
+      AND land1 = is_address-address-country.
+
+  lv_url = add_part( iv_url = lv_url iv_param = country    iv_sep = &apos;/&apos; ).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-post_code1 iv_sep = &apos;/&apos; ).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-city1      iv_sep = &apos;/&apos;).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-city2      iv_sep = &apos;/&apos;).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-street     iv_sep = &apos;%20&apos; ).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num1 iv_sep = &apos;%20&apos; ).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num2 iv_sep = &apos;%20&apos; ).
+  SHIFT lv_url RIGHT DELETING TRAILING &apos;%20&apos;.
+  SHIFT lv_url RIGHT DELETING TRAILING &apos;/&apos;.
+  CONDENSE lv_url.
+
+  CONCATENATE lv_url &apos;?format=xml&amp;polygon=1&amp;addressdetails=1&apos; INTO lv_url.
+
+  lv_proxy = iv_proxy.
+  lv_proxy_s = iv_proxy_service.
+
+  &quot; Contributed by Markus Reich http://www.markusreich.at
+  &quot; Use a global attribute for the HTTP Client avoiding
+  &quot; memory problems in batch geocoding
+  IF gr_client IS NOT BOUND.
+    cl_http_client=&gt;create_by_url(
+      EXPORTING
+        url           = lv_url
+        proxy_host    = lv_proxy
+        proxy_service = lv_proxy_s
+      IMPORTING
+        client        = rr_client
+      EXCEPTIONS
+        argument_not_found = 1
+        plugin_not_active  = 2
+        internal_error     = 3
+        OTHERS             = 4 ).
+    gr_client = rr_client.
+  ELSE.
+    rr_client = gr_client.
+    cl_http_utility=&gt;set_request_uri(
+      request = rr_client-&gt;request
+      uri     = lv_url ).
+  ENDIF.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_DATA_TO_AESCONTAINER" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_DATA_TO_AESCONTAINER" SCONAME="GEOCODING" VERSION="1" LANGU="E" DESCRIPT="Data That Was Exchanged by the Geo-Coding Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCODING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_DATA_TO_AESCONTAINER" SCONAME="AESC" VERSION="1" LANGU="E" DESCRIPT="Address Enhancement Service Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="AESC"/>
+   <source>method MOVE_DATA_TO_AESCONTAINER.
+  DATA:
+    lv_aesc_struc TYPE aesc_struc,
+    lv_value TYPE char255.
+  lv_value = geocoding-longitude.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;LONGITUDE&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+  lv_value = geocoding-latitude.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;LATITUDE&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+  lv_value = geocoding-altitude.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;ALTITUDE&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+  lv_value = geocoding-srcid.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;SRCID&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+  lv_value = geocoding-srctstmp.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;SRCTSTMP&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+  lv_value = geocoding-precisid.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;PRECISID&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+  lv_value = geocoding-tzone.
+  CALL METHOD move_field_to_aescontainer
+    EXPORTING
+      field = &apos;TZONE&apos;
+      value = lv_value
+    CHANGING
+      aesc  = aesc.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_FIELD_TO_AESCONTAINER" VERSION="1" LANGU="E" EXPOSURE="1" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="0" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_FIELD_TO_AESCONTAINER" SCONAME="FIELD" VERSION="1" LANGU="E" DESCRIPT="Field Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="FIELDNAME"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_FIELD_TO_AESCONTAINER" SCONAME="VALUE" VERSION="1" LANGU="E" DESCRIPT="Char255" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR255"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="MOVE_FIELD_TO_AESCONTAINER" SCONAME="AESC" VERSION="1" LANGU="E" DESCRIPT="Address Enhancement Service Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="AESC"/>
+   <source>method MOVE_FIELD_TO_AESCONTAINER.
+  DATA:
+    lv_aesc_struc TYPE aesc_struc,
+    lv_value TYPE char255.
+  lv_value = value. &quot;remove spaces
+  CONDENSE lv_value.
+  READ TABLE aesc INTO lv_aesc_struc
+    WITH KEY service = &apos;GEOCODING&apos;
+             field   = field.
+  IF sy-subrc &lt;&gt; 0.
+    lv_aesc_struc-service = &apos;GEOCODING&apos;.
+    lv_aesc_struc-field   = field.
+    lv_aesc_struc-value   = lv_value.
+    INSERT lv_aesc_struc INTO TABLE aesc.
+  ELSE.
+    lv_aesc_struc-value   = lv_value.
+    MODIFY TABLE aesc FROM lv_aesc_struc TRANSPORTING value.
+  ENDIF.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="STRING_TO_TIMESTAMP" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="1" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="STRING_TO_TIMESTAMP" SCONAME="TIMESTAMP_STRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING" PARVALUE="&apos;Sun, 14 Mar 10 20:34:15 +0000&apos;"/>
+   <parameter CLSNAME="ZCL_GEOCODE_NOMINATIM" CMPNAME="STRING_TO_TIMESTAMP" SCONAME="TIMESTAMP" VERSION="1" LANGU="E" DESCRIPT="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="TIMESTAMP"/>
+   <source>method STRING_TO_TIMESTAMP.
+  DATA: day TYPE char2,
+        month TYPE char3,
+        month_names TYPE TABLE OF t247,
+        month_name LIKE LINE OF month_names,
+        language TYPE langu VALUE &apos;EN&apos;,
+        year TYPE char2,
+        time_string TYPE string,
+        time TYPE uzeit,
+        timestamp_tmp TYPE string.
+  day = timestamp_string+5(2).
+  month = timestamp_string+8(3).
+  year = timestamp_string+12(2).
+  time_string = timestamp_string+15(8).
+  REPLACE ALL OCCURRENCES OF &apos;:&apos; IN time_string WITH &apos;&apos;.
+  WRITE time_string TO time.
+  CALL FUNCTION &apos;MONTH_NAMES_GET&apos;
+    EXPORTING
+      language    = language
+    TABLES
+      month_names = month_names.
+  READ TABLE month_names INTO month_name
+    WITH KEY ktx = month.
+  CONCATENATE &apos;20&apos; year month_name-mnr day time INTO timestamp_tmp.
+  timestamp = timestamp_tmp.
+endmethod.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="ZCL_GEOCODE_HELPER" VERSION="1" LANGU="E" DESCRIPT="Helper Class for Geocoding" UUID="000C2971514B1EE084F422CD860CB877" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20100326" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <publicSection>class ZCL_GEOCODE_HELPER definition
+  public
+  final
+  create public .
+
+*&quot;* public components of class ZCL_GEOCODE_HELPER
+*&quot;* do not include other source files here!!!
+public section.
+
+  class-methods CONVERT_GEODATA_FOR_BLACKBERRY
+    importing
+      !I_GEODATA type GEOCODING
+    exporting
+      !LAT type STRING
+      !LON type STRING .
+  class-methods CONVERT_GEODATA_FOR_JAVASCRIPT
+    importing
+      !I_GEODATA type GEOCODING
+    exporting
+      !LAT type STRING
+      !LON type STRING .
+  class-methods GET_GEODATA_FOR_BP
+    importing
+      !I_BPARTNER type BU_PARTNER
+    returning
+      value(R_GEODATA) type GEOCODING .
+  class-methods FIND_SURROUNDING_BPS
+    importing
+      !I_GEODATA type GEOCODING
+      !I_DISTANCE type GEODIST
+    returning
+      value(R_BP_DIST) type ZGEOCODE_BP_DIST_TABLE .</publicSection>
+  <protectedSection>*&quot;* protected components of class ZCL_GEOCODE_HELPER
+*&quot;* do not include other source files here!!!
+protected section.</protectedSection>
+  <privateSection>*&quot;* private components of class ZCL_GEOCODE_HELPER
+*&quot;* do not include other source files here!!!
+private section.</privateSection>
+  <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+  <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <method CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_BLACKBERRY" VERSION="1" LANGU="E" DESCRIPT="Convert Geodata for JavaScript" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="1" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_BLACKBERRY" SCONAME="I_GEODATA" VERSION="1" LANGU="E" DESCRIPT="Data That Was Exchanged by the Geo-Coding Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCODING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_BLACKBERRY" SCONAME="LAT" VERSION="1" LANGU="E" DESCRIPT="Latitude String" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_BLACKBERRY" SCONAME="LON" VERSION="1" LANGU="E" DESCRIPT="Longitude String" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <source>method CONVERT_GEODATA_FOR_BLACKBERRY.
+  DATA: latsign TYPE char1,
+        lonsign TYPE char1.
+  &quot; For BlackBerry we need the sign in front of the number
+  lat = i_geodata-latitude.
+  lon = i_geodata-longitude.
+
+  IF i_geodata-latitude &lt; 0.
+    latsign = &apos;-&apos;.
+    lat  = i_geodata-latitude  * -1.
+  ENDIF.
+  IF i_geodata-longitude &lt; 0.
+    lonsign = &apos;-&apos;.
+    lon = i_geodata-longitude * -1.
+  ENDIF.
+  &quot; For BlackBerry we have to remove the decimal .
+  &quot; http://na.blackberry.com/eng/deliverables/3803/GPS%20and%20BlackBerry%20Maps%20Development%20Guide.pdf
+  REPLACE ALL OCCURRENCES OF &apos;.&apos; IN lat WITH &apos;&apos;.
+  REPLACE ALL OCCURRENCES OF &apos;.&apos; IN lon WITH &apos;&apos;.
+  &quot; Also it seems that the number can be only 7 characters long
+  lat = lat(7).
+  lon = lon(7).
+  &quot; But the sign can be added
+  CONCATENATE latsign lat INTO lat.
+  CONCATENATE lonsign lon INTO lon.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_JAVASCRIPT" VERSION="1" LANGU="E" DESCRIPT="Convert Geodata for JavaScript" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="1" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_JAVASCRIPT" SCONAME="I_GEODATA" VERSION="1" LANGU="E" DESCRIPT="Data That Was Exchanged by the Geo-Coding Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCODING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_JAVASCRIPT" SCONAME="LAT" VERSION="1" LANGU="E" DESCRIPT="Latitude String" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="CONVERT_GEODATA_FOR_JAVASCRIPT" SCONAME="LON" VERSION="1" LANGU="E" DESCRIPT="Longitude String" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <source>method CONVERT_GEODATA_FOR_JAVASCRIPT.
+  DATA: latsign TYPE char1,
+        lonsign TYPE char1.
+  &quot; For Java Script we need the sign in front of the number
+  lat = i_geodata-latitude.
+  lon = i_geodata-longitude.
+
+  IF i_geodata-latitude &lt; 0.
+    latsign = &apos;-&apos;.
+    lat  = i_geodata-latitude  * -1.
+  ENDIF.
+  IF i_geodata-longitude &lt; 0.
+    lonsign = &apos;-&apos;.
+    lon = i_geodata-longitude * -1.
+  ENDIF.
+  CONCATENATE latsign lat INTO lat.
+  CONCATENATE lonsign lon INTO lon.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="FIND_SURROUNDING_BPS" VERSION="1" LANGU="E" DESCRIPT="Returns list of BP&apos;s and there distance to a coordinate" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="1" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="FIND_SURROUNDING_BPS" SCONAME="I_GEODATA" VERSION="1" LANGU="E" DESCRIPT="Data That Was Exchanged by the Geo-Coding Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="GEOCODING"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="FIND_SURROUNDING_BPS" SCONAME="I_DISTANCE" VERSION="1" LANGU="E" DESCRIPT="Distance between two geographical locations" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="GEODIST"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="FIND_SURROUNDING_BPS" SCONAME="R_BP_DIST" VERSION="1" LANGU="E" DESCRIPT="Table of Business Partners with their Distance" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ZGEOCODE_BP_DIST_TABLE"/>
+   <source>method FIND_SURROUNDING_BPS.
+
+*circumference type f,
+*circumference = 2 * r_earth * pi.
+  TYPES: BEGIN OF t_obj_location,
+    objkey    TYPE swo_typeid,
+    longitude	TYPE geolon,
+    latitude  TYPE geolat,
+  END OF t_obj_location.
+
+  CONSTANTS r_earth TYPE i VALUE 6378137. &quot; radius Earth: 6378137 m
+  CONSTANTS pi TYPE p LENGTH 8 DECIMALS 14
+                   VALUE &apos;3.14159265358979&apos;.
+
+  DATA: alpha TYPE f.
+
+  alpha = 180 * i_distance / ( r_earth * pi ).
+
+  DATA: lon_min TYPE geolon,
+        lon_max TYPE geolon,
+        lat_min TYPE geolat,
+        lat_max TYPE geolon.
+
+  DATA: obj_locations TYPE TABLE OF t_obj_location,
+        obj_location  LIKE LINE OF obj_locations,
+        bp_ext_guid TYPE bu_partner_guid_bapi,
+        bp_guid TYPE bu_partner_guid,
+        dist_bp TYPE f,
+        bp_dist LIKE LINE OF r_bp_dist,
+        centraldataorg TYPE bapibus1006_central_organ.
+
+  lon_min = i_geodata-longitude - alpha.
+  lon_max = i_geodata-longitude + alpha.
+  lat_min = i_geodata-latitude - alpha.
+  lat_max = i_geodata-latitude + alpha.
+
+  SELECT geoobjr~objkey geoloc~longitude geoloc~latitude
+    FROM geoobjr
+    JOIN geoloc ON geoobjr~guidloc = geoloc~guidloc
+      INTO CORRESPONDING FIELDS OF TABLE obj_locations
+      WHERE geoobjr~objtype = &apos;BUS1006&apos;
+        AND geoobjr~objsubtype = &apos;ADDRESS&apos;
+        AND geoloc~longitude &gt;= lon_min
+        AND geoloc~longitude &lt;= lon_max
+        AND geoloc~latitude  &gt;= lat_min
+        AND geoloc~latitude  &lt;= lat_max.
+
+  LOOP AT obj_locations INTO obj_location.
+
+    cl_geocalc=&gt;distance_by_lonlat( EXPORTING longitude1 = obj_location-longitude
+                                              latitude1  = obj_location-latitude
+                                              longitude2 = i_geodata-longitude
+                                              latitude2  = i_geodata-latitude
+                                    IMPORTING distance   = dist_bp ).
+    IF dist_bp &lt;= i_distance AND dist_bp &lt;&gt; 0.
+      bp_ext_guid = obj_location-objkey(32).
+      bp_guid = bp_ext_guid.
+      CALL FUNCTION &apos;BUPA_NUMBERS_GET&apos;
+        EXPORTING
+          iv_partner_guid = bp_guid
+        IMPORTING
+          ev_partner      = bp_dist-partner.
+      CALL FUNCTION &apos;BAPI_BUPA_CENTRAL_GETDETAIL&apos;
+        EXPORTING
+          businesspartner                    = bp_dist-partner
+*         VALID_DATE                         = SY-DATLO
+       IMPORTING
+*         CENTRALDATA                        = CENTRALDATA
+*         CENTRALDATAPERSON                  = CENTRALDATAPERSON
+         centraldataorganization            = centraldataorg
+*         CENTRALDATAGROUP                   = CENTRALDATAGROUP
+*         CENTRALDATAVALIDITY                = CENTRALDATAVALIDITY
+*       TABLES
+*         TELEFONDATANONADDRESS              = TELEFONDATANONADDRESS
+*         FAXDATANONADDRESS                  = FAXDATANONADDRESS
+*         TELETEXDATANONADDRESS              = TELETEXDATANONADDRESS
+*         TELEXDATANONADDRESS                = TELEXDATANONADDRESS
+*         E_MAILDATANONADDRESS               = E_MAILDATANONADDRESS
+*         RMLADDRESSDATANONADDRESS           = RMLADDRESSDATANONADDRESS
+*         X400ADDRESSDATANONADDRESS          = X400ADDRESSDATANONADDRESS
+*         RFCADDRESSDATANONADDRESS           = RFCADDRESSDATANONADDRESS
+*         PRTADDRESSDATANONADDRESS           = PRTADDRESSDATANONADDRESS
+*         SSFADDRESSDATANONADDRESS           = SSFADDRESSDATANONADDRESS
+*         URIADDRESSDATANONADDRESS           = URIADDRESSDATANONADDRESS
+*         PAGADDRESSDATANONADDRESS           = PAGADDRESSDATANONADDRESS
+*         COMMUNICATIONNOTESNONADDRESS       = COMMUNICATIONNOTESNONADDRESS
+*         COMMUNICATIONUSAGENONADDRESS       = COMMUNICATIONUSAGENONADDRESS
+*         RETURN                             = RETURN
+                .
+      bp_dist-name = centraldataorg-name1.
+      bp_dist-distance = dist_bp.
+      MOVE-CORRESPONDING obj_location TO bp_dist-geodata.
+      APPEND bp_dist TO r_bp_dist.
+    ENDIF.
+  ENDLOOP.
+
+  SORT r_bp_dist BY distance.
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="GET_GEODATA_FOR_BP" VERSION="1" LANGU="E" DESCRIPT="Returns Geodata for a Business Partner&apos;s standard address" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" MTDTYPE="0" MTDDECLTYP="1" R3RELEASE="702" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="GET_GEODATA_FOR_BP" SCONAME="I_BPARTNER" VERSION="1" LANGU="E" DESCRIPT="Business Partner Number" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="BU_PARTNER"/>
+   <parameter CLSNAME="ZCL_GEOCODE_HELPER" CMPNAME="GET_GEODATA_FOR_BP" SCONAME="R_GEODATA" VERSION="1" LANGU="E" DESCRIPT="Data That Was Exchanged by the Geo-Coding Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="GEOCODING"/>
+   <source>method GET_GEODATA_FOR_BP.
+  CONSTANTS: objtype TYPE swo_objtyp VALUE &apos;BUS1006&apos;,
+             objsubtype TYPE swo_objtyp VALUE &apos;ADDRESS&apos;.
+
+  DATA: bp           TYPE bu_partner,
+        bp_guid_bapi TYPE bu_partner_guid_bapi,
+        bp_guid      TYPE bu_partner_guid,
+        addrnum      TYPE ad_addrnum,
+        addrguid     TYPE bu_address_guid,
+        addrguid_str TYPE bu_partner_guid_bapi,
+        addrnumguids TYPE bupa_addrnumguid_table,
+        addrnumguid  LIKE LINE OF addrnumguids,
+        geodata_tab  TYPE bus_geodata_t,
+        geodata      LIKE LINE OF geodata_tab.
+
+  DATA: geoobjr TYPE geoobjr,
+        geoloc  TYPE geoloc.
+
+  DATA: obj_id TYPE swo_typeid,
+        logsys TYPE logsys.
+
+  CALL FUNCTION &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+    EXPORTING
+      input  = i_bpartner
+    IMPORTING
+      output = bp.
+
+  CALL FUNCTION &apos;OWN_LOGICAL_SYSTEM_GET&apos;
+    IMPORTING
+      own_logical_system = logsys.
+
+
+  CALL FUNCTION &apos;BAPI_BUPA_GET_NUMBERS&apos;
+    EXPORTING
+      businesspartner        = bp
+    IMPORTING
+      businesspartnerguidout = bp_guid_bapi.
+
+  bp_guid = bp_guid_bapi.
+
+  CALL FUNCTION &apos;BAPI_BUPA_ADDRESSES_GET&apos;
+    EXPORTING
+      businesspartner       = bp
+    IMPORTING
+      standardaddressnumber = addrnum
+      standardaddressguid   = addrguid.
+
+  addrnumguid-bupa_addrnum = addrnum.
+  addrnumguid-bupa_addrguid = addrguid.
+  APPEND addrnumguid TO addrnumguids.
+* Get geo information
+  CALL FUNCTION &apos;BUA_GEOLOC_GET_GEODATA&apos;
+    EXPORTING
+      it_addrnumguid = addrnumguids
+      i_partner_guid = bp_guid
+      i_subtype      = &apos;ADDRESS&apos;
+    IMPORTING
+      et_geodata     = geodata_tab.
+
+  READ TABLE geodata_tab INTO geodata WITH KEY bupa_addrnum = addrnum bupa_addrguid = addrguid.
+  IF sy-subrc = 0.
+    MOVE-CORRESPONDING geodata TO r_geodata.
+  ELSE.
+    READ TABLE geodata_tab INTO geodata WITH KEY bupa_addrnum = addrnum.
+    IF sy-subrc = 0.
+      MOVE-CORRESPONDING geodata TO r_geodata.
+    ELSE.
+      addrguid_str = addrguid.
+      CONCATENATE  bp_guid_bapi addrguid_str INTO obj_id.
+
+      SELECT SINGLE * FROM geoobjr INTO geoobjr
+        WHERE objkey = obj_id
+          AND objtype = objtype
+          AND objsubtype = objsubtype
+          AND logsys = logsys.
+      &quot; It seems that somtimes the BP-GUID is not Part of the obj_id
+      IF sy-subrc &lt;&gt; 0.
+        bp_guid_bapi = &apos;00000000000000000000000000000000&apos;.
+        CONCATENATE  bp_guid_bapi addrguid_str INTO obj_id.
+        SELECT SINGLE * FROM geoobjr INTO geoobjr
+          WHERE objkey = obj_id
+            AND objtype = objtype
+            AND objsubtype = objsubtype
+            AND logsys = logsys.
+      ENDIF.
+
+      SELECT SINGLE * FROM geoloc INTO geoloc
+        WHERE guidloc = geoobjr-guidloc.
+
+      MOVE-CORRESPONDING geoloc TO r_geodata.
+
+    ENDIF.
+  ENDIF.
+
+endmethod.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="ZCL_BSP_BP_OSM" VERSION="1" LANGU="E" DESCRIPT="Display OpenStreetMap for Business Partner" UUID="000C2971514B1EE084F422CD860D7877" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20100407" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <implementing CLSNAME="ZCL_BSP_BP_OSM" REFCLSNAME="IF_CRM_BSP_MODEL_ACCESS_IL" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" RELTYPE="1" EDITORDER="0 "/>
+  <publicSection>class ZCL_BSP_BP_OSM definition
+  public
+  final
+  create public .
+
+*&quot;* public components of class ZCL_BSP_BP_OSM
+*&quot;* do not include other source files here!!!
+public section.
+
+  interfaces IF_CRM_BSP_MODEL_ACCESS_IL .</publicSection>
+  <protectedSection>*&quot;* protected components of class ZCL_BSP_BP_OSM
+*&quot;* do not include other source files here!!!
+protected section.</protectedSection>
+  <privateSection>*&quot;* private components of class ZCL_BSP_BP_OSM
+*&quot;* do not include other source files here!!!
+private section.</privateSection>
+  <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+  <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <interfaceMethod CLSNAME="ZCL_BSP_BP_OSM" CPDNAME="IF_CRM_BSP_MODEL_ACCESS_IL~MODIFY">
+   <source>method IF_CRM_BSP_MODEL_ACCESS_IL~MODIFY.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_BSP_BP_OSM" CPDNAME="IF_CRM_BSP_MODEL_ACCESS_IL~READ">
+   <source>method IF_CRM_BSP_MODEL_ACCESS_IL~READ.
+  DATA :
+    bp         TYPE bu_partner,
+    guid       TYPE crmt_object_guid,
+    parameters TYPE tihttpnvp,
+    parameter  LIKE LINE OF parameters,
+    screen_structures TYPE TABLE OF zcomt_bsp_bp_osm,
+    screen_structure  LIKE LINE OF screen_structures.
+
+* create url
+  READ TABLE it_object_key INDEX 1 INTO bp.
+  parameter-name = &apos;BP&apos;.
+  parameter-value = bp.
+  APPEND parameter TO parameters.
+
+  CALL METHOD cl_bsp_runtime=&gt;if_bsp_runtime~construct_bsp_url
+    EXPORTING
+      in_application = &apos;ZGEOCODE_OSM&apos;
+      in_page        = &apos;default.htm&apos;
+      in_parameters  = parameters
+    IMPORTING
+      out_abs_url    = screen_structure-url.
+
+  INSERT screen_structure INTO TABLE screen_structures.
+
+  et_screen_structure = screen_structures.
+endmethod.</source>
+  </interfaceMethod>
+ </CLAS>
+ <CLAS CLSNAME="ZCL_GIS_ROUTE_YOURS" VERSION="1" LANGU="E" DESCRIPT="Routing with OpenStreetMap YOURS" UUID="000C2971514B1EE0A0F8EF47D0F530B1" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <implementing CLSNAME="ZCL_GIS_ROUTE_YOURS" REFCLSNAME="IF_GIS_ROUTE" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" RELTYPE="1" EDITORDER="1 "/>
+  <publicSection>class ZCL_GIS_ROUTE_YOURS definition
+  public
+  create public .
+
+public section.
+*&quot;* public components of class ZCL_GIS_ROUTE_YOURS
+*&quot;* do not include other source files here!!!
+
+  interfaces IF_GIS_ROUTE .</publicSection>
+  <protectedSection>protected section.
+*&quot;* protected components of class ZCL_GIS_ROUTE_YOURS
+*&quot;* do not include other source files here!!!
+
+  data POSITIONS type GEOPOSITIONSTAB .
+  data GR_CLIENT type ref to IF_HTTP_CLIENT .
+  data DISTANCE type GEODIST .</protectedSection>
+  <privateSection>private section.
+*&quot;* private components of class ZCL_GIS_ROUTE_YOURS
+*&quot;* do not include other source files here!!!</privateSection>
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="DISTANCE" VERSION="1" LANGU="E" DESCRIPT="Distance between two geographical locations" EXPOSURE="1" STATE="1" EDITORDER="3 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEODIST" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="GR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" EXPOSURE="1" STATE="1" EDITORDER="2 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="POSITIONS" VERSION="1" LANGU="E" DESCRIPT="List of positions" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEOPOSITIONSTAB" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+  <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~ADD_STOP">
+   <source>method IF_GIS_ROUTE~ADD_STOP.
+  APPEND position TO me-&gt;positions.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~EXECUTE">
+   <source>method IF_GIS_ROUTE~EXECUTE.
+  DATA: rows TYPE i.
+  DATA: lat TYPE string,
+        lon TYPE string,
+        url TYPE string,
+        position LIKE LINE OF me-&gt;positions,
+        dist_str TYPE string.
+
+*   XML parser
+  DATA:
+    lv_xml            TYPE          xstring,
+    lr_ixml           TYPE REF TO   if_ixml,
+    lr_parser         TYPE REF TO   if_ixml_parser,
+    lr_streamfactory  TYPE REF TO   if_ixml_stream_factory,
+    lr_istream        TYPE REF TO   if_ixml_istream,
+    lr_document       TYPE REF TO   if_ixml_document,
+    lr_distances      TYPE REF TO	  if_ixml_node_collection,
+    lr_item           TYPE REF TO   if_ixml_node,
+    lr_attributes     TYPE REF TO   if_ixml_named_node_map,
+    lr_node           TYPE REF TO   if_ixml_node,
+    lr_searchresults  TYPE REF TO	  if_ixml_node_collection,
+    lv_count          TYPE          i.
+  FIELD-SYMBOLS:
+    &lt;lv_field&gt;        TYPE          any,
+    &lt;lv_sequence&gt;     TYPE          string.
+
+
+  DESCRIBE TABLE me-&gt;positions LINES rows.
+  IF rows &lt; 2.
+    RAISE empty_route.
+  ENDIF.
+
+  LOOP AT me-&gt;positions INTO position.
+    IF sy-tabix &lt; rows.
+      &quot; From
+      lat = position-latitude.
+      CONDENSE lat.
+      lon = position-longitude.
+      CONDENSE lon.
+      CONCATENATE &apos;http://www.yournavigation.org/api/1.0/gosmore.php?format=kml&amp;flat=&apos;
+      lat &apos;&amp;flon=&apos; lon INTO url.
+      &quot; To
+      READ TABLE me-&gt;positions INTO position INDEX sy-tabix + 1.
+      lat = position-latitude.
+      CONDENSE lat.
+      lon = position-longitude.
+      CONDENSE lon.
+      CONCATENATE url &apos;&amp;tlat=&apos; lat &apos;&amp;tlon=&apos; lon
+      &apos;&amp;v=motorcar&amp;fast=1&amp;layer=mapnik&apos; INTO url.
+
+      IF gr_client IS NOT BOUND.
+        cl_http_client=&gt;create_by_url(
+          EXPORTING
+            url           = url
+          IMPORTING
+            client        = gr_client
+          EXCEPTIONS
+            argument_not_found = 1
+            plugin_not_active  = 2
+            internal_error     = 3
+            OTHERS             = 4
+        ).
+        IF sy-subrc &lt;&gt; 0.
+          RAISE internal_error.
+        ENDIF.
+      ELSE.
+        cl_http_utility=&gt;set_request_uri(
+          request = gr_client-&gt;request
+          uri     = url
+        ).
+      ENDIF.
+
+      gr_client-&gt;request-&gt;set_header_field(
+        EXPORTING
+          name  = &apos;X-Yours-client&apos;   &quot; Name of the header field
+          value = &apos;https://cw.sdn.sap.com/cw/groups/zgeocode&apos;   &quot; HTTP header field value
+      ).
+
+
+      gr_client-&gt;send( EXCEPTIONS OTHERS = 1 ).
+      IF sy-subrc &lt;&gt; 0.
+        RAISE internal_error.
+      ENDIF.
+      gr_client-&gt;receive( EXCEPTIONS OTHERS = 1 ).
+      IF sy-subrc &lt;&gt; 0.
+        RAISE internal_error.
+      ENDIF.
+
+      lv_xml = gr_client-&gt;response-&gt;get_data( ).
+
+      &quot; Start XML parsing
+      &quot; Instanciate XML Parser
+      lr_ixml = cl_ixml=&gt;create( ).
+      lr_streamfactory = lr_ixml-&gt;create_stream_factory( ).
+      lr_istream = lr_streamfactory-&gt;create_istream_xstring( lv_xml ).
+      lr_document = lr_ixml-&gt;create_document( ).
+      lr_parser = lr_ixml-&gt;create_parser( stream_factory = lr_streamfactory
+                                          istream        = lr_istream
+                                          document       = lr_document ).
+      lr_parser-&gt;parse( ).
+      &quot; Check if any results have been found
+      lr_distances = lr_document-&gt;get_elements_by_tag_name( name = &apos;distance&apos; ).
+      lv_count = lr_distances-&gt;get_length( ).
+      IF lv_count &gt; 0.
+        lr_item = lr_distances-&gt;get_item( 0 ).
+        dist_str = lr_item-&gt;get_value( ).
+        me-&gt;distance = me-&gt;distance + dist_str.
+      ENDIF.
+    ENDIF.
+  ENDLOOP.
+  &quot; http://www.yournavigation.org/api/1.0/gosmore.php?
+  &quot; flat=48.057947090798&amp;flon=12.569867451065&amp;
+  &quot; tlat=47.952712196478&amp;tlon=12.607888747491&amp;v=motorcar&amp;fast=1&amp;layer=mapnik
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~GET_ROUTE_INFO">
+   <source>method IF_GIS_ROUTE~GET_ROUTE_INFO.
+  distance = me-&gt;distance.
+endmethod.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~RESET">
+   <source>method IF_GIS_ROUTE~RESET.
+  CLEAR: me-&gt;positions.
+endmethod.</source>
+  </interfaceMethod>
+ </CLAS>
+ <WAPA APPLNAME="ZGEOCODE_OSM" AUTHOR="DEVELOPER" CREATEDON="20120308" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" APPLEXT="ZGEOCODE_OSM" STARTPAGE="default.htm" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="Display Nominatim Geocoding with OpenStreetMap">
+  <page APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" PAGENAME="default.htm" AUTHOR="DEVELOPER" CREATEDON="20120308" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" IMPLCLASS="CL_O2003N8G68DXQ71K6E2R2LJEI4H" GENDATE="20120308" GENTIME="224802" CHANGETIME="224640" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="Display Geocoding in OpenStreetMap">
+   <layout>&lt;%@page language=&quot;abap&quot; %&gt;
+&lt;%
+DATA: lat TYPE string,
+      lon TYPE string.
+
+zcl_geocode_helper=&gt;convert_geodata_for_javascript(
+  EXPORTING
+    i_geodata = geodata
+  IMPORTING
+    lat       = lat
+    lon       = lon
+).
+
+%&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;OpenStreetMap&lt;/title&gt;
+    &lt;!-- bring in the OpenLayers javascript library
+         (here we bring it from the remote site, but you could
+         easily serve up this javascript yourself) --&gt;
+    &lt;script src=&quot;http://www.openlayers.org/api/OpenLayers.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;!-- bring in the OpenStreetMap OpenLayers layers.
+         Using this hosted file will make sure we are kept up
+         to date with any necessary changes --&gt;
+    &lt;script src=&quot;http://www.openstreetmap.org/openlayers/OpenStreetMap.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        // Start position for the map
+        var lat=&lt;%= lat %&gt;;
+        var lon=&lt;%= lon %&gt;;
+        var zoom=13;
+        var map; //complex object of type OpenLayers.Map
+        var layer_mapnik;
+        var layer_bp;
+        //Initialise the &apos;map&apos; object
+        function init() {
+            map = new OpenLayers.Map (&quot;map&quot;, {
+                controls:[
+                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.Permalink(),
+                    new OpenLayers.Control.ScaleLine(),
+                    new OpenLayers.Control.Permalink(&apos;permalink&apos;),
+                    new OpenLayers.Control.MousePosition(),
+                    new OpenLayers.Control.Attribution()],
+                maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+                maxResolution: 156543.0399,
+                numZoomLevels: 19,
+                units: &apos;m&apos;,
+                projection: new OpenLayers.Projection(&quot;EPSG:900913&quot;),
+                displayProjection: new OpenLayers.Projection(&quot;EPSG:4326&quot;)
+            } );
+            // Define the map layer
+            /*
+            var layer_mapnik = new OpenLayers.Layer.OSM(
+              &quot;OpenStreetMap&quot;,
+              &quot;http://b.tile.openstreetmap.org/${z}/${x}/${y}.png&quot;,
+              {numZoomLevels: 19}
+            );
+            */
+            var layer_mapnik = new OpenLayers.Layer.OSM.Mapnik(&quot;Mapnik&quot;);
+            layer_bp = new OpenLayers.Layer.Markers(
+              &quot;Business Partner&quot;,
+              {
+                projection: new OpenLayers.Projection(&quot;EPSG:4326&quot;),
+                visibility: true,
+                displayInLayerSwitcher: true
+              }
+            );
+            map.addLayers([layer_mapnik, layer_bp]);
+            if( ! map.getCenter() ){
+                var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection(&quot;EPSG:4326&quot;), map.getProjectionObject());
+                map.setCenter (lonLat, zoom);
+            }
+            loadBusinessPartner();
+        }
+        function loadBusinessPartner() {
+          var size = new OpenLayers.Size(21,25);
+          var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+          var icon = new OpenLayers.Icon(&apos;http://www.openlayers.org/api/img/marker.png&apos;,size,offset);
+          addMarker(layer_bp, &lt;%= lon %&gt;, &lt;%= lat %&gt;, &apos;&lt;%= BP %&gt;&apos;, icon);
+          &lt;%
+          DATA: bp_nearby LIKE LINE OF bps_nearby.
+          LOOP AT bps_nearby INTO bp_nearby.
+            zcl_geocode_helper=&gt;convert_geodata_for_javascript(
+              EXPORTING
+                i_geodata = bp_nearby-geodata
+              IMPORTING
+                lat       = lat
+                lon       = lon
+            ). %&gt;
+            icon = new OpenLayers.Icon(&apos;http://www.openlayers.org/api/img/marker-green.png&apos;,size,offset);
+            addMarker(layer_bp, &lt;%= lon %&gt;, &lt;%= lat %&gt;, &apos;&lt;%= bp_nearby-PARTNER %&gt;, &lt;%= bp_nearby-NAME %&gt;, &lt;%= bp_nearby-DISTANCE %&gt;&apos;, icon );
+            &lt;%
+          ENDLOOP.
+          %&gt;
+        }
+        function addMarker(layer, lon, lat, popupContentHTML, icon) {
+            var ll =
+              new OpenLayers.LonLat(lon, lat).transform(
+                new OpenLayers.Projection(&quot;EPSG:4326&quot;),
+                map.getProjectionObject()
+              );
+            var feature = new OpenLayers.Feature(layer, ll);
+            feature.closeBox = true;
+            feature.popupClass =
+              OpenLayers.Class(
+                OpenLayers.Popup.FramedCloud,
+                { minSize: new OpenLayers.Size(200, 100) }
+              );
+            feature.data.popupContentHTML = popupContentHTML;
+            feature.data.overflow = &quot;hidden&quot;;
+            var marker = new OpenLayers.Marker(ll, icon);
+            marker.feature = feature;
+            var markerClick = function(evt) {
+                if (this.popup == null) {
+                    this.popup = this.createPopup(this.closeBox);
+                    map.addPopup(this.popup);
+                    this.popup.show();
+                } else {
+                    this.popup.toggle();
+                }
+                OpenLayers.Event.stop(evt);
+            };
+            marker.events.register(&quot;mousedown&quot;, feature, markerClick);
+            layer.addMarker(marker);
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;!-- body.onload is called once the page is loaded (call the &apos;init&apos; function) --&gt;
+&lt;body onload=&quot;init();&quot; style=&quot;margin: 0px;padding: 0px;&quot;&gt;
+    &lt;!-- define a DIV into which the map will appear. Make it take up the whole window --&gt;
+    &lt;div style=&quot;width:100%; height:100%&quot; id=&quot;map&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</layout>
+   <event APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" EVHANDLER="ONREQUEST" VERSION="A" EVHNAME="OnRequest">* the handler is called whenever a request is made for a particular page
+* it is used to restore the internal data structures from the request
+
+geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).
+
+IF show_near = &apos;X&apos;.
+  IF distance IS INITIAL.
+    distance = 20000.                                       &quot; 20 km
+  ENDIF.
+  bps_nearby = zcl_geocode_helper=&gt;find_surrounding_bps(
+                   i_geodata  = geodata
+                   i_distance = distance
+  ).
+ENDIF.</event>
+   <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="BP" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="BU_PARTNER" ALIASNAME="bp" TEXT="Business Partner Number"/>
+   <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="BPS_NEARBY" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="ZGEOCODE_BP_DIST_TABLE" ALIASNAME="bps_nearby" TEXT="Business Partner Distance"/>
+   <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="DISTANCE" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="GEODIST" ALIASNAME="distance" TEXT="Distance between two geographical locations"/>
+   <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="GEODATA" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="GEOCODING" ALIASNAME="geodata" TEXT="Data That Was Exchanged by the Geo-Coding Services"/>
+   <parameter APPLNAME="ZGEOCODE_OSM" PAGEKEY="DEFAULT.HTM" COMPNAME="SHOW_NEAR" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="FLAG" ALIASNAME="show_near" TEXT="General Flag"/>
+  </page>
+ </WAPA>
+ <WAPA APPLNAME="ZGEOCODE_MOBILE" AUTHOR="DEVELOPER" CREATEDON="20120308" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" APPLEXT="ZGEOCODE_MOBILE" STARTPAGE="default.htm" DEVCLASS="$TMP" ORIGLANG="E" MODIFLANG="E" TEXT="ZGEOCODING for Mobile Devices">
+  <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" PAGENAME="default.htm" AUTHOR="DEVELOPER" CREATEDON="20120308" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" IMPLCLASS="CL_O2003N8G68DXQ71K6E2R2LJDZ5T" GENDATE="20120308" GENTIME="224802" CHANGETIME="224640" MIMETYPE="text/html" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="ZGEOCODING for Mobile Devices">
+   <layout>&lt;%@page language=&quot;abap&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC
+    &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;
+    &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+        &lt;title&gt;GPS Testing&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;%
+    DATA: bpdetail like line of bpdetails.
+    if bpdetails is initial AND bp is INITIAL. %&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+var modeCellsite   = 0;
+var modeAssisted   = 1;
+var modeAutonomous = 2;
+
+function locationChanged()
+{
+    lat.value = blackberry.location.latitude;
+    lon.value = blackberry.location.longitude;
+    return true;
+}
+
+function getLocation() {
+  if ( window.blackberry &amp;&amp; blackberry.location.GPSSupported ) {
+      var isUpdated = false;
+      var theCount = 0;
+
+      alert(&quot;Please wait until the location is detected.&quot;);
+
+      blackberry.location.onLocationUpdate(&quot;locationChanged()&quot;);
+      blackberry.location.setAidMode(modeAutonomous);
+
+      while ( theCount++ &lt; 10 &amp;&amp; !isUpdated )
+          isUpdated = blackberry.location.refreshLocation();
+  } else if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      /*
+      alert(&apos;Your lat-long is: &apos; + position.coords.latitude + &apos; / &apos; + position.coords.longitude);
+      alert(&apos;You live in &apos; + position.address.city + &apos;, &apos; + position.address.region)
+      */
+      document.form.lat.value = position.coords.latitude;
+      document.form.lon.value = position.coords.longitude;
+    });
+  } else {
+      document.write(&quot;Location tracking is not supported&quot;);
+  }
+}
+getLocation();
+        &lt;/script&gt;
+    &lt;p&gt;This application will search for business partners surrounding your
+    current location in the specified distance. Please wait until the
+    latidude and longitude is filled.&lt;/p&gt;&lt;%
+    endif.
+    if bpdetails is INITIAL. %&gt;
+    &lt;form action=&quot;default.htm&quot; name=&quot;form&quot; method=&quot;post&quot;&gt;
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Latitude:&lt;/th&gt;
+          &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;lat&quot; name=&quot;lat&quot; value=&quot;&lt;%= geodata-latitude  %&gt;&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Longitude:&lt;/th&gt;
+          &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;lon&quot; name=&quot;lon&quot; value=&quot;&lt;%= geodata-longitude %&gt;&quot; /&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Distance:&lt;/th&gt;
+          &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;dist&quot; name=&quot;dist&quot; value=&quot;20&quot; /&gt; km&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;table&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;OnInputProcessing(OK)&quot; value=&quot;OK&quot;&gt;
+      &lt;input type=&quot;submit&quot; value=&quot; Submit &quot; /&gt;
+      &lt;button onClick=&quot;getLocation();&quot;&gt;Get My Location&lt;/button&gt;
+    &lt;/form&gt;&lt;%
+    else. %&gt;
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Address&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;%
+        loop at bpdetails into bpdetail. %&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;a href=&quot;map.xloc?bp=&lt;%= bpdetail-partner %&gt;&quot;&gt;&lt;%= bpdetail-name %&gt;&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;%= bpdetail-location %&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;a href=&quot;../ZGEOCODE_OSM/default.htm?bp=&lt;%= bpdetail-partner %&gt;&quot;&gt;Display on Map&lt;/a&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;%
+        endloop. %&gt;
+      &lt;%
+    endif.
+    %&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</layout>
+   <event APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" EVHANDLER="ONINPUTPROCESSING" VERSION="A" EVHNAME="OnInputProcessing">* event handler for checking and processing user input and
+* for defining navigation
+
+DATA: geodata	TYPE geocoding,
+      distance  TYPE geodist,
+      bp LIKE LINE OF bps,
+      bpdetail LIKE LINE OF bpdetails.
+
+DATA: centraldata TYPE bapibus1006_central,
+      cdpers      TYPE bapibus1006_central_person,
+      cdorg       TYPE bapibus1006_central_organ.
+
+DATA: addressdata TYPE bapibus1006_address.
+
+geodata-longitude = lon.
+geodata-latitude  = lat.
+
+distance = dist * 1000.                                           &quot; 20 km
+
+CALL METHOD zcl_geocode_helper=&gt;find_surrounding_bps
+  EXPORTING
+    i_geodata  = geodata
+    i_distance = distance
+  RECEIVING
+    r_bp_dist  = bps.
+
+LOOP AT bps INTO bp.
+  CLEAR: cdorg,
+         cdpers,
+         addressdata.
+
+  bpdetail-partner = bp-partner.
+
+  CALL FUNCTION &apos;BAPI_BUPA_CENTRAL_GETDETAIL&apos;
+    EXPORTING
+      businesspartner         = bpdetail-partner
+    IMPORTING
+      centraldata             = centraldata
+      centraldataperson       = cdpers
+      centraldataorganization = cdorg.
+
+  CALL FUNCTION &apos;BAPI_BUPA_ADDRESS_GETDETAIL&apos;
+    EXPORTING
+      businesspartner = bpdetail-partner
+    IMPORTING
+      addressdata     = addressdata.
+
+  IF NOT cdorg IS INITIAL.
+    CONCATENATE cdorg-name1 cdorg-name2 cdorg-name3 cdorg-name4
+      INTO bpdetail-name SEPARATED BY space.
+  ELSE.
+    CONCATENATE cdpers-firstname cdpers-lastname
+      INTO bpdetail-name SEPARATED BY space.
+  ENDIF.
+  CONCATENATE addressdata-street addressdata-house_no &apos;,&apos; addressdata-postl_cod1 addressdata-city
+      INTO bpdetail-location SEPARATED BY space.
+  bpdetail-partner = bpdetail-partner * 1.
+  APPEND bpdetail TO bpdetails.
+ENDLOOP.</event>
+   <event APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" EVHANDLER="ONREQUEST" VERSION="A" EVHNAME="OnRequest">* the handler is called whenever a request is made for a particular page
+* it is used to restore the internal data structures from the request
+
+IF NOT bp IS INITIAL.
+  geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp  ).
+ENDIF.</event>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="BP" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="BU_PARTNER" ALIASNAME="bp" TEXT="Business Partner ID"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="BPDETAILS" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="TT_BP_DETAIL" ALIASNAME="bpdetails"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="BPS" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="ZGEOCODE_BP_DIST_TABLE" ALIASNAME="bps" TEXT="Table of Business Partners with their Distance"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="DIST" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="INTEGER" ALIASNAME="dist" TEXT="Whole Number with +/- Sign (-2.147.483.648 .. 2.147.483.647)"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="GEODATA" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="GEOCODING" ALIASNAME="geodata" TEXT="Data That Was Exchanged by the Geo-Coding Services"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="LAT" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="STRING" ALIASNAME="lat"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="DEFAULT.HTM" COMPNAME="LON" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="STRING" ALIASNAME="lon"/>
+   <typedef>types:
+BEGIN OF t_bp_detail,
+  partner  type bu_partner,
+  name     type string,
+  location type string,
+END OF t_bp_detail.
+
+types: tt_bp_detail type table of t_bp_detail.</typedef>
+  </page>
+  <page APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" PAGENAME="map.xloc" AUTHOR="DEVELOPER" CREATEDON="20120308" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" IMPLCLASS="CL_O2003N8G68DXQ71K6E2R2LJE5HD" GENDATE="20120308" GENTIME="224802" CHANGETIME="224640" MIMETYPE="text/vnd.rim.location" BROWSER_CACHE="0 " SERVER_CACHE="0 " LAYOUTLANGU="E" VERSION="A" DEVCLASS="$TMP" LANGU="E" DESCRIPT="BlackBerry Map XML">
+   <layout>&lt;%@page language=&quot;abap&quot;%&gt;&lt;%
+DATA: lat TYPE string,
+      lon TYPE string.
+
+zcl_geocode_helper=&gt;convert_geodata_for_blackberry(
+  EXPORTING
+    i_geodata = geodata
+  IMPORTING
+    lat       = lat
+    lon       = lon
+).
+* &lt;!--
+* &lt;lbs&gt;&lt;location lon=&apos;-7938675&apos; lat=&apos;4367022&apos; label=&apos;Toronto&apos; description=&apos;Toronto&apos; zoom=&apos;4&apos; /&gt;&lt;/lbs&gt;
+* --&gt;
+%&gt;&lt;lbs&gt;&lt;location
+  lon=&apos;&lt;%= lon %&gt;&apos;
+  lat=&apos;&lt;%= lat %&gt;&apos;
+  label=&apos;&lt;%= bp %&gt;&apos;
+  description=&apos;&lt;%= bp %&gt;&apos;
+  zoom=&apos;0&apos; /&gt;&lt;/lbs&gt;</layout>
+   <event APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" EVHANDLER="ONREQUEST" VERSION="A" EVHNAME="OnRequest">* the handler is called whenever a request is made for a particular page
+* it is used to restore the internal data structures from the request
+
+geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).</event>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" COMPNAME="BP" VERSION="A" PARDECLTYP="0" TYPTYPE="1" TYPE="BU_PARTNER" ALIASNAME="bp" TEXT="Business Partner ID"/>
+   <parameter APPLNAME="ZGEOCODE_MOBILE" PAGEKEY="MAP.XLOC" COMPNAME="GEODATA" VERSION="A" PARDECLTYP="1" TYPTYPE="1" TYPE="GEOCODING" ALIASNAME="geodata" TEXT="Data That Was Exchanged by the Geo-Coding Services"/>
+  </page>
+ </WAPA>
+ <PROG NAME="ZGEOCODE_NOMINATIM_ZAKE_SVN" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100314" UNAM="DEVELOPER" UDAT="20120316" VERN="000061" RSTAT="K" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20120316" STIME="233126" IDATE="20120316" ITIME="233126" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" LENGTH="44 "/>
+   </language>
+  </textPool>
+  <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGEOCODE_NOMINATIM_ZAKE_SVN
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgeocode_nominatim_zake_svn.
+
+TYPE-POOLS: abap.
+
+CONSTANTS cl_svn TYPE seoclsname VALUE &apos;ZCL_ZAKE_SVN&apos;.
+CONSTANTS cl_tortoise_svn TYPE seoclsname VALUE &apos;ZCL_ZAKE_TORTOISE_SVN&apos;.
+
+DATA package TYPE devclass.
+DATA lt_packages TYPE TABLE OF devclass.
+DATA zake    TYPE REF TO zake.
+DATA objects TYPE scts_tadir.
+DATA object  LIKE LINE OF objects.
+DATA objects_wda TYPE scts_tadir.
+DATA objtype TYPE string.
+DATA objname TYPE string.
+DATA nuggetname TYPE string.
+DATA comment_str TYPE string.
+DATA loclpath_str TYPE string.
+DATA svnpath_str TYPE string.
+DATA username_str TYPE string.
+DATA password_str TYPE string.
+DATA class TYPE seoclsname.
+DATA files TYPE string_table.
+DATA file LIKE LINE OF files.
+
+DATA: ex TYPE REF TO zcx_saplink,
+      message TYPE string.
+
+SELECTION-SCREEN BEGIN OF BLOCK a WITH FRAME TITLE a.
+PARAMETERS:
+  checkout TYPE flag RADIOBUTTON GROUP act,
+  update   TYPE flag RADIOBUTTON GROUP act,
+  install  TYPE flag RADIOBUTTON GROUP act,
+  export   TYPE flag RADIOBUTTON GROUP act DEFAULT &apos;X&apos;,
+  build    TYPE flag RADIOBUTTON GROUP act,
+  checkin  TYPE flag RADIOBUTTON GROUP act.
+SELECTION-SCREEN END OF BLOCK a.
+
+SELECTION-SCREEN BEGIN OF BLOCK b WITH FRAME TITLE b.
+PARAMETERS:
+  svn      TYPE flag RADIOBUTTON GROUP cl,
+  tortoise TYPE flag RADIOBUTTON GROUP cl DEFAULT &apos;X&apos;.
+SELECTION-SCREEN END OF BLOCK b.
+
+SELECTION-SCREEN BEGIN OF BLOCK c WITH FRAME TITLE c.
+PARAMETERS:
+  loclpath TYPE char512 DEFAULT &apos;C:/Projects/ZGEOCODE/&apos; LOWER CASE OBLIGATORY,
+  nuggetna TYPE char512 DEFAULT &apos;C:/Projects/ZGEOCODE/build/ZGEOCODE.nugg&apos; LOWER CASE OBLIGATORY,
+  wdanugg  TYPE char512 DEFAULT &apos;C:/Projects/ZGEOCODE/build/ZGEOCODE_WDA.nugg&apos; LOWER CASE OBLIGATORY,
+  svnpath  TYPE char512 DEFAULT &apos;https://code.sdn.sap.com/svn/zgeocode/trunk&apos; LOWER CASE OBLIGATORY,
+  revision TYPE i,
+  comment  TYPE char512 DEFAULT &apos;&apos; LOWER CASE,
+  testrun  TYPE flag    DEFAULT &apos;X&apos;.
+SELECTION-SCREEN END OF BLOCK c.
+
+INITIALIZATION.
+  a = &apos;Action&apos;.
+  b = &apos;Version Controll Program&apos;.
+  c = &apos;Parameters&apos;.
+
+START-OF-SELECTION.
+* Loop around the Packages which are returned for the Select Options select
+  svnpath_str  = svnpath.
+  loclpath_str = loclpath.
+  TRY.
+      &quot; DDIC
+      &quot; Structures
+      object-object   = &apos;TABL&apos;.
+      object-obj_name = &apos;ZCOMT_BSP_BP_OSM&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZGEOCODE_BP_DIST&apos;.
+      APPEND object TO objects.
+      &quot; Table Types
+      object-object   = &apos;TTYP&apos;.
+      object-obj_name = &apos;ZGEOCODE_BP_DIST_TABLE&apos;.
+      APPEND object TO objects.
+      &quot; Classes
+      object-object   = &apos;CLAS&apos;.
+      object-obj_name = &apos;ZCL_GEOCODE_NOMINATIM&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZCL_GEOCODE_HELPER&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZCL_BSP_BP_OSM&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZCL_GIS_ROUTE_YOURS&apos;.
+      APPEND object TO objects.
+      &quot; BSP
+      object-object   = &apos;WAPA&apos;.
+      object-obj_name = &apos;ZGEOCODE_OSM&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZGEOCODE_MOBILE&apos;.
+      APPEND object TO objects.
+      &quot; Programms
+      object-object   = &apos;PROG&apos;.
+      object-obj_name = &apos;ZGEOCODE_NOMINATIM_ZAKE_SVN&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZGEOCODE_NOMINATIM_READ_BP&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZGEOCODE_NOMINATIM_TEST_SURR&apos;.
+      APPEND object TO objects.
+      object-obj_name = &apos;ZTEST_GIS_ROUTE_YOURS&apos;.
+      APPEND object TO objects.
+      &quot; Let add the README to the build ZIP.
+      CONCATENATE loclpath &apos;README.txt&apos; INTO file.
+      APPEND file TO files.
+      CONCATENATE loclpath &apos;CREDITS.txt&apos; INTO file.
+      APPEND file TO files.
+      &quot; Add WDA Components to a seperate Build
+      &quot; WebDynpro
+      object-object   = &apos;WDYN&apos;.
+      object-obj_name = &apos;ZGC_BP_OSM&apos;.
+      APPEND object TO objects_wda.
+      &quot; Mime for Webdynpro
+      object-object   = &apos;SMIM&apos;.
+      object-obj_name = &apos;000C29BC2BF91ED19AAD05E635B9DA41&apos;.
+      APPEND object TO objects_wda.
+
+      IF svn = &apos;X&apos;.
+        class = cl_svn.
+      ELSE.
+        class = cl_tortoise_svn.
+      ENDIF.
+
+      CREATE OBJECT zake
+        TYPE
+        (class)
+        EXPORTING
+          i_svnpath   = svnpath_str
+          i_localpath = loclpath_str.
+      zake-&gt;set_package( &apos;ZGEOCODE&apos; ).
+      zake-&gt;set_checkin_objects( objects ).
+
+      zake-&gt;add_files_to_zip(
+        EXPORTING
+          i_files = files    &quot; Table of Filenames
+      ).
+
+      &quot; Can&apos;t be used in the moment because Plugin for SICF does not work
+      &quot; and no Plugin for SMIM Objects available
+      &quot; zake-&gt;set_package_objects( &apos;ZAPP_INTEGRATOR&apos; ).
+
+      nuggetname = nuggetna.
+      IF update = abap_true.
+        zake-&gt;update( ).
+      ELSEIF checkout = abap_true.
+        zake-&gt;checkout( revision ).
+      ELSEIF install = abap_true.
+        zake-&gt;install_slinkees_from_lm( testrun ).
+        IF testrun IS INITIAL.
+          LOOP AT objects INTO object.
+            objtype = object-object.
+            objname = object-obj_name.
+            zake-&gt;activate(
+                i_objtype = objtype
+                i_objname = objname
+            ).
+          ENDLOOP.
+        ENDIF.
+      ELSEIF export = abap_true.
+        zake-&gt;download_nugget_to_lm   = abap_false.
+        zake-&gt;download_zip_to_lm_flag = abap_false.
+        zake-&gt;create_slinkees( nuggetname ).
+        zake-&gt;set_checkin_objects( objects_wda ).
+        zake-&gt;create_slinkees( nuggetname ).
+      ELSEIF build = abap_true.
+        zake-&gt;download_nugget_to_lm   = abap_true.
+        zake-&gt;download_zip_to_lm_flag = abap_true.
+        zake-&gt;create_slinkees( nuggetname ).
+        &quot; Build WDA Components
+        zake-&gt;download_nugget_to_lm   = abap_false.
+        zake-&gt;set_checkin_objects( objects_wda ).
+        nuggetname = wdanugg.
+        zake-&gt;create_slinkees( nuggetname ).
+      ELSEIF checkin = abap_true.
+
+        IF testrun IS INITIAL.
+          comment_str = comment.
+          zake-&gt;checkin( comment_str ).
+        ENDIF.
+      ELSE.
+      ENDIF.
+    CATCH zcx_saplink INTO ex.
+      message = ex-&gt;get_text( ).
+      WRITE: / &apos;An Error occured: &apos;, message.
+  ENDTRY.</source>
+ </PROG>
+ <PROG NAME="ZGEOCODE_NOMINATIM_READ_BP" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100318" UNAM="DEVELOPER" UDAT="20120308" VERN="000073" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20120308" STIME="224802" IDATE="20120308" ITIME="224802" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" LENGTH="48 "/>
+    <textElement ID="S" KEY="BPSEARCH" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="CITY" ENTRY="D       ." LENGTH="12 "/>
+    <textElement ID="S" KEY="COUNTRY" ENTRY="        Country" LENGTH="15 "/>
+    <textElement ID="S" KEY="DISTANCE" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="HOUSE_NO" ENTRY="D       ." LENGTH="20 "/>
+    <textElement ID="S" KEY="NAME1" ENTRY="D       ." LENGTH="24 "/>
+    <textElement ID="S" KEY="NAME2" ENTRY="D       ." LENGTH="25 "/>
+    <textElement ID="S" KEY="NEARBY" ENTRY="        Find partners nearby" LENGTH="28 "/>
+    <textElement ID="S" KEY="POSTLCD" ENTRY="D       ." LENGTH="19 "/>
+    <textElement ID="S" KEY="REGION" ENTRY="D       ." LENGTH="14 "/>
+    <textElement ID="S" KEY="STREET" ENTRY="D       ." LENGTH="14 "/>
+   </language>
+  </textPool>
+  <dynpros>
+   <dynpro PROG="ZGEOCODE_NOMINATIM_READ_BP" DNUM="0100" FNUM="0100" BZMX="0 " BZBR="0 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="30 " NOCO="129 " VALP="0 " CUAN="G" SPRA="E" DGEN="20120316" TGEN="133043" DTEXT="OpenStreetMap">
+    <dynprofield FNAM="HTML_VIEWER" DIDX="001E" FLG1="00" FLG2="00" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="81" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
+    <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+    <dynproflowsource>PROCESS BEFORE OUTPUT.
+* MODULE STATUS_0100.
+*
+PROCESS AFTER INPUT.
+ MODULE USER_COMMAND_0100.</dynproflowsource>
+   </dynpro>
+  </dynpros>
+  <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGEOCODE_NOMINATIM_READ_BP
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp; Created by Gregor Wolf
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgeocode_nominatim_read_bp.
+
+DATA: gr_container TYPE REF TO cl_gui_custom_container,
+      gr_viewer    TYPE REF TO cl_gui_html_viewer,
+      gv_currurl   TYPE char1024.
+
+DATA: bp TYPE bu_partner.
+DATA: address_search TYPE bapibus1006_addr_search,
+      central_search TYPE bapibus1006_central_search.
+DATA: searchresult TYPE TABLE OF bapibus1006_bp_addr,
+      return TYPE TABLE OF bapiret2.
+DATA: geodata TYPE geocoding.
+DATA: centraldata             TYPE bapibus1006_central,
+      centraldataperson       TYPE bapibus1006_central_person,
+      centraldataorganization TYPE bapibus1006_central_organ.
+DATA: dist_int TYPE i.
+DATA: addressdata TYPE bapibus1006_address.
+
+FIELD-SYMBOLS: &lt;searchresult_line&gt; LIKE LINE OF searchresult.
+
+PARAMETERS: bpsearch TYPE bu_partner DEFAULT &apos;*&apos;,
+            name1    TYPE bu_mcname1,
+            name2    TYPE bu_mcname2,
+            street   TYPE ad_mc_strt,
+            house_no TYPE ad_hsnm1,
+            postlcd  TYPE ad_pstcd1,
+            city     TYPE ad_mc_city,
+            region   TYPE regio,
+            country  TYPE intca,
+            nearby   TYPE flag,
+            distance TYPE geodist DEFAULT 20000.
+
+START-OF-SELECTION.
+
+  address_search-street     = street.
+  address_search-house_no   = house_no.
+  address_search-postl_cod1 = postlcd.
+  address_search-city1      = city.
+  address_search-region     = region.
+  address_search-countryiso = country.
+
+  central_search-partner  = bpsearch.
+  central_search-mc_name1 = name1.
+  central_search-mc_name2 = name2.
+
+  CALL FUNCTION &apos;BAPI_BUPA_SEARCH_2&apos;
+    EXPORTING
+*   TELEPHONE                         = TELEPHONE
+*   EMAIL                             = EMAIL
+*   URL                               = URL
+      addressdata                       = address_search
+      centraldata                       = central_search
+*   BUSINESSPARTNERROLECATEGORY       = BUSINESSPARTNERROLECATEGORY
+*   ALL_BUSINESSPARTNERROLES          = ALL_BUSINESSPARTNERROLES
+*   BUSINESSPARTNERROLE               = BUSINESSPARTNERROLE
+*   COUNTRY_FOR_TELEPHONE             = COUNTRY_FOR_TELEPHONE
+*   FAX_DATA                          = FAX_DATA
+*   VALID_DATE                        = VALID_DATE
+*   OTHERS                            = OTHERS
+    TABLES
+      searchresult                      = searchresult
+      return                            = return.
+
+  LOOP AT searchresult ASSIGNING &lt;searchresult_line&gt;.
+    bp = &lt;searchresult_line&gt;-partner.
+    CALL FUNCTION &apos;BAPI_BUPA_CENTRAL_GETDETAIL&apos;
+      EXPORTING
+        businesspartner         = &lt;searchresult_line&gt;-partner
+      IMPORTING
+        centraldata             = centraldata
+        centraldataperson       = centraldataperson
+        centraldataorganization = centraldataorganization.
+
+    CALL FUNCTION &apos;BAPI_BUPA_ADDRESS_GETDETAIL&apos;
+      EXPORTING
+        businesspartner = &lt;searchresult_line&gt;-partner
+      IMPORTING
+        addressdata     = addressdata.
+
+    geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( &lt;searchresult_line&gt;-partner ).
+    FORMAT HOTSPOT ON.
+    WRITE: / &lt;searchresult_line&gt;-partner. HIDE bp.
+    FORMAT HOTSPOT OFF.
+    IF NOT centraldataperson IS INITIAL.
+      WRITE: centraldataperson-firstname(15), centraldataperson-lastname(15).
+    ELSE.
+      WRITE: centraldataorganization-name1(20), centraldataorganization-name2(10).
+    ENDIF.
+    WRITE: addressdata-street(25), addressdata-house_no, addressdata-postl_cod1, addressdata-city(25).
+    WRITE: geodata-longitude, geodata-latitude.
+  ENDLOOP.
+
+AT LINE-SELECTION.
+  DATA: parameters TYPE tihttpnvp,
+        parameter  LIKE LINE OF parameters,
+        url TYPE string,
+        lv_url TYPE char1024.
+
+  parameter-name = &apos;BP&apos;.
+  parameter-value = bp.
+  APPEND parameter TO parameters.
+  IF nearby = &apos;X&apos;.
+    parameter-name = &apos;SHOW_NEAR&apos;.
+    parameter-value = nearby.
+    APPEND parameter TO parameters.
+    parameter-name = &apos;DISTANCE&apos;.
+    dist_int = distance.
+    parameter-value = dist_int.
+    APPEND parameter TO parameters.
+  ENDIF.
+
+  CALL METHOD cl_bsp_runtime=&gt;if_bsp_runtime~construct_bsp_url
+    EXPORTING
+      in_application = &apos;ZGEOCODE_OSM&apos;
+      in_page        = &apos;default.htm&apos;
+      in_parameters  = parameters
+    IMPORTING
+      out_abs_url    = url.
+  lv_url = url.
+  IF  gr_container IS NOT BOUND.
+    CREATE OBJECT gr_container
+      EXPORTING
+        container_name = &apos;HTML_VIEWER&apos;.
+    CREATE OBJECT gr_viewer
+      EXPORTING
+        parent = gr_container.
+    gr_viewer-&gt;enable_sapsso( &apos;X&apos; ).
+  ENDIF.
+
+  &quot; Getting the current URL is an asynchronous call to the
+  &quot; SAP GUI frontend
+  gr_viewer-&gt;get_current_url( IMPORTING url = gv_currurl ).
+  &quot; To get the value right now we have to flush the
+  &quot; queue of the client framework
+  cl_gui_cfw=&gt;flush( ).
+  IF lv_url NE gv_currurl.
+    gr_viewer-&gt;show_url( lv_url ).
+  ENDIF.
+
+  CALL SCREEN 0100.
+*&amp;---------------------------------------------------------------------*
+*&amp;      Module  USER_COMMAND_0100  INPUT
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+MODULE user_command_0100 INPUT.
+  CASE sy-ucomm.
+    WHEN &apos;BACK&apos;.
+      LEAVE TO SCREEN 0.
+    WHEN &apos;%EX&apos;.
+      LEAVE PROGRAM.
+    WHEN &apos;RW&apos;.
+      LEAVE PROGRAM.
+    WHEN OTHERS.
+  ENDCASE.
+ENDMODULE.                 &quot; USER_COMMAND_0100  INPUT</source>
+ </PROG>
+ <PROG NAME="ZGEOCODE_NOMINATIM_TEST" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100609" UNAM="DEVELOPER" UDAT="20120308" VERN="000027" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20120308" STIME="224802" IDATE="20120308" ITIME="224802" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Test ZGEOCODE_NOMINATIM" LENGTH="23 "/>
+   </language>
+  </textPool>
+  <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGEOCODE_NOMINATIM_TEST
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgeocode_nominatim_test.
+
+DATA: geocoder TYPE REF TO zcl_geocode_nominatim.
+
+DATA: addresses	TYPE aes_addr_table,
+      address TYPE aes_addr,
+      xinfo	TYPE geocdxinfo,
+      options	TYPE geocd_option,
+      results	TYPE geocd_res_table,
+      choice  TYPE geocd_choice_table,
+      relevant_fields	TYPE geocd_addr_relfields_sortedtab,
+      corrected_addresses	TYPE aes_addr_sortedtable,
+      messages  TYPE aes_msg_table,
+      containers  TYPE aesc_sortedtable,
+      container TYPE aesc_tabs,
+      geocoding_container TYPE aesc_struc.
+
+CALL FUNCTION &apos;GUID_CREATE&apos;
+  IMPORTING
+    ev_guid_16 = address-id.
+
+address-address-city1 = &apos;Tacherting&apos;.
+address-address-post_code1 = &apos;83342&apos;.
+address-address-street = &apos;Trostberger Str.&apos;.
+address-address-house_num1 = &apos;128&apos;.
+address-address-country = &apos;DE&apos;.
+address-address-time_zone = &apos;CET&apos;.
+address-address-langu_crea = &apos;EN&apos;.
+APPEND address TO addresses.
+
+xinfo-country  = address-address-country.
+xinfo-srcid	   = &apos;ZNOM&apos;.
+xinfo-language = &apos;EN&apos;.
+
+container-id = address-id.
+APPEND container TO containers.
+
+CREATE OBJECT geocoder.
+
+geocoder-&gt;if_geocoding_tool~geocode(
+  EXPORTING
+    addresses           = addresses    &quot; Addresses That Are To Be Geocoded
+    xinfo               = xinfo    &quot; Additional Information for the Geocoder
+*    options             = options    &quot; Geocoding: Options (IGS)
+  IMPORTING
+    results             = results    &quot; Geocoding Results (per Address)
+*    choice              = choice    &quot; Address Selection List
+*    relevant_fields     = relevant_fields    &quot; Table of All Fields Relevant for Display in Geocoding
+  CHANGING
+    corrected_addresses = corrected_addresses    &quot; Addresses Corrected By Geocoding Tool
+    messages            = messages    &quot; Messages Created by Geocoder
+    containers          = containers    &quot; Structure for Container with Number (Central Address Mgmt)
+  EXCEPTIONS
+    OTHERS              = 1
+).
+
+IF sy-subrc = 0 AND messages IS INITIAL.
+  WRITE: / &apos;Geocoding result: &apos;.
+  LOOP AT containers INTO container.
+    LOOP AT container-container INTO geocoding_container.
+      WRITE: /
+        geocoding_container-field(20),
+        geocoding_container-service(20),
+        geocoding_container-value(20).
+    ENDLOOP.
+  ENDLOOP.
+ELSE.
+  WRITE: / &apos;Some problem occured&apos;.
+ENDIF.</source>
+ </PROG>
+ <PROG NAME="ZGEOCODE_NOMINATIM_TEST_SURR" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20100620" UNAM="DEVELOPER" UDAT="20120308" VERN="000010" RSTAT="T" RMAND="000" RLOAD="E" FIXPT="X" SDATE="20120308" STIME="224802" IDATE="20120308" ITIME="224802" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Find surrounding Business Partners" LENGTH="34 "/>
+   </language>
+  </textPool>
+  <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZGEOCODE_NOMINATIM_TEST_SURR
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  zgeocode_nominatim_test_surr.
+
+DATA: geodata TYPE geocoding,
+      bp_dists TYPE zgeocode_bp_dist_table,
+      bp_dist LIKE LINE OF bp_dists.
+
+PARAMETERS: bp   TYPE bu_partner DEFAULT &apos;101&apos;,
+            dist TYPE geodist    DEFAULT &apos;20000&apos;.
+
+geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).
+
+bp_dists = zcl_geocode_helper=&gt;find_surrounding_bps(
+    i_geodata  = geodata
+    i_distance = dist
+).
+
+LOOP AT bp_dists INTO bp_dist.
+  WRITE: /
+         bp_dist-partner,
+         bp_dist-distance,
+         bp_dist-geodata-longitude,
+         bp_dist-geodata-latitude.
+ENDLOOP.</source>
+ </PROG>
+ <PROG NAME="ZTEST_GIS_ROUTE_YOURS" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20110521" UNAM="DEVELOPER" UDAT="20120308" VERN="000014" RSTAT="T" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20120308" STIME="224652" IDATE="20120308" ITIME="224652" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Test Route Calculation with OpenStreetMap YOURS" LENGTH="47 "/>
+   </language>
+  </textPool>
+  <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZTEST_GIS_ROUTE_YOURS
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+REPORT  ztest_gis_route_yours.
+
+DATA: lo_georoute TYPE REF TO zcl_gis_route_yours.
+&quot; DATA: lo_georoute TYPE REF TO cl_gis_route_igs.
+
+DATA: from TYPE geoposition,
+      via  TYPE geoposition,
+      to   TYPE geoposition.
+
+DATA: distance TYPE geodist.
+
+&quot; Test URL http://www.yournavigation.org/?flat=48.057947090798&amp;flon=12.569867451065&amp;tlat=47.952712196478&amp;tlon=12.607888747491&amp;v=motorcar&amp;fast=1&amp;layer=mapnik
+
+from-latitude  = &apos;48.057947090798&apos;.
+from-longitude = &apos;12.569867451065&apos;.
+
+via-latitude   = &apos;47.999750674721&apos;.
+via-longitude  = &apos;12.636863423522&apos;.
+
+to-latitude    = &apos;47.952712196478&apos;.
+to-longitude   = &apos;12.607888747491&apos;.
+
+CREATE OBJECT lo_georoute.
+
+lo_georoute-&gt;if_gis_route~add_stop(
+    id       = &apos;From&apos;
+    position = from ).
+
+lo_georoute-&gt;if_gis_route~add_stop(
+    id       = &apos;Via&apos;
+    position = via ).
+
+lo_georoute-&gt;if_gis_route~add_stop(
+    id       = &apos;To&apos;
+    position = to ).
+
+lo_georoute-&gt;if_gis_route~execute( ).
+
+lo_georoute-&gt;if_gis_route~get_route_info(
+  IMPORTING
+    distance = distance ).
+
+WRITE: distance.</source>
+ </PROG>
+</nugget>
