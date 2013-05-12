@@ -166,16 +166,6 @@ START-OF-SELECTION.
         zake-&gt;checkout( revision ).
       ELSEIF install = abap_true.
         zake-&gt;install_slinkees_from_lm( testrun ).
-        IF testrun IS INITIAL.
-          LOOP AT objects INTO object.
-            objtype = object-object.
-            objname = object-obj_name.
-            zake-&gt;activate(
-                i_objtype = objtype
-                i_objname = objname
-            ).
-          ENDLOOP.
-        ENDIF.
       ELSEIF export = abap_true.
         zake-&gt;download_nugget_to_lm   = abap_false.
         zake-&gt;download_zip_to_lm_flag = abap_false.
@@ -195,5 +185,18 @@ START-OF-SELECTION.
     CATCH zcx_saplink INTO ex.
       message = ex-&gt;get_text( ).
       WRITE: / &apos;An Error occured: &apos;, message.
+      DATA: program_name TYPE syrepid,
+            include_name TYPE syrepid,
+            source_line  TYPE i.
+
+      ex-&gt;get_source_position(
+        IMPORTING
+          program_name = program_name    &quot; ABAP Program: Current Main Program
+          include_name = include_name
+          source_line  = source_line
+      ).
+      WRITE: / &apos;Program:&apos;, program_name,
+               &apos;Include:&apos;, include_name,
+               &apos;Line:&apos;, source_line.
   ENDTRY.</source>
 </PROG>
