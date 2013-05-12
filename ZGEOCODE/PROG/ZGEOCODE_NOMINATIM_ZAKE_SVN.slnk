@@ -130,10 +130,10 @@ START-OF-SELECTION.
       object-object   = &apos;WDYA&apos;.
       object-obj_name = &apos;ZGC_BP_OSM&apos;.
       APPEND object TO objects.
-*      &quot; Mime for Webdynpro
-*      object-object   = &apos;SMIM&apos;.
-*      object-obj_name = &apos;000C29BC2BF91ED19AAD05E635B9DA41&apos;.
-*      APPEND object TO objects.
+      &quot; Mime for Webdynpro
+      object-object   = &apos;SMIM&apos;.
+      object-obj_name = &apos;000C29BC2BF91EE2AEE3F573B579C41D&apos;.
+      APPEND object TO objects.
 
       IF svn = &apos;X&apos;.
         class = cl_svn.
