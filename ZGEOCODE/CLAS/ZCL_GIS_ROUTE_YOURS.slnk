@@ -1,25 +1,6 @@
-<?xml version="1.0" encoding="utf-16"?>
-<CLAS CLSNAME="ZCL_GIS_ROUTE_YOURS" VERSION="1" LANGU="E" DESCRIPT="Routing with OpenStreetMap YOURS" UUID="000C2971514B1EE0A0F8EF47D0F530B1" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20110521" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="702" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
- <implementing CLSNAME="ZCL_GIS_ROUTE_YOURS" REFCLSNAME="IF_GIS_ROUTE" VERSION="1" EXPOSURE="2" STATE="1" AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" RELTYPE="1" EDITORDER="1 "/>
- <publicSection>class ZCL_GIS_ROUTE_YOURS definition
-  public
-  create public .
-
-public section.
-*&quot;* public components of class ZCL_GIS_ROUTE_YOURS
-*&quot;* do not include other source files here!!!
-
-  interfaces IF_GIS_ROUTE .</publicSection>
- <protectedSection>protected section.
-*&quot;* protected components of class ZCL_GIS_ROUTE_YOURS
-*&quot;* do not include other source files here!!!
-
-  data POSITIONS type GEOPOSITIONSTAB .
-  data GR_CLIENT type ref to IF_HTTP_CLIENT .
-  data DISTANCE type GEODIST .</protectedSection>
- <privateSection>private section.
-*&quot;* private components of class ZCL_GIS_ROUTE_YOURS
-*&quot;* do not include other source files here!!!</privateSection>
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZCL_GIS_ROUTE_YOURS" VERSION="1" LANGU="E" DESCRIPT="Routing with OpenStreetMap YOURS" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <implementing CLSNAME="ZCL_GIS_ROUTE_YOURS" REFCLSNAME="IF_GIS_ROUTE" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="1 "/>
  <localImplementation>*&quot;* use this source file for the definition and implementation of
 *&quot;* local helper classes, interface definitions and type
 *&quot;* declarations</localImplementation>
@@ -28,9 +9,9 @@ public section.
 *&quot;* components in the private section</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="DISTANCE" VERSION="1" LANGU="E" DESCRIPT="Distance between two geographical locations" EXPOSURE="1" STATE="1" EDITORDER="3 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEODIST" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="GR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" EXPOSURE="1" STATE="1" EDITORDER="2 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
- <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="POSITIONS" VERSION="1" LANGU="E" DESCRIPT="List of positions" EXPOSURE="1" STATE="1" EDITORDER="1 " AUTHOR="DEVELOPER" CREATEDON="20120111" CHANGEDBY="DEVELOPER" CHANGEDON="20120308" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEOPOSITIONSTAB" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="702" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="DISTANCE" VERSION="1" LANGU="E" DESCRIPT="Distance between two geographical locations" EXPOSURE="1" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEODIST" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="GR_CLIENT" VERSION="1" LANGU="E" DESCRIPT="HTTP Client Abstraction" EXPOSURE="1" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="IF_HTTP_CLIENT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_GIS_ROUTE_YOURS" CMPNAME="POSITIONS" VERSION="1" LANGU="E" DESCRIPT="List of positions" EXPOSURE="1" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GEOPOSITIONSTAB" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <interfaceMethod CLSNAME="ZCL_GIS_ROUTE_YOURS" CPDNAME="IF_GIS_ROUTE~ADD_STOP">
   <source>method IF_GIS_ROUTE~ADD_STOP.
   APPEND position TO me-&gt;positions.
