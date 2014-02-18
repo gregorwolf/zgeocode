@@ -387,8 +387,7 @@ ENDMETHOD.</source>
   lv_url = add_part( iv_url = lv_url iv_param = is_address-address-street iv_sep = &apos;,+&apos; ).
   lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num1 iv_sep = &apos;,+&apos; ).
   lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num2 iv_sep = &apos;,+&apos; ).
-  SHIFT lv_url RIGHT DELETING TRAILING &apos;%20&apos;.
-  SHIFT lv_url RIGHT DELETING TRAILING &apos;/&apos;.
+
   CONDENSE lv_url.
 
   lv_proxy = iv_proxy.
