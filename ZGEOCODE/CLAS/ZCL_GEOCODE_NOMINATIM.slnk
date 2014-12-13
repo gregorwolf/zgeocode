@@ -399,7 +399,7 @@ endmethod.</source>
         month TYPE char3,
         month_names TYPE TABLE OF t247,
         month_name LIKE LINE OF month_names,
-        language TYPE langu VALUE &apos;EN&apos;,
+        language TYPE langu VALUE &apos;E&apos;,
         year TYPE char2,
         time_string TYPE string,
         time TYPE uzeit,
