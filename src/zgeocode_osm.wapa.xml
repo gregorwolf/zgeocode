@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_WAPA" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <ATTRIBUTES>
+    <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+    <APPLEXT>ZGEOCODE_OSM</APPLEXT>
+    <STARTPAGE>default.htm</STARTPAGE>
+    <ORIGLANG>E</ORIGLANG>
+    <MODIFLANG>E</MODIFLANG>
+    <TEXT>Display Nominatim Geocoding with OpenStreetMap</TEXT>
+   </ATTRIBUTES>
+   <PAGES>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+      <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+      <PAGENAME>default.htm</PAGENAME>
+      <MIMETYPE>text/html</MIMETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+      <DESCRIPT>Display Geocoding in OpenStreetMap</DESCRIPT>
+     </ATTRIBUTES>
+     <EVENT_HANDLERS>
+      <O2PAGEVHS>
+       <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <EVHANDLER>ONREQUEST</EVHANDLER>
+       <VERSION>A</VERSION>
+       <EVHNAME>OnRequest</EVHNAME>
+       <SOURCE>
+        <item>* the handler is called whenever a request is made for a particular page</item>
+        <item>* it is used to restore the internal data structures from the request</item>
+        <item/>
+        <item>geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).</item>
+        <item/>
+        <item>IF show_near = &apos;X&apos;.</item>
+        <item>  IF distance IS INITIAL.</item>
+        <item>    distance = 20000.                                       &quot; 20 km</item>
+        <item>  ENDIF.</item>
+        <item>  bps_nearby = zcl_geocode_helper=&gt;find_surrounding_bps(</item>
+        <item>                   i_geodata  = geodata</item>
+        <item>                   i_distance = distance</item>
+        <item>  ).</item>
+        <item>ENDIF.</item>
+       </SOURCE>
+      </O2PAGEVHS>
+     </EVENT_HANDLERS>
+     <PARAMETERS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>BP</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>BU_PARTNER</TYPE>
+       <ALIASNAME>bp</ALIASNAME>
+       <TEXT>Business Partner Number</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>BPS_NEARBY</COMPNAME>
+       <VERSION>A</VERSION>
+       <PARDECLTYP>1</PARDECLTYP>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>ZGEOCODE_BP_DIST_TABLE</TYPE>
+       <ALIASNAME>bps_nearby</ALIASNAME>
+       <TEXT>Business Partner Distance</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>DISTANCE</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>GEODIST</TYPE>
+       <ALIASNAME>distance</ALIASNAME>
+       <TEXT>Distance between two geographical locations</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>GEODATA</COMPNAME>
+       <VERSION>A</VERSION>
+       <PARDECLTYP>1</PARDECLTYP>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>GEOCODING</TYPE>
+       <ALIASNAME>geodata</ALIASNAME>
+       <TEXT>Data That Was Exchanged by the Geo-Coding Services</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_OSM</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>SHOW_NEAR</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>FLAG</TYPE>
+       <ALIASNAME>show_near</ALIASNAME>
+       <TEXT>General Flag</TEXT>
+      </O2PAGPARS>
+     </PARAMETERS>
+    </item>
+   </PAGES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

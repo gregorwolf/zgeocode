@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_GEOCODE_HELPER</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Helper Class for Geocoding</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_GEOCODE_HELPER</CLSNAME>
+     <CMPNAME>CONVERT_GEODATA_FOR_BLACKBERRY</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Convert Geodata for JavaScript</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_GEOCODE_HELPER</CLSNAME>
+     <CMPNAME>CONVERT_GEODATA_FOR_JAVASCRIPT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Convert Geodata for JavaScript</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_GEOCODE_HELPER</CLSNAME>
+     <CMPNAME>FIND_SURROUNDING_BPS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Returns list of BP&apos;s and there distance to a coordinate</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_GEOCODE_HELPER</CLSNAME>
+     <CMPNAME>GET_GEODATA_FOR_BP</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Returns Geodata for a Business Partner&apos;s standard address</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

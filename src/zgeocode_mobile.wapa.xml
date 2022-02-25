@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_WAPA" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <ATTRIBUTES>
+    <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+    <APPLEXT>ZGEOCODE_MOBILE</APPLEXT>
+    <STARTPAGE>default.htm</STARTPAGE>
+    <ORIGLANG>E</ORIGLANG>
+    <MODIFLANG>E</MODIFLANG>
+    <TEXT>ZGEOCODING for Mobile Devices</TEXT>
+   </ATTRIBUTES>
+   <PAGES>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+      <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+      <PAGENAME>default.htm</PAGENAME>
+      <MIMETYPE>text/html</MIMETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+      <DESCRIPT>ZGEOCODING for Mobile Devices</DESCRIPT>
+     </ATTRIBUTES>
+     <EVENT_HANDLERS>
+      <O2PAGEVHS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <EVHANDLER>ONINPUTPROCESSING</EVHANDLER>
+       <VERSION>A</VERSION>
+       <EVHNAME>OnInputProcessing</EVHNAME>
+       <SOURCE>
+        <item>* event handler for checking and processing user input and</item>
+        <item>* for defining navigation</item>
+        <item/>
+        <item>DATA: geodata	TYPE geocoding,</item>
+        <item>      distance  TYPE geodist,</item>
+        <item>      bp LIKE LINE OF bps,</item>
+        <item>      bpdetail LIKE LINE OF bpdetails.</item>
+        <item/>
+        <item>DATA: centraldata TYPE bapibus1006_central,</item>
+        <item>      cdpers      TYPE bapibus1006_central_person,</item>
+        <item>      cdorg       TYPE bapibus1006_central_organ.</item>
+        <item/>
+        <item>DATA: addressdata TYPE bapibus1006_address.</item>
+        <item/>
+        <item>geodata-longitude = lon.</item>
+        <item>geodata-latitude  = lat.</item>
+        <item/>
+        <item>distance = dist * 1000.                                           &quot; 20 km</item>
+        <item/>
+        <item>CALL METHOD zcl_geocode_helper=&gt;find_surrounding_bps</item>
+        <item>  EXPORTING</item>
+        <item>    i_geodata  = geodata</item>
+        <item>    i_distance = distance</item>
+        <item>  RECEIVING</item>
+        <item>    r_bp_dist  = bps.</item>
+        <item/>
+        <item>LOOP AT bps INTO bp.</item>
+        <item>  CLEAR: cdorg,</item>
+        <item>         cdpers,</item>
+        <item>         addressdata.</item>
+        <item/>
+        <item>  bpdetail-partner = bp-partner.</item>
+        <item/>
+        <item>  CALL FUNCTION &apos;BAPI_BUPA_CENTRAL_GETDETAIL&apos;</item>
+        <item>    EXPORTING</item>
+        <item>      businesspartner         = bpdetail-partner</item>
+        <item>    IMPORTING</item>
+        <item>      centraldata             = centraldata</item>
+        <item>      centraldataperson       = cdpers</item>
+        <item>      centraldataorganization = cdorg.</item>
+        <item/>
+        <item>  CALL FUNCTION &apos;BAPI_BUPA_ADDRESS_GETDETAIL&apos;</item>
+        <item>    EXPORTING</item>
+        <item>      businesspartner = bpdetail-partner</item>
+        <item>    IMPORTING</item>
+        <item>      addressdata     = addressdata.</item>
+        <item/>
+        <item>  IF NOT cdorg IS INITIAL.</item>
+        <item>    CONCATENATE cdorg-name1 cdorg-name2 cdorg-name3 cdorg-name4</item>
+        <item>      INTO bpdetail-name SEPARATED BY space.</item>
+        <item>  ELSE.</item>
+        <item>    CONCATENATE cdpers-firstname cdpers-lastname</item>
+        <item>      INTO bpdetail-name SEPARATED BY space.</item>
+        <item>  ENDIF.</item>
+        <item>  CONCATENATE addressdata-street addressdata-house_no &apos;,&apos; addressdata-postl_cod1 addressdata-city</item>
+        <item>      INTO bpdetail-location SEPARATED BY space.</item>
+        <item>  bpdetail-partner = bpdetail-partner * 1.</item>
+        <item>  APPEND bpdetail TO bpdetails.</item>
+        <item>ENDLOOP.</item>
+       </SOURCE>
+      </O2PAGEVHS>
+      <O2PAGEVHS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <EVHANDLER>ONREQUEST</EVHANDLER>
+       <VERSION>A</VERSION>
+       <EVHNAME>OnRequest</EVHNAME>
+       <SOURCE>
+        <item>* the handler is called whenever a request is made for a particular page</item>
+        <item>* it is used to restore the internal data structures from the request</item>
+        <item/>
+        <item>IF NOT bp IS INITIAL.</item>
+        <item>  geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp  ).</item>
+        <item>ENDIF.</item>
+       </SOURCE>
+      </O2PAGEVHS>
+     </EVENT_HANDLERS>
+     <PARAMETERS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>BP</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>BU_PARTNER</TYPE>
+       <ALIASNAME>bp</ALIASNAME>
+       <TEXT>Business Partner ID</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>BPDETAILS</COMPNAME>
+       <VERSION>A</VERSION>
+       <PARDECLTYP>1</PARDECLTYP>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>TT_BP_DETAIL</TYPE>
+       <ALIASNAME>bpdetails</ALIASNAME>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>BPS</COMPNAME>
+       <VERSION>A</VERSION>
+       <PARDECLTYP>1</PARDECLTYP>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>ZGEOCODE_BP_DIST_TABLE</TYPE>
+       <ALIASNAME>bps</ALIASNAME>
+       <TEXT>Table of Business Partners with their Distance</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>DIST</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>INTEGER</TYPE>
+       <ALIASNAME>dist</ALIASNAME>
+       <TEXT>Whole Number with +/- Sign (-2.147.483.648 .. 2.147.483.647)</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>GEODATA</COMPNAME>
+       <VERSION>A</VERSION>
+       <PARDECLTYP>1</PARDECLTYP>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>GEOCODING</TYPE>
+       <ALIASNAME>geodata</ALIASNAME>
+       <TEXT>Data That Was Exchanged by the Geo-Coding Services</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>LAT</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>STRING</TYPE>
+       <ALIASNAME>lat</ALIASNAME>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>DEFAULT.HTM</PAGEKEY>
+       <COMPNAME>LON</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>STRING</TYPE>
+       <ALIASNAME>lon</ALIASNAME>
+      </O2PAGPARS>
+     </PARAMETERS>
+     <TYPES>
+      <item>types:</item>
+      <item>BEGIN OF t_bp_detail,</item>
+      <item>  partner  type bu_partner,</item>
+      <item>  name     type string,</item>
+      <item>  location type string,</item>
+      <item>END OF t_bp_detail.</item>
+      <item/>
+      <item>types: tt_bp_detail type table of t_bp_detail.</item>
+     </TYPES>
+    </item>
+    <item>
+     <ATTRIBUTES>
+      <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+      <PAGEKEY>MAP.XLOC</PAGEKEY>
+      <PAGENAME>map.xloc</PAGENAME>
+      <MIMETYPE>text/vnd.rim.location</MIMETYPE>
+      <LAYOUTLANGU>E</LAYOUTLANGU>
+      <VERSION>A</VERSION>
+      <LANGU>E</LANGU>
+      <DESCRIPT>BlackBerry Map XML</DESCRIPT>
+     </ATTRIBUTES>
+     <EVENT_HANDLERS>
+      <O2PAGEVHS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>MAP.XLOC</PAGEKEY>
+       <EVHANDLER>ONREQUEST</EVHANDLER>
+       <VERSION>A</VERSION>
+       <EVHNAME>OnRequest</EVHNAME>
+       <SOURCE>
+        <item>* the handler is called whenever a request is made for a particular page</item>
+        <item>* it is used to restore the internal data structures from the request</item>
+        <item/>
+        <item>geodata = zcl_geocode_helper=&gt;get_geodata_for_bp( bp ).</item>
+       </SOURCE>
+      </O2PAGEVHS>
+     </EVENT_HANDLERS>
+     <PARAMETERS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>MAP.XLOC</PAGEKEY>
+       <COMPNAME>BP</COMPNAME>
+       <VERSION>A</VERSION>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>BU_PARTNER</TYPE>
+       <ALIASNAME>bp</ALIASNAME>
+       <TEXT>Business Partner ID</TEXT>
+      </O2PAGPARS>
+      <O2PAGPARS>
+       <APPLNAME>ZGEOCODE_MOBILE</APPLNAME>
+       <PAGEKEY>MAP.XLOC</PAGEKEY>
+       <COMPNAME>GEODATA</COMPNAME>
+       <VERSION>A</VERSION>
+       <PARDECLTYP>1</PARDECLTYP>
+       <TYPTYPE>1</TYPTYPE>
+       <TYPE>GEOCODING</TYPE>
+       <ALIASNAME>geodata</ALIASNAME>
+       <TEXT>Data That Was Exchanged by the Geo-Coding Services</TEXT>
+      </O2PAGPARS>
+     </PARAMETERS>
+    </item>
+   </PAGES>
+  </asx:values>
+ </asx:abap>
+</abapGit>
