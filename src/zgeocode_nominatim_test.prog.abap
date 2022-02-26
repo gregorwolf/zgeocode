@@ -10,17 +10,17 @@ REPORT  zgeocode_nominatim_test.
 
 DATA: geocoder TYPE REF TO zcl_geocode_nominatim.
 
-DATA: addresses	TYPE aes_addr_table,
-      address TYPE aes_addr,
-      xinfo	TYPE geocdxinfo,
-      options	TYPE geocd_option,
-      results	TYPE geocd_res_table,
-      choice  TYPE geocd_choice_table,
-      relevant_fields	TYPE geocd_addr_relfields_sortedtab,
+DATA: addresses	          TYPE aes_addr_table,
+      address             TYPE aes_addr,
+      xinfo	              TYPE geocdxinfo,
+      options	            TYPE geocd_option,
+      results	            TYPE geocd_res_table,
+      choice              TYPE geocd_choice_table,
+      relevant_fields	    TYPE geocd_addr_relfields_sortedtab,
       corrected_addresses	TYPE aes_addr_sortedtable,
-      messages  TYPE aes_msg_table,
-      containers  TYPE aesc_sortedtable,
-      container TYPE aesc_tabs,
+      messages            TYPE aes_msg_table,
+      containers          TYPE aesc_sortedtable,
+      container           TYPE aesc_tabs,
       geocoding_container TYPE aesc_struc.
 
 CALL FUNCTION 'GUID_CREATE'
