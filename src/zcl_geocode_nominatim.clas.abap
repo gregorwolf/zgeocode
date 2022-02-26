@@ -63,7 +63,7 @@ ENDCLASS.
 CLASS ZCL_GEOCODE_NOMINATIM IMPLEMENTATION.
 
 
-method ADD_PART.
+METHOD add_part.
 **********************************************************************
 *& Add the supplied part to the url.
 **********************************************************************
@@ -73,47 +73,47 @@ method ADD_PART.
   IF iv_param IS NOT INITIAL.
     lv_param = iv_param.
     lv_param = cl_http_utility=>escape_url( lv_param ).
-    CONCATENATE iv_url lv_param iv_sep INTO rv_url.
+    CONCATENATE iv_url iv_sep lv_param INTO rv_url.
   ELSE.
     rv_url = iv_url.
   ENDIF.
-endmethod.
+ENDMETHOD.
 
 
-method GEOCODE_ONE_ADDRESS.
+METHOD geocode_one_address.
 **********************************************************************
 *& Start geocoding the supplied address
 **********************************************************************
   DATA:
 *   HTTP client
-    lv_servicenr      TYPE          rfcdisplay-rfcsysid,
-    lv_server         TYPE          rfcdisplay-rfchost,
-    lv_proxy_host     TYPE          rfcdisplay-rfcgwhost,
-    lv_proxy_service  TYPE          rfcdisplay-rfcgwserv,
-    lr_client         TYPE REF TO   if_http_client,
+    lv_servicenr     TYPE          rfcdisplay-rfcsysid,
+    lv_server        TYPE          rfcdisplay-rfchost,
+    lv_proxy_host    TYPE          rfcdisplay-rfcgwhost,
+    lv_proxy_service TYPE          rfcdisplay-rfcgwserv,
+    lr_client        TYPE REF TO   if_http_client,
 *   General
-    lv_dummy          TYPE          string,
-    lv_timestamp      TYPE          string,
-    ls_geocoding      TYPE          geocoding,
+    lv_dummy         TYPE          string,
+    lv_timestamp     TYPE          string,
+    ls_geocoding     TYPE          geocoding,
 *   Access sequence
-    ls_address        TYPE          aes_addr,
-    lt_sequence       TYPE          string_table,
+    ls_address       TYPE          aes_addr,
+    lt_sequence      TYPE          string_table,
 *   XML parser
-    lv_xml            TYPE          xstring,
-    lr_ixml           TYPE REF TO   if_ixml,
-    lr_parser         TYPE REF TO   if_ixml_parser,
-    lr_streamfactory  TYPE REF TO   if_ixml_stream_factory,
-    lr_istream        TYPE REF TO   if_ixml_istream,
-    lr_document       TYPE REF TO   if_ixml_document,
-    lr_place          TYPE REF TO	  if_ixml_node_collection,
-    lr_item           TYPE REF TO   if_ixml_node,
-    lr_attributes     TYPE REF TO   if_ixml_named_node_map,
-    lr_node           TYPE REF TO   if_ixml_node,
-    lr_searchresults  TYPE REF TO	  if_ixml_node_collection,
-    lv_count          TYPE          i.
+    lv_xml           TYPE          xstring,
+    lr_ixml          TYPE REF TO   if_ixml,
+    lr_parser        TYPE REF TO   if_ixml_parser,
+    lr_streamfactory TYPE REF TO   if_ixml_stream_factory,
+    lr_istream       TYPE REF TO   if_ixml_istream,
+    lr_document      TYPE REF TO   if_ixml_document,
+    lr_place         TYPE REF TO    if_ixml_node_collection,
+    lr_item          TYPE REF TO   if_ixml_node,
+    lr_attributes    TYPE REF TO   if_ixml_named_node_map,
+    lr_node          TYPE REF TO   if_ixml_node,
+    lr_searchresults TYPE REF TO    if_ixml_node_collection,
+    lv_count         TYPE          i.
   FIELD-SYMBOLS:
-    <lv_field>        TYPE          ANY,
-    <lv_sequence>     TYPE          string.
+    <lv_field>    TYPE          any,
+    <lv_sequence> TYPE          string.
 
 * Build access sequence
   APPEND 'HOUSE_NUM2' TO lt_sequence.
@@ -141,8 +141,8 @@ method GEOCODE_ONE_ADDRESS.
       no_http_destination     = 5.
   " Fallback to Quickstart without maintaining a HTTP Destination
   IF sy-subrc = 2.
-    lv_servicenr = '80'.
-    lv_server    = 'open.mapquestapi.com'.
+    lv_servicenr = '443'.
+    lv_server    = 'nominatim.openstreetmap.org'.
   ELSE.
     CHECK sy-subrc = 0.
   ENDIF.
@@ -158,12 +158,30 @@ method GEOCODE_ONE_ADDRESS.
                                 iv_proxy          = lv_proxy_host
                                 iv_proxy_service  = lv_proxy_service ).
 
-    lr_client->send( EXCEPTIONS OTHERS = 1 ).
+    lr_client->send(
+      EXCEPTIONS
+        http_communication_failure = 1              "     Communication Error
+        http_invalid_state         = 2              "     Invalid state
+        http_processing_failed     = 3              "     Error when processing method
+        http_invalid_timeout       = 4              "     Invalid Time Entry
+        OTHERS                     = 5
+    ).
     IF sy-subrc <> 0.
+      MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
+        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4 INTO DATA(message).
       EXIT.
     ENDIF.
-    lr_client->receive( EXCEPTIONS OTHERS = 1 ).
+
+    lr_client->receive(
+      EXCEPTIONS
+        http_communication_failure = 1 " Communication Error
+        http_invalid_state         = 2 " Invalid state
+        http_processing_failed     = 3 " Error when processing method
+        OTHERS                     = 4
+    ).
     IF sy-subrc <> 0.
+      MESSAGE ID sy-msgid TYPE sy-msgty NUMBER sy-msgno
+        WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4 INTO message.
       EXIT.
     ENDIF.
 
@@ -233,35 +251,35 @@ method GEOCODE_ONE_ADDRESS.
     result-id = address-id.
     result-res = 6.
   ENDIF.
-endmethod.
+ENDMETHOD.
 
 
-method GET_CLIENT.
+METHOD get_client.
   DATA:
-    lv_proxy    TYPE            string,
-    lv_proxy_s  TYPE            string,
-    lv_url      TYPE            string,
-    lv_enc      TYPE            string,
-    country     TYPE            string.
+    lv_proxy   TYPE            string,
+    lv_proxy_s TYPE            string,
+    lv_url     TYPE            string,
+    lv_enc     TYPE            string,
+    country    TYPE            string.
 
-  CONCATENATE 'http://' iv_server '/nominatim/v1/search.php/' INTO lv_url.
+  CONCATENATE 'https://' iv_server '/search.php?format=xml&iv_sepaddressdetails=1' INTO lv_url.
+
 
   SELECT SINGLE landx50 FROM t005t INTO country
     WHERE spras = 'EN'
       AND land1 = is_address-address-country.
 
-  lv_url = add_part( iv_url = lv_url iv_param = country    iv_sep = '/' ).
-  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-post_code1 iv_sep = '/' ).
-  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-city1      iv_sep = '/').
-  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-city2      iv_sep = '/').
-  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-street     iv_sep = '%20' ).
-  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num1 iv_sep = '%20' ).
-  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num2 iv_sep = '%20' ).
-  SHIFT lv_url RIGHT DELETING TRAILING '%20'.
-  SHIFT lv_url RIGHT DELETING TRAILING '/'.
-  CONDENSE lv_url.
+* Trostberger%20Str.%20128Tacherting&
 
-  CONCATENATE lv_url '?format=xml&polygon=1&addressdetails=1' INTO lv_url.
+
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-street && | | && is_address-address-house_num1    iv_sep = 'street=' ).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-city1      iv_sep = '&city=').
+  lv_url = add_part( iv_url = lv_url iv_param = country    iv_sep = '&country=' ).
+  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-post_code1 iv_sep = '&postalcode=' ).
+*  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-city2      iv_sep = '/').
+*  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num1 iv_sep = '%20' ).
+*  lv_url = add_part( iv_url = lv_url iv_param = is_address-address-house_num2 iv_sep = '%20' ).
+  CONDENSE lv_url.
 
   lv_proxy = iv_proxy.
   lv_proxy_s = iv_proxy_service.
@@ -289,7 +307,7 @@ method GET_CLIENT.
       request = rr_client->request
       uri     = lv_url ).
   ENDIF.
-endmethod.
+ENDMETHOD.
 
 
 method IF_GEOCODING_TOOL~GEOCODE.
