@@ -63,3 +63,9 @@ Start Transaction BP and create some Business Partners with an existing Address.
 ### ABAP Demo Program ZGEOCODE_NOMINATIM_READ_BP
 
 With the program ZGEOCODE_NOMINATIM_READ_BP you can search for Business Partners and display their longitude and latitude. Also you can click on the Business Partner Number and start a Dynpro with an HTML Control displaying the address in OpenStreetMap using the BSP Application ZGEOCODE_OSM. You should have configuring the system to issue SAP Logon Tickets as described at http://help.sap.com/saphelp_nw70ehp1/helpdata/en/5c/b7d53ae8ab9248e10000000a114084/frameset.htm. Make sure that also the Fully Qualified Domain Names (FQDN) is set as described at http://help.sap.com/saphelp_nw70ehp1/helpdata/en/67/be9442572e1231e10000000a1550b0/frameset.htm.
+
+## Links
+
+- [Initial blog post: Community Project ZGEOCODE](https://blogs.sap.com/2010/04/10/community-project-zgeocode/)
+- [SAP Community Wiki Page](https://wiki.scn.sap.com/wiki/display/ABAP/ZGEOCODE)
+- [SAP TechEd 2010 Demo Jam Submission Video](https://youtu.be/t6FFTUHm7ns)
