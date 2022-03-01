@@ -1,5 +1,5 @@
 
-CLASS zcl_Geocode_Nominatim_Test DEFINITION FOR TESTING
+CLASS zcl_geocode_nominatim_test DEFINITION FOR TESTING
   DURATION SHORT
   RISK LEVEL HARMLESS
 .
@@ -24,7 +24,7 @@ CLASS zcl_Geocode_Nominatim_Test DEFINITION FOR TESTING
 *?</asx:abap>
   PRIVATE SECTION.
     DATA:
-      f_Cut TYPE REF TO zcl_Geocode_Nominatim.  "class under test
+      f_cut TYPE REF TO zcl_geocode_nominatim.  "class under test
 
     METHODS: setup.
     METHODS: teardown.
@@ -32,12 +32,12 @@ CLASS zcl_Geocode_Nominatim_Test DEFINITION FOR TESTING
 ENDCLASS.       "zcl_Geocode_Nominatim_Test
 
 
-CLASS zcl_Geocode_Nominatim_Test IMPLEMENTATION.
+CLASS zcl_geocode_nominatim_test IMPLEMENTATION.
 
   METHOD setup.
 
 
-    CREATE OBJECT f_Cut.
+    CREATE OBJECT f_cut.
   ENDMETHOD.
 
 
@@ -50,16 +50,16 @@ CLASS zcl_Geocode_Nominatim_Test IMPLEMENTATION.
 
   METHOD geocode.
 
-    DATA: addresses TYPE aes_Addr_Table,
+    DATA: addresses TYPE aes_addr_table,
           address   TYPE aes_addr.
     DATA xinfo TYPE geocdxinfo.
-    DATA options TYPE geocd_Option.
-    DATA results TYPE geocd_Res_Table.
-    DATA choice TYPE geocd_Choice_Table.
-    DATA relevant_Fields TYPE geocd_Addr_Relfields_Sortedtab.
-    DATA corrected_Addresses TYPE aes_Addr_Sortedtable.
-    DATA messages TYPE aes_Msg_Table.
-    DATA: containers TYPE aesc_Sortedtable,
+    DATA options TYPE geocd_option.
+    DATA results TYPE geocd_res_table.
+    DATA choice TYPE geocd_choice_table.
+    DATA relevant_fields TYPE geocd_addr_relfields_sortedtab.
+    DATA corrected_addresses TYPE aes_addr_sortedtable.
+    DATA messages TYPE aes_msg_table.
+    DATA: containers TYPE aesc_sortedtable,
           container  TYPE aesc_tabs.
 
     CALL FUNCTION 'GUID_CREATE'
@@ -82,7 +82,7 @@ CLASS zcl_Geocode_Nominatim_Test IMPLEMENTATION.
     container-id = address-id.
     APPEND container TO containers.
 
-    f_Cut->if_Geocoding_Tool~geocode(
+    f_cut->if_geocoding_tool~geocode(
       EXPORTING
         addresses = addresses
         xinfo = xinfo
@@ -92,7 +92,7 @@ CLASS zcl_Geocode_Nominatim_Test IMPLEMENTATION.
 *       CHOICE = choice
 *       RELEVANT_FIELDS = relevant_Fields
       CHANGING
-        corrected_addresses = corrected_Addresses
+        corrected_addresses = corrected_addresses
         messages = messages
         containers = containers ).
   ENDMETHOD.
