@@ -1,0 +1,215 @@
+{
+  "results": [
+    {
+      "address_components": [
+        {
+          "long_name": "Trostberger Straße",
+          "short_name": "Trostberger Str.",
+          "types": ["route"]
+        },
+        {
+          "long_name": "Tacherting",
+          "short_name": "Tacherting",
+          "types": ["locality", "political"]
+        },
+        {
+          "long_name": "Traunstein",
+          "short_name": "TS",
+          "types": ["administrative_area_level_3", "political"]
+        },
+        {
+          "long_name": "Oberbayern",
+          "short_name": "Oberbayern",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "long_name": "Bayern",
+          "short_name": "BY",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "long_name": "Germany",
+          "short_name": "DE",
+          "types": ["country", "political"]
+        },
+        {
+          "long_name": "83342",
+          "short_name": "83342",
+          "types": ["postal_code"]
+        }
+      ],
+      "formatted_address": "Trostberger Str., 83342 Tacherting, Germany",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 48.0796516,
+            "lng": 12.5742781
+          },
+          "southwest": {
+            "lat": 48.0528935,
+            "lng": 12.564743
+          }
+        },
+        "location": {
+          "lat": 48.0657982,
+          "lng": 12.5712666
+        },
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": {
+            "lat": 48.0796516,
+            "lng": 12.5742781
+          },
+          "southwest": {
+            "lat": 48.0528935,
+            "lng": 12.564743
+          }
+        }
+      },
+      "partial_match": true,
+      "place_id": "ChIJl8Qf7yjfdUcRZHgHC8M6w4I",
+      "types": ["route"]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Trostberger Straße",
+          "short_name": "Trostberger Str.",
+          "types": ["route"]
+        },
+        {
+          "long_name": "Tacherting",
+          "short_name": "Tacherting",
+          "types": ["locality", "political"]
+        },
+        {
+          "long_name": "Traunstein",
+          "short_name": "TS",
+          "types": ["administrative_area_level_3", "political"]
+        },
+        {
+          "long_name": "Oberbayern",
+          "short_name": "Oberbayern",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "long_name": "Bayern",
+          "short_name": "BY",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "long_name": "Germany",
+          "short_name": "DE",
+          "types": ["country", "political"]
+        },
+        {
+          "long_name": "83342",
+          "short_name": "83342",
+          "types": ["postal_code"]
+        }
+      ],
+      "formatted_address": "Trostberger Str., 83342 Tacherting, Germany",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 48.0735658,
+            "lng": 12.4897404
+          },
+          "southwest": {
+            "lat": 48.0658815,
+            "lng": 12.4876014
+          }
+        },
+        "location": {
+          "lat": 48.0696722,
+          "lng": 12.48884
+        },
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": {
+            "lat": 48.0735658,
+            "lng": 12.4900198802915
+          },
+          "southwest": {
+            "lat": 48.0658815,
+            "lng": 12.4873219197085
+          }
+        }
+      },
+      "partial_match": true,
+      "place_id": "ChIJVSosIdDfdUcRxL0UHgw3ASA",
+      "types": ["route"]
+    },
+    {
+      "address_components": [
+        {
+          "long_name": "Trostberger Straße",
+          "short_name": "Trostberger Str.",
+          "types": ["route"]
+        },
+        {
+          "long_name": "Tacherting",
+          "short_name": "Tacherting",
+          "types": ["locality", "political"]
+        },
+        {
+          "long_name": "Traunstein",
+          "short_name": "TS",
+          "types": ["administrative_area_level_3", "political"]
+        },
+        {
+          "long_name": "Oberbayern",
+          "short_name": "Oberbayern",
+          "types": ["administrative_area_level_2", "political"]
+        },
+        {
+          "long_name": "Bayern",
+          "short_name": "BY",
+          "types": ["administrative_area_level_1", "political"]
+        },
+        {
+          "long_name": "Germany",
+          "short_name": "DE",
+          "types": ["country", "political"]
+        },
+        {
+          "long_name": "83342",
+          "short_name": "83342",
+          "types": ["postal_code"]
+        }
+      ],
+      "formatted_address": "Trostberger Str., 83342 Tacherting, Germany",
+      "geometry": {
+        "bounds": {
+          "northeast": {
+            "lat": 48.0945666,
+            "lng": 12.4758335
+          },
+          "southwest": {
+            "lat": 48.0906789,
+            "lng": 12.4741114
+          }
+        },
+        "location": {
+          "lat": 48.0928778,
+          "lng": 12.4749925
+        },
+        "location_type": "GEOMETRIC_CENTER",
+        "viewport": {
+          "northeast": {
+            "lat": 48.0945666,
+            "lng": 12.4763214302915
+          },
+          "southwest": {
+            "lat": 48.0906789,
+            "lng": 12.4736234697085
+          }
+        }
+      },
+      "partial_match": true,
+      "place_id": "ChIJ3VNWUJrgdUcRAYjukd5yZAA",
+      "types": ["route"]
+    }
+  ],
+  "status": "OK"
+}
