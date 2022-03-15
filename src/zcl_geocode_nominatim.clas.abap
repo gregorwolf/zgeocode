@@ -266,7 +266,7 @@ CLASS zcl_geocode_nominatim IMPLEMENTATION.
 
 
     SELECT SINGLE landx50 FROM t005t INTO country
-      WHERE spras = 'EN'
+      WHERE spras = 'E'
         AND land1 = is_address-address-country.
 
 * Trostberger%20Str.%20128Tacherting&
@@ -445,7 +445,7 @@ CLASS zcl_geocode_nominatim IMPLEMENTATION.
           month         TYPE char3,
           month_names   TYPE TABLE OF t247,
           month_name    LIKE LINE OF month_names,
-          language      TYPE langu VALUE 'EN',
+          language      TYPE langu VALUE 'E',
           year          TYPE char2,
           time_string   TYPE string,
           time          TYPE uzeit,

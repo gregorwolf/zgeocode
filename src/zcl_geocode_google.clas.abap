@@ -32,70 +32,44 @@ ENDCLASS.
 
 
 
-CLASS zcl_geocode_google IMPLEMENTATION.
-  METHOD if_geocoding_tool~geocode.
-    DATA:
-      lv_msg             TYPE string,
-      ls_geocd_ress      TYPE geocd_ress,
-      ls_aesc_tabs       TYPE aesc_tabs,
-      lt_geocd_choice    TYPE geocd_choice_table,
-      lt_relevant_fields TYPE geocd_addr_relfields_sortedtab.
-    FIELD-SYMBOLS:
-      <ls_msg>      TYPE aes_msg,
-      <ls_aes_addr> TYPE aes_addr.
+CLASS ZCL_GEOCODE_GOOGLE IMPLEMENTATION.
 
-    LOOP AT addresses ASSIGNING <ls_aes_addr>.
-      CLEAR: lt_geocd_choice, ls_aesc_tabs, ls_geocd_ress.
-*   create a result entry
-      ls_geocd_ress-id = <ls_aes_addr>-id.
-*   remove corrected addresses with given ID
-      DELETE TABLE corrected_addresses WITH TABLE KEY id = <ls_aes_addr>-id.
-*   read container for geocoding result
-      READ TABLE containers INTO ls_aesc_tabs
-        WITH TABLE KEY id = <ls_aes_addr>-id.
-      IF sy-subrc <> 0.
-*     Message container has to exist. Otherwise return error.
-        MESSAGE ID 'GEOCODING' TYPE 'X' NUMBER '008' INTO lv_msg.
-        APPEND INITIAL LINE TO messages ASSIGNING <ls_msg>.
-        <ls_msg>-id = <ls_aes_addr>-id.
-        <ls_msg>-order_no = 1.
-        MOVE-CORRESPONDING sy TO <ls_msg>-message.
-        RETURN.
-      ENDIF.
-      me->geocode_one_address(
-        EXPORTING
-          address             = <ls_aes_addr>
-        IMPORTING
-          choice              = lt_geocd_choice
-        CHANGING
-          container           = ls_aesc_tabs
-          result              = ls_geocd_ress
-          relevant_fields     = lt_relevant_fields
-          messages            = messages
-          corrected_addresses = corrected_addresses
-      ).
-      APPEND LINES OF lt_geocd_choice TO choice.
-      APPEND ls_geocd_ress TO results.
-      MODIFY TABLE containers FROM ls_aesc_tabs.
-    ENDLOOP.
+
+  METHOD add_part.
+**********************************************************************
+*& Add the supplied part to the url.
+**********************************************************************
+    DATA:
+      lv_param  TYPE string.
+
+    IF iv_param IS NOT INITIAL.
+      lv_param = iv_param.
+      lv_param = cl_http_utility=>escape_url( lv_param ).
+      CONCATENATE iv_url iv_sep lv_param INTO rv_url.
+    ELSE.
+      rv_url = iv_url.
+    ENDIF.
   ENDMETHOD.
 
+
   METHOD geocode_one_address.
-    DATA: lv_path TYPE            string VALUE '/maps/api/geocode/xml?',
-          country TYPE            string.
+    DATA: lv_path      TYPE string VALUE '/maps/api/geocode/json?',
+          apikey       TYPE string,
+          country      TYPE string,
+          ls_response  TYPE zgeocode_google_response,
+          ls_geocoding TYPE geocoding.
 
     SELECT SINGLE landx50 FROM t005t INTO country
     WHERE spras = 'E'
       AND land1 = address-address-country.
 
-    lv_path = add_part( iv_url = lv_path iv_param = address-address-street && | | && address-address-house_num1  iv_sep = 'address=' ).
+    lv_path = add_part( iv_url = lv_path iv_param = address-address-street && | | && address-address-house_num1 && | | iv_sep = 'address=' ).
     lv_path = add_part( iv_url = lv_path iv_param = address-address-post_code1 iv_sep = ' ' ).
     lv_path = add_part( iv_url = lv_path iv_param = address-address-city1      iv_sep = ' ').
     lv_path = add_part( iv_url = lv_path iv_param = country    iv_sep = ' ' ).
 
-
-    lv_path = lv_path && '&key='.
-
+    SELECT SINGLE infostring FROM geocd2cls INTO apikey WHERE srcid = 'ZGOO'.
+    lv_path = lv_path && '&key=' && apikey.
 
     DATA(client) = me->get_client( ).
     client->request->set_header_field(
@@ -129,19 +103,17 @@ CLASS zcl_geocode_google IMPLEMENTATION.
         WITH sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4 INTO message.
       EXIT.
     ENDIF.
+    DATA(lv_json) = client->response->get_cdata( ).
 
-    DATA(lv_xml) = client->response->get_data( ).
-
-    DATA(lr_ixml) = cl_ixml=>create( ).
-    DATA(lr_streamfactory) = lr_ixml->create_stream_factory( ).
-    DATA(lr_istream) = lr_streamfactory->create_istream_xstring( lv_xml ).
-    DATA(lr_document) = lr_ixml->create_document( ).
-    DATA(lr_parser) = lr_ixml->create_parser( stream_factory = lr_streamfactory
-                                        istream        = lr_istream
-                                        document       = lr_document ).
-    lr_parser->parse( ).
+    /ui2/cl_json=>deserialize(
+      EXPORTING
+        json          = lv_json
+        pretty_name   = abap_true
+      CHANGING
+        data          = ls_response ).
 
   ENDMETHOD.
+
 
   METHOD get_client.
     CONSTANTS: geocoding_destination TYPE rfcdest VALUE 'ZGEOCODE_GOOGLE'.
@@ -202,20 +174,51 @@ CLASS zcl_geocode_google IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD add_part.
-**********************************************************************
-*& Add the supplied part to the url.
-**********************************************************************
+
+  METHOD if_geocoding_tool~geocode.
     DATA:
-      lv_param  TYPE string.
+      lv_msg             TYPE string,
+      ls_geocd_ress      TYPE geocd_ress,
+      ls_aesc_tabs       TYPE aesc_tabs,
+      lt_geocd_choice    TYPE geocd_choice_table,
+      lt_relevant_fields TYPE geocd_addr_relfields_sortedtab.
+    FIELD-SYMBOLS:
+      <ls_msg>      TYPE aes_msg,
+      <ls_aes_addr> TYPE aes_addr.
 
-    IF iv_param IS NOT INITIAL.
-      lv_param = iv_param.
-      lv_param = cl_http_utility=>escape_url( lv_param ).
-      CONCATENATE iv_url iv_sep lv_param INTO rv_url.
-    ELSE.
-      rv_url = iv_url.
-    ENDIF.
+    LOOP AT addresses ASSIGNING <ls_aes_addr>.
+      CLEAR: lt_geocd_choice, ls_aesc_tabs, ls_geocd_ress.
+*   create a result entry
+      ls_geocd_ress-id = <ls_aes_addr>-id.
+*   remove corrected addresses with given ID
+      DELETE TABLE corrected_addresses WITH TABLE KEY id = <ls_aes_addr>-id.
+*   read container for geocoding result
+      READ TABLE containers INTO ls_aesc_tabs
+        WITH TABLE KEY id = <ls_aes_addr>-id.
+      IF sy-subrc <> 0.
+*     Message container has to exist. Otherwise return error.
+        MESSAGE ID 'GEOCODING' TYPE 'X' NUMBER '008' INTO lv_msg.
+        APPEND INITIAL LINE TO messages ASSIGNING <ls_msg>.
+        <ls_msg>-id = <ls_aes_addr>-id.
+        <ls_msg>-order_no = 1.
+        MOVE-CORRESPONDING sy TO <ls_msg>-message.
+        RETURN.
+      ENDIF.
+      me->geocode_one_address(
+        EXPORTING
+          address             = <ls_aes_addr>
+        IMPORTING
+          choice              = lt_geocd_choice
+        CHANGING
+          container           = ls_aesc_tabs
+          result              = ls_geocd_ress
+          relevant_fields     = lt_relevant_fields
+          messages            = messages
+          corrected_addresses = corrected_addresses
+      ).
+      APPEND LINES OF lt_geocd_choice TO choice.
+      APPEND ls_geocd_ress TO results.
+      MODIFY TABLE containers FROM ls_aesc_tabs.
+    ENDLOOP.
   ENDMETHOD.
-
 ENDCLASS.
