@@ -31,9 +31,7 @@ CLASS zcl_geocode_google DEFINITION
 ENDCLASS.
 
 
-
-CLASS ZCL_GEOCODE_GOOGLE IMPLEMENTATION.
-
+CLASS zcl_geocode_google IMPLEMENTATION.
 
   METHOD add_part.
 **********************************************************************
