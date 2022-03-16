@@ -22,12 +22,29 @@ Class:  ZCL_GEOCODE_NOMINATIM
 Text:   Geocoding with OpenStreetMap Nominatim
 ```
 
+If you want to use the Google please add:
+
+```
+Source: ZGOO
+Class:  ZCL_GEOCODE_GOOGLE
+Text:   <Your Google API Key>
+```
+
 Then in the next customizing step "Assign Geocoding Program to Countries" we add this line:
 
 ```
 Country:   DE
 Sequence:  4.000
 Source:    ZNOM
+Exclusive: X
+```
+
+For Google:
+
+```
+Country:   DE
+Sequence:  4.000
+Source:    ZGOO
 Exclusive: X
 ```
 
@@ -45,6 +62,19 @@ The last step is adding these lines in the customizing for "Assign Relevant Addr
 | ZNOM   | POST_CODE1 |
 | ZNOM   | REGION     |
 | ZNOM   | STREET     |
+
+For Google
+
+| Source | Field      |
+| ------ | ---------- |
+| ZGOO   | CITY1      |
+| ZGOO   | CITY2      |
+| ZGOO   | COUNTRY    |
+| ZGOO   | HOUSE_NUM1 |
+| ZGOO   | HOUSE_NUM2 |
+| ZGOO   | POST_CODE1 |
+| ZGOO   | REGION     |
+| ZGOO   | STREET     |
 
 You can check the customizing with the report GEOCODING_CUSTOMIZING_VERIFY.
 
