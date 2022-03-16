@@ -36,17 +36,6 @@ CLASS zcl_geocode_nominatim DEFINITION
         !iv_proxy_service TYPE rfcdisplay-rfcgwserv
       RETURNING
         VALUE(rr_client)  TYPE REF TO if_http_client .
-    METHODS move_data_to_aescontainer
-      IMPORTING
-        !geocoding TYPE geocoding
-      CHANGING
-        !aesc      TYPE aesc .
-    METHODS move_field_to_aescontainer
-      IMPORTING
-        !field TYPE fieldname
-        !value TYPE char255
-      CHANGING
-        !aesc  TYPE aesc .
   PRIVATE SECTION.
 
     METHODS add_part
@@ -230,11 +219,12 @@ CLASS zcl_geocode_nominatim IMPLEMENTATION.
         ELSE.
           ls_geocoding-precisid = '0500'. "Detail: Region-Level
         ENDIF.
-        CALL METHOD move_data_to_aescontainer
+        zcl_geocode_helper=>move_data_to_aescontainer(
           EXPORTING
             geocoding = ls_geocoding
           CHANGING
-            aesc      = container-container.
+            aesc      = container-container
+        ).
         result-id = ls_address-id.
         result-res = 0. "Everything's fine
 *     end the loop
@@ -361,84 +351,6 @@ CLASS zcl_geocode_nominatim IMPLEMENTATION.
       MODIFY TABLE containers FROM ls_aesc_tabs.
     ENDLOOP.
   ENDMETHOD.
-
-
-  METHOD move_data_to_aescontainer.
-    DATA:
-      lv_aesc_struc TYPE aesc_struc,
-      lv_value      TYPE char255.
-    lv_value = geocoding-longitude.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'LONGITUDE'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-    lv_value = geocoding-latitude.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'LATITUDE'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-    lv_value = geocoding-altitude.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'ALTITUDE'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-    lv_value = geocoding-srcid.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'SRCID'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-    lv_value = geocoding-srctstmp.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'SRCTSTMP'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-    lv_value = geocoding-precisid.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'PRECISID'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-    lv_value = geocoding-tzone.
-    CALL METHOD move_field_to_aescontainer
-      EXPORTING
-        field = 'TZONE'
-        value = lv_value
-      CHANGING
-        aesc  = aesc.
-  ENDMETHOD.
-
-
-  METHOD move_field_to_aescontainer.
-    DATA:
-      lv_aesc_struc TYPE aesc_struc,
-      lv_value      TYPE char255.
-    lv_value = value. "remove spaces
-    CONDENSE lv_value.
-    READ TABLE aesc INTO lv_aesc_struc
-      WITH KEY service = 'GEOCODING'
-               field   = field.
-    IF sy-subrc <> 0.
-      lv_aesc_struc-service = 'GEOCODING'.
-      lv_aesc_struc-field   = field.
-      lv_aesc_struc-value   = lv_value.
-      INSERT lv_aesc_struc INTO TABLE aesc.
-    ELSE.
-      lv_aesc_struc-value   = lv_value.
-      MODIFY TABLE aesc FROM lv_aesc_struc TRANSPORTING value.
-    ENDIF.
-  ENDMETHOD.
-
 
   METHOD string_to_timestamp.
     DATA: day           TYPE char2,

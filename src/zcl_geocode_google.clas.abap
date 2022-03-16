@@ -110,6 +110,23 @@ CLASS zcl_geocode_google IMPLEMENTATION.
       CHANGING
         data          = ls_response ).
 
+    DATA(lv_lines) = lines( ls_response-results ).
+
+    IF lv_lines > 0.
+      READ TABLE ls_response-results ASSIGNING FIELD-SYMBOL(<fs_result>) INDEX 1.
+      ls_geocoding-latitude = <fs_result>-geometry-location-lat.
+      ls_geocoding-longitude = <fs_result>-geometry-location-lng.
+      ls_geocoding-srcid = 'ZGOO'.
+      ls_geocoding-precisid = '0500'. "Detail: Region-Level
+      zcl_geocode_helper=>move_data_to_aescontainer(
+        EXPORTING
+          geocoding = ls_geocoding
+        CHANGING
+          aesc      = container-container
+      ).
+      result-res = 0. "Everything's fine
+    ENDIF.
+
   ENDMETHOD.
 
 

@@ -28,6 +28,19 @@ CLASS zcl_geocode_helper DEFINITION
         !i_distance      TYPE geodist
       RETURNING
         VALUE(r_bp_dist) TYPE zgeocode_bp_dist_table .
+
+    CLASS-METHODS move_data_to_aescontainer
+      IMPORTING
+        !geocoding TYPE geocoding
+      CHANGING
+        !aesc      TYPE aesc .
+    CLASS-METHODS move_field_to_aescontainer
+      IMPORTING
+        !field TYPE fieldname
+        !value TYPE char255
+      CHANGING
+        !aesc  TYPE aesc .
+
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -279,4 +292,85 @@ CLASS zcl_geocode_helper IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
+
+
+
+  METHOD move_data_to_aescontainer.
+    DATA:
+      lv_aesc_struc TYPE aesc_struc,
+      lv_value      TYPE char255.
+    lv_value = geocoding-longitude.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'LONGITUDE'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+    lv_value = geocoding-latitude.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'LATITUDE'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+    lv_value = geocoding-altitude.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'ALTITUDE'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+    lv_value = geocoding-srcid.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'SRCID'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+    lv_value = geocoding-srctstmp.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'SRCTSTMP'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+    lv_value = geocoding-precisid.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'PRECISID'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+    lv_value = geocoding-tzone.
+    CALL METHOD move_field_to_aescontainer
+      EXPORTING
+        field = 'TZONE'
+        value = lv_value
+      CHANGING
+        aesc  = aesc.
+  ENDMETHOD.
+
+
+  METHOD move_field_to_aescontainer.
+    DATA:
+      lv_aesc_struc TYPE aesc_struc,
+      lv_value      TYPE char255.
+    lv_value = value. "remove spaces
+    CONDENSE lv_value.
+    READ TABLE aesc INTO lv_aesc_struc
+      WITH KEY service = 'GEOCODING'
+               field   = field.
+    IF sy-subrc <> 0.
+      lv_aesc_struc-service = 'GEOCODING'.
+      lv_aesc_struc-field   = field.
+      lv_aesc_struc-value   = lv_value.
+      INSERT lv_aesc_struc INTO TABLE aesc.
+    ELSE.
+      lv_aesc_struc-value   = lv_value.
+      MODIFY TABLE aesc FROM lv_aesc_struc TRANSPORTING value.
+    ENDIF.
+  ENDMETHOD.
+
+
+
 ENDCLASS.
