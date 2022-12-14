@@ -60,11 +60,21 @@ CLASS zcl_geocode_google IMPLEMENTATION.
     SELECT SINGLE landx50 FROM t005t INTO country
     WHERE spras = 'E'
       AND land1 = address-address-country.
-
+    
+    "   Modify separators, remove unnecessary spaces.
+    "   See: https://developers.google.com/maps/documentation/geocoding/start#geocoding-request-and-response-latitudelongitude-lookup
+    "   Example request URL: https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
     lv_path = add_part( iv_url = lv_path iv_param = address-address-street && | | && address-address-house_num1 && | | iv_sep = 'address=' ).
-    lv_path = add_part( iv_url = lv_path iv_param = address-address-post_code1 iv_sep = ' ' ).
-    lv_path = add_part( iv_url = lv_path iv_param = address-address-city1      iv_sep = ' ').
-    lv_path = add_part( iv_url = lv_path iv_param = country    iv_sep = ' ' ).
+    "lv_path = add_part( iv_url = lv_path iv_param = address-address-post_code1 iv_sep = ' ' ).
+    lv_path = add_part( iv_url = lv_path iv_param = address-address-post_code1 iv_sep = ',%20' ).
+    "lv_path = add_part( iv_url = lv_path iv_param = address-address-city1      iv_sep = ' ').
+    lv_path = add_part( iv_url = lv_path iv_param = ' ' && | | && address-address-city1      iv_sep = ' ').
+    "lv_path = add_part( iv_url = lv_path iv_param = country    iv_sep = ' ' ).
+    lv_path = add_part( iv_url = lv_path iv_param = country    iv_sep = ',%20' ).
+    "   Add filter for postal code and country to geocoding request URL.
+    "   See https://developers.google.com/maps/documentation/geocoding/requests-geocoding#component-filtering    
+    lv_path = add_part( iv_url = lv_path iv_param = address-address-post_code1 iv_sep = '&components=postal_code:' ).
+    lv_path = lv_path && '|country:' && address-address-country.
 
     SELECT SINGLE infostring FROM geocd2cls INTO apikey WHERE srcid = 'ZGOO'.
     lv_path = lv_path && '&key=' && apikey.
